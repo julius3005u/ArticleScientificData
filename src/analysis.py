@@ -35,7 +35,7 @@ def calculate_statistics(
     else:
         median = sorted_values[n // 2]
 
-    variance = sum((x - mean) ** 2 for x in values) / n
+    variance = sum((x - mean) ** 2 for x in values) / (n - 1) if n > 1 else 0
     std_dev = math.sqrt(variance)
 
     return {
@@ -84,10 +84,11 @@ def perform_correlation_analysis(
     mean_x = sum(x_values) / n
     mean_y = sum(y_values) / n
 
-    # Calculate covariance and standard deviations
-    covariance = sum((x - mean_x) * (y - mean_y) for x, y in pairs) / n
-    std_x = math.sqrt(sum((x - mean_x) ** 2 for x in x_values) / n)
-    std_y = math.sqrt(sum((y - mean_y) ** 2 for y in y_values) / n)
+    # Calculate covariance and standard deviations (sample formulas with n-1)
+    n_minus_1 = n - 1 if n > 1 else 1
+    covariance = sum((x - mean_x) * (y - mean_y) for x, y in pairs) / n_minus_1
+    std_x = math.sqrt(sum((x - mean_x) ** 2 for x in x_values) / n_minus_1)
+    std_y = math.sqrt(sum((y - mean_y) ** 2 for y in y_values) / n_minus_1)
 
     if std_x == 0 or std_y == 0:
         correlation = 0.0

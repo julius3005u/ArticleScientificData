@@ -12,6 +12,13 @@ except ImportError:
     MATPLOTLIB_AVAILABLE = False
 
 
+def _ensure_output_directory(output_path: str) -> None:
+    """Ensure the output directory exists for saving plots."""
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
+
 def create_scatter_plot(
     data: List[Dict[str, Any]],
     column_x: str,
@@ -66,8 +73,7 @@ def create_scatter_plot(
     ax.set_ylabel(ylabel or column_y)
     ax.grid(True, alpha=0.3)
 
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
+    _ensure_output_directory(output_path)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
@@ -122,8 +128,7 @@ def create_histogram(
     ax.set_ylabel(ylabel)
     ax.grid(True, alpha=0.3, axis='y')
 
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
+    _ensure_output_directory(output_path)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
@@ -188,8 +193,7 @@ def create_line_plot(
     ax.set_ylabel(ylabel or column_y)
     ax.grid(True, alpha=0.3)
 
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
+    _ensure_output_directory(output_path)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
@@ -246,8 +250,7 @@ def create_bar_chart(
     if len(categories) > 5:
         plt.xticks(rotation=45, ha='right')
 
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
+    _ensure_output_directory(output_path)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
@@ -305,8 +308,7 @@ def create_box_plot(
         ax.set_ylabel(ylabel)
     ax.grid(True, alpha=0.3, axis='y')
 
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
+    _ensure_output_directory(output_path)
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches='tight')

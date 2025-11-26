@@ -29,7 +29,9 @@ class TestCalculateStatistics:
         assert stats['count'] == 5
         assert stats['min'] == 10
         assert stats['max'] == 50
-        assert stats['std_dev'] == pytest.approx(14.142, rel=0.01)
+        # Sample standard deviation with Bessel's correction (n-1)
+        # variance = 1000 / 4 = 250, std_dev = sqrt(250) ≈ 15.811
+        assert stats['std_dev'] == pytest.approx(15.811, rel=0.01)
 
     def test_even_count_median(self):
         data = [
@@ -144,10 +146,11 @@ class TestCalculateZScores:
         z_scores = calculate_z_scores(data, 'value')
 
         assert len(z_scores) == 3
-        # Mean = 20, std_dev ≈ 8.16
-        assert z_scores[0] == pytest.approx(-1.224, rel=0.01)
-        assert z_scores[1] == pytest.approx(0.0, rel=0.01)
-        assert z_scores[2] == pytest.approx(1.224, rel=0.01)
+        # Mean = 20, sample std_dev = sqrt(200/2) = 10
+        # z = (value - mean) / std_dev
+        assert z_scores[0] == pytest.approx(-1.0, rel=0.01)  # (10-20)/10
+        assert z_scores[1] == pytest.approx(0.0, rel=0.01)   # (20-20)/10
+        assert z_scores[2] == pytest.approx(1.0, rel=0.01)   # (30-20)/10
 
     def test_z_scores_with_zero_std_dev(self):
         data = [
