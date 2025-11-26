@@ -1,0 +1,13 @@
+\begin{itemize}
+    \item Synthetic-only training consistently underperforms, with large errors in both EEG (+12.42\%) and VCTK (+48.59\%) relative to Real.
+    \item Mixed training yields the strongest in-domain EEG performance, reducing MAE by 9.64\% relative to Real, showing that synthetic data can complement real data in the same domain.
+    \item Tunned training achieves the best out-of-domain generalization, reducing MAE on VCTK by 25.51\% relative to Real, highlighting the value of pretraining on synthetic data followed by fine-tuning on real.
+    \item The effectiveness of synthetic data therefore depends on the strategy: it can augment scarce real data or bootstrap cross-domain generalization.
+\end{itemize}
+
+\paragraph{Future work.}
+\begin{itemize}
+  \item Extend the evaluation to spectral and perceptual metrics (LSD, SNR, listening tests) and downstream performance on classification/anomaly detection tasks.
+  \item Explore advanced architectures (transformers, diffusion models, state-space models) to better capture long-range dependencies and high-frequency details.
+  \item Analyze the effect of synthetic dataset design (signal complexity, noise distributions, frequency content) on downstream SR performance. 
+\end{itemize}

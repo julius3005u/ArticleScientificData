@@ -1,0 +1,132 @@
+\subsection{Datasets}
+The synthetic dataset is derived from \href{https://zenodo.org/records/15138853}{CoSiBD}, a controlled benchmark intended to simulate non-stationary and sparse real-world signals, split between 1000 training signals and 300 validation signals. The high resolution signals originally contain 5000 points each, and the corresponding low resolution signals, 1000 ($r = 5$).
+
+The real dataset consists of EEG time series captured in clinical environments. We use a split of 500 signals for training and 690 signals for validation. As in the synthetic dataset, the high resolution and low resolution signals contain 5000 and 1000 points, respectively.
+
+Finally, we use the VCTK Corpus (v0.92)\cite{yamagishi2019vctk} for validation, which is an English multi-speaker dataset comprising about 44 hours of speech from 109 native speakers with diverse accents recorded at 48 kHz. We use this dataset to evaluate how capable the models are of generalization to other domains without training on them.
+
+\begin{figure}[h]
+  \centering
+  \subfloat[Example of synthetic signal]{
+    \includegraphics[width=0.3\textwidth]{images/synthetic_signal.pdf}
+    \label{fig:synthethic_signal}
+  }
+  \hfill
+  \subfloat[Example of EEG signal]{
+    \includegraphics[width=0.3\textwidth]{images/eeg_signal.pdf}
+    \label{fig:eeg_signal}
+  }
+  \hfill
+  \subfloat[Example of VCTK signal]{
+    \includegraphics[width=0.3\textwidth]{images/vctk_signal.pdf}
+    \label{fig:vctk_signal}
+  }
+  \caption{Signal examples}
+  \label{fig:signals_examples}
+\end{figure}
+
+\subsection{Methods}
+We define four experimental setups:
+\begin{itemize}
+  \item Model $M_1$ (Real): trained on real EEG data.
+  \item Model $M_2$ (Synth): trained on synthetic data.
+  \item Model $M_3$ (Mixed): trained jointly on synthetic and real EEG data.
+  \item Model $M_4$ (Tunned): trained on synthetic data and fine-tuned on real EEG data.
+\end{itemize}
+All models share the same architecture are implemented using Pytorch\cite{pytorch}.
+
+\subsection{Metrics}
+We use the Mean Absolute error (MAE) as our main evaluation metric:
+
+\begin{equation}
+    \text{MAE}=\frac{1}{n}\sum_{i=1}^n\left\|y_i-f_\theta\left(x_i\right)\right\|_1
+\end{equation}
+
+\subsection{Experiments}
+The numeric results for the MAE of each model and each dataset are shown in Tables \ref{tab:mae_eeg} and \ref{tab:mae_vctk}. We also compute relative MAE changes compared to the real baseline to quantify whether the MAE is improved or worsened.
+
+\begin{table}[H]
+    \centering
+    \caption{MAE on the EEG dataset (lower is better) and relative change with respect to the real baseline.}
+    \label{tab:mae_eeg}
+    \begin{tabular}{lrr}
+        % \hline
+        Model & MAE ($10^{-2})$ & MAE change\\
+        \hline
+        Real   & 10.771 & - \\
+        Synth  & 12.109 & +12.42\% \\
+        Mixed  & 9.733 & -9.64\% \\
+        Tunned & 10.684 & -0.81\% \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+        \caption{MAE on the VCTK dataset (lower is better) and relative change with respect to the real baseline.}
+        \label{tab:mae_vctk}
+        \begin{tabular}{lrr}
+        % \hline
+        Model & MAE ($10^{-3})$ & MAE change\\
+        \hline
+        Real   & 5.918 & -\\
+        Synth  & 8.794 & +48.59\%\\
+        Mixed  & 5.594 & -5.48\%\\
+        Tunned & 4.408 & -25.51\%\\
+        \hline
+    \end{tabular}
+\end{table}
+
+Figure~\ref{fig:model_comparison} shows a qualitative comparison for a section of a representative EEG signal and a VCTK signal. Each subplot overlays the original signal (black) and the model output for a specific training strategy (colored traces).
+
+\begin{figure*}[h]
+  \centering
+  \subfloat[EEG signal model comparison\label{fig:eeg_model_comparison}]{
+    \includegraphics[width=0.8\textwidth]{images/eeg_model_comparison_1.pdf}
+  }\\[0.5em]  % vertical spacing between the two images
+  \subfloat[VCTK signal model comparison\label{fig:vctk_model_comparison}]{
+    \includegraphics[width=0.8\textwidth]{images/vctk_model_comparison_5.pdf}
+  }
+  \caption{Reconstruction comparisons}
+  \label{fig:model_comparison}
+\end{figure*}
+
+
+% \begin{figure*}[h]
+%     \centering
+%     \caption{Reconstruction comparisons}
+    
+%     \begin{subfigure}[b]{0.8\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/eeg_model_comparison_1.pdf}
+%         \caption{EEG signal model comparison}
+%         \label{fig:eeg_model_comparison}
+%     \end{subfigure}
+    
+%     \vspace{0.5em} % Adjust vertical spacing between the two images
+    
+%     \begin{subfigure}[b]{0.8\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/vctk_model_comparison_5.pdf}
+%         \caption{VCTK signal model comparison}
+%         \label{fig:vctk_model_comparison}
+%     \end{subfigure}
+    
+%     \label{fig:model_comparison}
+% \end{figure*}
+
+% \begin{figure*}
+% \centering
+% \caption{Reconstruction comparisons (Original vs model outputs) on a VCTK signal.}
+% \includegraphics[width=0.8\textwidth]{images/vctk_model_comparison_5.pdf}
+% \label{fig:waveforms}
+% \end{figure*}
+
+% \begin{figure*}
+% \centering
+% \caption{Reconstruction comparisons (Original vs model outputs) on a EEG signal.}
+% \includegraphics[width=0.8\textwidth]{images/eeg_model_comparison_1.pdf}
+% \label{fig:waveforms}
+% \end{figure*}
+
+These results indicate that using synthetic data alone yields the worst MAE on both test sets, combining synthetic with real data (Mixed) improves performance, and pretraining on synthetic and fine-tuning on real data (Tunned) improves results marginally on the EEG dataset (0.81\% MAE reduction) and significantly on the VCTK dataset (25.51\% MAE reduction).

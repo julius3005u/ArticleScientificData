@@ -1,0 +1,134 @@
+**RESPONSE TO REVIEWERS**
+
+We thank the editor for the valuable comments provided and for the time and effort in managing our paper. We also thank the reviewers for their comments, which are of great help. We have carefully addressed all the issues suggested as explained in this document, in order to improve the manuscript accordingly.
+
+**Editor comments:**
+
+\* **E1**: Please also share the data in a more standardised format other than numpy arrays \- consider csv/json (whatever is standard for the field).  
+We have shared our data in formats json, npz (Python arrays) and txt. Regarding csv, it is a format intended for traditional tables, which is not the case of our dataset, so we have decided to include the extension txt instead.
+
+\* **E2:** Please add data citations for the datasets on repositories to the reference list (see [https://www.nature.com/sdata/publish/submission-guidelines](https://urldefense.com/v3/__https://www.nature.com/sdata/publish/submission-guidelines__;!!D9dNQwwGXtA!S_kGb8e94jTcQGL6o9yg9YDZcjwSNU0kcCoMVSUViZwPMqqlfCKaVuUC76AE0BWo_Cohysiq5KH44MKXntpYNHzv$)\#data\_citations). Please add the reference numbers to wherever the datasets are mentioned in the text \- the main position should be the first part of the Data Records in a sentence describing where the data have been deposited.  
+JUAN ALFONSO (Al final)
+
+**Reviewer \#1** (Remarks to the Authors (required)):
+
+First of all, we would like to thank the reviewer for all the valuable comments after a thorough review, having raised many aspects of improvement, with which we agree and have carefully addressed.
+
+Scope  
+1\. Does this paper present a description of a series of data files available at a repository, without associated results or analyses being presented?  
+**R1-1:** Yes. The manuscript includes some analyses, but they are limited to basic assessments of data quality and do not present any scientific results or hypothesis-driven interpretations.  
+JULIO (sugerido por otros revisores).
+
+2\. For primary or theoretical data, are most of the data newly described and not published elsewhere? For secondary/derived/compiled data, do they present new annotations or compilation vs their primary sources?  
+**R1-2:** Yes. The data are theoretical and not published elsewhere. The manuscript mentions that "CoSiBD has been used in research presented at the International Conference on Signal Processing and Machine Learning" but does not provide an explicit reference.  
+JUAN ALFONSO 
+
+Data Quality  
+3\. Was the dataset produced in a rigorous and methodologically sound manner?  
+**R1-3:** No. The authors show no evidence that the proposed synthetic signal model generates time series that resemble at least some real-world time series from any of the referenced domains.  
+JULIO (completa Juan Alfonso)
+
+**R1-4:** The noise model is undocumented, and provided code shows a single-tone sinusoid noise model that is not justified (temana.py lines 101 and following).  
+JULIO (documentar ruido y justificar el tipo de ruido elegido) 
+
+**R1-5:** Most concerningly, the dataset fails to define or discuss sampling frequency, does not apply anti-aliasing filters before subsampling, and omits units on time axes, despite being explicitly intended for "super-resolution" tasks. Aliasing artifacts are visible in some of the "low-resolution" signals in cases where the "resolution" is reduced by a factor of 20 and the "high-resolution" signals include higher frequencies (files SignalAVFV\_Super\_Sample250\_5000.txt vs SignalAVFV\_Sub\_Sample250\_5000.txt).  
+JULIO (discutir sampling frequency, justificar la no aplicación de filtros antialiasing, poner unidades en los ejes)
+
+4\. Is the technical quality of the dataset supported convincingly?  
+**R1-6:** No. Although the authors include a section titled "Technical Validation", the analyses presented are superficial, qualitative, and in some cases conceptually flawed.  
+JULIO
+
+**R1-7:** For example, they attempt to assess frequency content stability across "sampling resolutions" but fail to apply anti-aliasing filters prior to downsampling.  
+JULIO
+
+**R1-8:** Similarly, their claims about the impact of noise on signal spectra are based on a possible mischaracterizations of the artificially added noise, which is a deterministic sinusoid, not Gaussian or broadband.  
+JULIO
+
+**R1-9:** With respect to the metadata, given that the signals consist of multiple segments with changing frequency content, it would be desirable to have annotations of the signals themselves.  
+JULIO
+
+**R1-10:** The dataset includes predefined validation sets, but their selection criteria are undocumented.Predefining validation sets imposes arbitrary usage assumptions and limits flexibility.  
+JULIO
+
+**R1-11:** Overall, the dataset is poorly justified, inconsistently validated, and unlikely to be reusable by other researchers. The "Technical Validation" section, in particular, is filled with vague statements and plausible-sounding technicisms that lack clear definitions or analytical substance. In particular, the final sentences of most paragraphs in this section make vague assertions about the data's properties or suitability without offering quantitative support, reproducible criteria, or references to established signal processing standards.  
+JULIO (revisa Juan Alfonso al final)
+
+5\. Is the depth, coverage, size, and/or completeness of these data sufficient for others to use them?  
+**R1-12:** No. There is no indication that the dataset captures the diversity, complexity, or statistical properties of real-world signals from any of the domains the manuscript mentions.  
+JULIO (ya dicho antes por el propio revisor)
+
+Completeness of the Description  
+6\. Are the methods and any data processing steps described in sufficient detail to allow others to reproduce these steps?  
+**R1-13:** The signal generation process is technically reproducible, but not transparently or reliably so without manual code inspection. In particular, the signal generation process is described at a high level, and the accompanying code allows for reproduction in principle. However, critical details—such as the sampling frequency, time units, and precise characteristics of the noise—are missing from the manuscript. While comments are present in the code, users are required to interpret implementation choices themselves, as key modeling decisions are undocumented or implicit.  
+JULIO (sampling frequency, unidades de tiempo, ruido). Esto ya está dicho antes por el mismo revisor.
+
+7\. Are the descriptions of the data files sufficient for users to make use of them?  
+**R1-14:** Yes, to a basic extent. The file names and accompanying table provide enough information for users to access and interpret the core structure of the dataset. However, the absence of detailed metadata or per-signal descriptions may limit more advanced or domain-specific uses.  
+JULIO (esto ya está dicho anteriormente por el propio revisor, creo)
+
+**R1-15:** Also, the authors use the terms "samples", "points" and "signals" without defining them. From Table 1, the reader may infer that the authors consider "samples" and "signals" to be synonyms, though that contradicts the usual nomenclature in fields such as signal processing.  
+JULIO (revisa Juan Alfonso)
+
+Integrity of the Data Files and Repository Record  
+8\. Have you confirmed that the data files deposited by the authors are complete and match the descriptions in the Data Descriptor?  
+Yes. I have inspected the deposited data files and confirmed that their naming, structure, and contents match the descriptions provided in the manuscript, Table 1\.
+
+9\. Have these data files been deposited in the most appropriate available data repository?  
+Yes. The data are deposited in Zenodo under a CC BY 4.0 license. The code is available on GitHub under an MIT license.
+
+10\. Has all the code been shared?  
+**R1-16:** Yes. The full code for signal generation has been shared, including all functions and modules used. While some parts could benefit from clearer documentation and cleanup, the code appears sufficient to reproduce the dataset.  
+JULIO
+
+**Reviewer \#2** (Remarks to the Authors (required)):
+
+This manuscript presents the CoSiBD dataset, a synthetic collection of time-series data for super-resolution tasks, along with the Temana library for signal generation. The idea of offering a reproducible environment for testing signal reconstruction models is useful, but the work would benefit from significant improvement in clarity, scope, and validation.
+
+We thank the reviewer for all the valuable comments provided. We are glad that our contribution is found to be useful according to the reviewer, and we will do our best to improve the paper in terms of clarity, scope and validation, as explained below for each comment raised by the reviewer.
+
+1\. Scope and Contribution  
+**R2-1:** The current dataset design focuses mainly on synthetic sinusoidal signals with random frequency and amplitude variations. While technically correct, this approach is limited in its capacity to represent realistic time-series phenomena. The paper would be strengthened by motivating why such signals are relevant to real-world applications and by comparing the proposed dataset with existing benchmarks.  
+JULIO hace lo del benchmark y JUAN ALFONSO intenta motivar mejor.
+
+2\. Experimental Results  
+**R2-2:** The manuscript lists evaluation metrics such as RMSE, MAE, PSNR, and SSIM but does not present any numerical results or baseline comparisons. Without quantitative or visual evaluation, it is not possible to assess the usefulness of the dataset for super-resolution studies.  
+JULIO
+
+3\. Figures and Presentation  
+**R2-3:** Figure 1 contains too much explanatory text and reads like an infographic. It would be clearer if simplified, with key information moved into the caption or text.  
+JULIO
+
+**R2-4:** Figures 2 and 3 have no axis labels or units, making it impossible to interpret the plots. All figures should include labeled axes and consistent legends.  
+JULIO
+
+4\. Reproducibility and Code  
+**R2-5:** Although providing source code is appreciated, the included examples for reading or plotting the data are overly basic and not suitable for a research article.  
+JULIO
+
+**R2-6:** More importantly, the random number generation in the code does not use fixed seeds, which prevents reproducibility. Please mention whether seeds were set or explain why variability was allowed.  
+JULIO (decidimos poner fija la semilla en aras de reproducibilidad y jugar con los parámetros para lograr la variabilidad). JUAN ALFONSO revisa al final.
+
+5\. Writing and Typographical Issues  
+**R2-7:** The manuscript contains typos (e,g,, frecuency bands in Fig.1, step 7\) and inconsistencies. Several paragraphs repeat similar explanations of the dataset’s purpose and composition. Careful proofreading and editing will improve readability and professionalism.  
+JUAN ALFONSO hace repaso y corrección final
+
+6\. Overall Assessment  
+**R2-8:** The dataset and accompanying library could be useful as supporting material for a more extensive study, for example, a methodological paper on time-series reconstruction. However, as a standalone contribution, it does not provide enough novelty or experimental depth. The work has potential if presented as part of a larger project with more comprehensive validation and clearer writing.  
+JULIO (sugerido por otros revisores).
+
+In its current form, I suggest substantial revision before resubmission. The concept is sound but would benefit from stronger motivation, clearer results, and improved presentation.
+
+Again, we thank the reviewer for all the valuable comments provided. We have addressed them all in order to improve motivation, results and presentation, among others.
+
+**Reviewer \#3** (Remarks to the Authors (required)):
+
+Great to see the authors propose a complex dataset that captures variability, stability, and realism to match real-world scenarios.  
+We thank the reviewer for all the valuable comments provided and for the good impression expressed.
+
+I have one major weakness on the evaluation and usefulness of this dataset
+
+**R3-1:** The study lacks a demonstrative impact of the data. Given the motivation of the data is for use with deep learning methods. Experiments where CNNs, RNNs and LSTMs are trained with simulated data and validated on real-world data would have been more convincing.  
+JULIO (sugerido por otros revisores)
+
+**R3-2:** Would be great to see side-by-side comparison of how the objectives of variability, stability, and realism, maintaining reproducibility and flexibility compares to those measured from real-world signals.  
+JULIO comienza (JUAN ALFONSO pule al final).

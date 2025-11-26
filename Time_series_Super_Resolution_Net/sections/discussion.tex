@@ -1,0 +1,27 @@
+The MAE results (Tables \ref{tab:mae_eeg} and \ref{tab:mae_vctk}) reveal distinct behaviors across domains. On the EEG validation set, the Mixed model achieves the largest improvement, reducing MAE by 9.64\% relative to the Real baseline. The Tunned strategy produces only a marginal gain ($-0.81$\%), while the Synth-only model underperforms by 12.42\%. On the VCTK set, however, Tunned substantially outperforms all other strategies, reducing MAE by 25.51\% relative to Real, while Mixed yields a smaller 5.48\% improvement and Synth performs the worst (+48.59\%).
+
+These findings indicate that the benefits of synthetic data depend strongly on how it is incorporated and on the evaluation domain. While joint training with real and synthetic data (Mixed) is most effective for in-domain EEG validation, pretraining on synthetic data and fine-tuning on real data (Tunned) proves highly effective for cross-domain generalization (VCTK).
+
+The signal visualizations in Figures~\ref{fig:eeg_model_comparison} and \ref{fig:vctk_model_comparison} further illustrate these trends. For EEG (Figure~\ref{fig:eeg_model_comparison}), the Synth model produces overly smooth reconstructions, failing to capture rapid changes and oscillatory patterns. The Real and Mixed outputs both follow the ground-truth closely, with Mixed showing slightly better alignment of sharp transitions. Tunned approximates the Real output but without clear improvement, reflecting its limited MAE reduction on EEG.
+
+For VCTK (Figure~\ref{fig:vctk_model_comparison}), the Synth model again fails to reconstruct the original signal entirely. The Real output follows the target reasonably but misses fine-grained details, while Mixed seems to mainly reduce noise. Tunned captures the original waveform most faithfully, aligning peaks and valleys more accurately, consistent with its 25.51\% MAE reduction.
+
+The observed behavior can be explained by:
+\begin{enumerate}
+    \item \textbf{Domain gap.} Synthetic signals (CoSiBD) differ in spectral and amplitude statistics from EEG and speech signals. This gap explains the poor generalization of Synth-only models.
+    \item \textbf{Representation bootstrap.} Pretraining on synthetic data enables the model to learn generic structures (e.g., periodicity, transient patterns). Fine-tuning on real data adapts these representations, which is particularly beneficial when generalizing across domains (Tunned on VCTK).
+    \item \textbf{Data mixing.} Joint training stabilizes learning and improves in-domain performance (EEG), but does not fully align distributions for out-of-domain generalization (VCTK).
+\end{enumerate}
+
+\subsection{Answer to research questions}
+\begin{itemize}
+    \item \textbf{RQ1 (Effectiveness of CNNs / deep models):} The results confirm that CNN-based SR models are capable of reconstructing fine-grained structure beyond interpolation baselines, effectively reducing MAE on both EEG and speech. However, performance varies by training strategy and evaluation domain.
+    
+    \item \textbf{RQ2 (Contribution of synthetic data):} Synthetic data alone is insufficient and leads to degraded performance, but when combined with real data it can improve accuracy (Mixed for EEG, Tunned for VCTK). The synthetic dataset therefore serves both as an augmentation resource and as a pretraining corpus that facilitates better generalization to unseen domains.
+\end{itemize}
+
+\subsection{Limitations}
+\begin{itemize}
+  \item \textbf{Single metric:} MAE captures amplitude errors but does not account for perceptual or spectral fidelity. Complementary metrics such as Log-Spectral Distance (LSD), SNR, and task-based evaluations (e.g., classification accuracy) should be included.
+  \item \textbf{Architecture constraints:} We restricted our study to a CNN-based model. More expressive architectures such as transformers, diffusion models, and state-space models may yield stronger results.
+\end{itemize}

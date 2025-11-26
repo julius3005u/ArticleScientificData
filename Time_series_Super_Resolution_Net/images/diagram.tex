@@ -1,0 +1,19 @@
+
+\begin{tikzpicture}[node distance=1.5cm, auto]
+  \node (input) [draw, rectangle] {Input (1 × L)};
+  \node (conv1) [draw, rectangle, right=of input] {Conv1D (1→64, k=9)};
+  \node (relu1) [draw, rectangle, right=of conv1] {ReLU};
+  \node (conv2) [draw, rectangle, right=of relu1] {Conv1D (64→128, k=5)};
+  \node (relu2) [draw, rectangle, right=of conv2] {ReLU};
+  \node (conv3) [draw, rectangle, right=of relu2] {Conv1D (128→256, k=5)};
+  \node (relu3) [draw, rectangle, right=of conv3] {ReLU};
+  \node (upsample) [draw, rectangle, below=of relu3] {Upsample ×r};
+  \node (conv4) [draw, rectangle, left=of upsample] {Conv1D (256→128, k=5)};
+  \node (relu4) [draw, rectangle, left=of conv4] {ReLU};
+  \node (conv5) [draw, rectangle, left=of relu4] {Conv1D (128→64, k=5)};
+  \node (relu5) [draw, rectangle, left=of conv5] {ReLU};
+  \node (output) [draw, rectangle, left=of relu5] {Conv1D (64→1, k=9)};
+  \node (out) [draw, rectangle, left=of output] {Output (1 × rL)};
+  \draw[->] (input) -- (conv1) -- (relu1) -- (conv2) -- (relu2) -- (conv3) -- (relu3)
+             -- (upsample) -- (conv4) -- (relu4) -- (conv5) -- (relu5) -- (output) -- (out);
+\end{tikzpicture}

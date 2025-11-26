@@ -1,0 +1,38 @@
+{
+  "5x": {
+    "input_size": 1000,
+    "output_size": 5000,
+    "best_val_loss": 0.08454564440762624,
+    "final_train_loss": 0.9632797886729241,
+    "total_epochs": 50,
+    "early_stopped": false,
+    "total_params": 412673
+  },
+  "10x": {
+    "input_size": 500,
+    "output_size": 5000,
+    "best_val_loss": 0.15243123401887715,
+    "final_train_loss": 1.0919304887354373,
+    "total_epochs": 50,
+    "early_stopped": false,
+    "total_params": 412673
+  },
+  "20x": {
+    "input_size": 250,
+    "output_size": 5000,
+    "best_val_loss": 0.4375977637246251,
+    "final_train_loss": 1.319439259648323,
+    "total_epochs": 50,
+    "early_stopped": false,
+    "total_params": 412673
+  },
+  "33x": {
+    "input_size": 150,
+    "output_size": 5000,
+    "best_val_loss": 1.0326224472373724,
+    "final_train_loss": 1.9473584852218628,
+    "total_epochs": 50,
+    "early_stopped": false,
+    "total_params": 412673
+  }
+}

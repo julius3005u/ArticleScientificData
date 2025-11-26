@@ -1,0 +1,55 @@
+\subsection{Setup}
+Let $x \in \mathbb{R}^{l}$ be a low resolution signal. We aim to recover a high resolution version of the signal $y \in \mathbb{R}^{h}$, where $h = rd$ and $r$  is the upsamplig ratio ($r = 5$ in our work).
+
+Thus, the problem can be formulated as the construction of a model that can capture the distribution $p(y|x)$. We assume that $x$ and $y$ are related by the equation $y = f_{\theta}(x) + \epsilon$, where $f_{\theta}$ represents our model parametrized by $\theta$ and $\epsilon ~ \mathcal{N}(0, 1)$ is Gaussian noise.
+
+In order to determine $\theta$, we use a mean squared error (MSE) training objective
+
+\begin{equation}
+    \ell(\mathcal{D})=\frac{1}{n} \sum_{i=1}^n\left\|y_i-f_\theta\left(x_i\right)\right\|_2^2
+\end{equation}
+
+where $\mathcal{D}=\left\{x_i, y_i\right\}_{i=1}^n$ is our training dataset containing the low-res/high-res signal pairs.
+
+\subsection{Model Architecture}
+Our model is a fully convolutional neural network designed for single-channel 1D signal super-resolution. The architecture follows an encoder–upsampler paradigm, where an initial stack of convolutional layers encodes the low-resolution signal into a higher-dimensional latent representation. This representation is then upsampled by a fixed factor using an interpolation-based method, followed by additional convolutional layers to refine the upsampled output.
+
+The model accepts input signals of shape $(1, T)$, where $T$ is the number of time steps in the low-resolution sequence. The output is a signal of shape $(1, T \times r)$, where $r$ is the upsampling factor, set to $5$ in our experiments. All convolutional layers use ReLU activations, and padding is applied to preserve temporal dimensions where necessary. Table~\ref{tab:architecture} summarizes the architecture of the network.
+
+\begin{table*}
+    \centering
+    \caption{Detailed architecture of the model. All convolutional layers have stride 1.}
+    \label{tab:architecture}
+    \begin{tabular}{|l|c|c|c|c|}
+    \hline
+    \textbf{Layer} & \textbf{Input Channels} & \textbf{Output Channels} & \textbf{Kernel Size} & \textbf{Padding} \\
+    \hline
+    Conv1D + ReLU & 1 & 64 & 9 & 4 \\
+    Conv1D + ReLU & 64 & 128 & 5 & 2 \\
+    Conv1D + ReLU & 128 & 256 & 5 & 2 \\
+    \hline
+    Upsample 5$\times$ (linear)  & - & - & - & -\\
+    Conv1D + ReLU & 256 & 128 & 5 & 2 \\
+    Conv1D + ReLU & 128 & 64 & 5 & 2 \\
+    Conv1D & 64 & 1 & 9 & 4 \\
+    \hline
+    \end{tabular} 
+\end{table*}
+
+% \begin{table}[H] % Full width table (notice the starred environment)
+% 	\caption{Example two column table with fixed-width columns.}
+% 	\centering % Horizontally center the table
+% 	\begin{tabular}{L{0.2\linewidth} L{0.2\linewidth} R{0.15\linewidth}} % Manually specify column alignments with L{}, R{} or C{} and widths as a fixed amount, usually as a proportion of \linewidth
+% 		\toprule
+% 		\multicolumn{2}{c}{Location} \\
+% 		\cmidrule(r){1-2}
+% 		East Distance & West Distance & Count \\
+% 		\midrule
+% 		100km & 200km & 422 \\
+% 		350km & 1000km & 1833 \\
+% 		600km & 1200km & 890 \\
+% 		\bottomrule
+% 	\end{tabular}
+%     \label{tab:architecture}
+% \end{table}
+

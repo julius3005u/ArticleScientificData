@@ -1,0 +1,112 @@
+%% 
+%% Copyright 2019-2024 Elsevier Ltd
+%% 
+%% Version 2.4
+%% 
+%% This file is part of the 'CAS Bundle'.
+%% --------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'CAS Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for cas-sc documentclass for 
+%% single column output.
+
+%\documentclass[a4paper,fleqn,longmktitle]{cas-sc}
+\documentclass[a4paper,fleqn]{cas-sc}
+
+\usepackage[numbers]{natbib}
+% \usepackage[authoryear]{natbib}
+% \usepackage[authoryear,longnamesfirst]{natbib}
+% \usepackage{todonotes}
+\usepackage[caption=false,font=footnotesize]{subfig}
+
+%%%Author macros
+\def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
+\tsc{WGM}
+\tsc{QE}
+\tsc{EP}
+\tsc{PMS}
+\tsc{BEC}
+\tsc{DE}
+%%%
+
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+
+\title[mode = title]{Super-Resolution: An Exploratory Analysis Based on Synthetic Data}
+\shorttitle{Super-Resolution: An Exploratory Analysis Based on Synthetic Data}
+
+%\begin{frontmatter}
+\begin{graphicalabstract}
+    \includegraphics[width=\linewidth]{images/graphical_abstract.pdf}
+\end{graphicalabstract}
+
+\input{sections/highlights}
+
+\input{sections/authors}
+
+%%%%%%%%%%%%%%%% Paper content %%%%%%%%%%%%%%%%
+\begin{abstract}[]
+    \input{sections/abstract}
+\end{abstract}
+
+
+\begin{keywords}
+    Super-resolution \sep Synthetic data \sep Deep learning \sep Data Augmentation
+\end{keywords}
+
+
+% \listoftodos
+% \newpage
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+\input{sections/introduction}
+
+\section{Methodology}
+\input{sections/methodology}
+
+% \section{Super-Resolution Models}
+% \input{sections/models}
+
+\section{Experiments and Results}
+\input{sections/results}
+
+\section{Discussion}
+\input{sections/discussion}
+
+\section{Conclusions and Future Work}
+\input{sections/conclussions}
+
+\section*{Code availability}
+The corresponding code can be found \href{https://github.com/MathIAS-USFQ/time-series-srnet}{here}.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work the authors used ChatGPT (GPT-5, OpenAI) in order to assist with the drafting and refinement of the manuscript text, reference lookup, and to produce illustrative LaTeX/TikZ code for the visualization of the model architecture. After using this tool, the author reviewed and edited all generated content as needed and takes full responsibility for the content of the published article.
+
+%----------------------------------------------------------------------------------------
+%	 REFERENCES
+%----------------------------------------------------------------------------------------
+
+\bibliographystyle{cas-model2-names}
+% Loading bibliography database
+\bibliography{refs}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

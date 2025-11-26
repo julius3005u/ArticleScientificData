@@ -1,0 +1,39 @@
+============================================================
+RESUMEN DEL EXPERIMENTO - CNN Super-Resolución CoSiBD
+============================================================
+
+Fecha: 2025-11-22 10:37:16
+
+CONFIGURACIÓN:
+  - Input Size: 1000 samples
+  - Output Size: 5000 samples
+  - Upsample Factor: 5x
+  - Batch Size: 16
+  - Learning Rate: 0.001
+  - Epochs: 50
+  - Validación cada: 10 épocas
+  - Early stopping patience: 3
+
+DATOS:
+  - Training samples: 2000
+  - Validation samples: 500
+
+RESULTADOS:
+  - Mejor época: 10
+  - Mejor validation loss: 0.136607
+  - Final training loss: 0.963911
+  - Final validation loss: 0.139473
+  - Total épocas entrenadas: 40
+
+ARQUITECTURA:
+  - Modelo: TimeSeriesSRNet
+  - Parámetros totales: 412,673
+  - Loss function: MSE
+  - Optimizer: Adam (weight_decay=1e-05)
+
+ARCHIVOS GENERADOS:
+  - Modelo: models/best_model_upsample5x.pth
+  - Curvas: results/loss_curves.png
+  - Ejemplos: results/prediction_examples.png
+  - Historial: results/loss_history.csv
+============================================================

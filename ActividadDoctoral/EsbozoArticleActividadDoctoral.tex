@@ -1,0 +1,383 @@
+%% LyX 2.3.7 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[spanish,11.5pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9,utf8x]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage{color}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\fancyhead[R]{Julio Ibarra-Fiallo}  % Encabezado a la derecha en p\'aginas pares
+\fancyhead[L]{ } 
+\renewcommand{\headrulewidth}{0pt} 
+\pagestyle{fancy}
+\usepackage{apacite}
+%\bibliographystyle{apacite} 
+%\makeatletter
+
+\usepackage{caption} 
+\captionsetup[table]{name=Tabla}
+\captionsetup{font=small}
+\usepackage{subcaption}
+\date{}
+
+%\@ifundefined{showcaptionsetup}{}{%
+% \PassOptionsToPackage{caption=false}{subfig}}
+%\usepackage{subfig}
+%\makeatother
+
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>.}}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1.5mm}
+
+\begin{document}
+\renewcommand{\abstractname}{ }
+
+\title{\large \textbf{Reconstrucci\'on de series temporales, mediante redes neuronales: Un
+enfoque de aprendizaje profundo.}}
+
+\vspace{-8mm}
+\author{\normalsize \textbf{Julio Ibarra-Fiallo, Juan A. Lara} \vspace{2mm} \\	
+\emph{Programa de doctorado en computación avanzada, energí­a y plasmas. } \\ \emph{Universidad de Córdoba.} \\ \emph{z22ibfij@uco.es }}
+\maketitle
+\vspace{-2.2cm} 
+
+\begin{abstract}
+\normalsize
+\noindent \textbf{Summary:} Reconstruction of signals represented from partial data
+is a relevant problem in various fields, such as processing signals, computer vision and time series analysis.
+In this work, the use of neural networks, both simple
+as convolutional, to address this task. Two approaches are presented:
+In the first, an autoencoder neural network is used to reconstruct
+250 points of a signal from only 50 scattered points; in the second one, a convolutional neural network is used to reconstruct
+5000 points of a signal from 1000 subsampled points. Results obtained show that the reconstructions based on
+deep learning are as accurate as those obtained using
+traditional polynomial interpolation methods, which highlights
+the potential of this technique in signal reconstruction problems.
+
+\vspace{2mm}
+\noindent {\textbf{Key words}: }signal reconstruction, time series, deep learning, interpolation. 
+\end{abstract}
+
+\begin{abstract}
+	\normalsize
+	\noindent \textbf{Resumen:} La reconstrucci\'on de se\~nales representadas a partir de datos parciales
+	es un problema relevante en diversos campos, como el procesamiento
+	de se\~nales, la visi\'on por computadora y el an\'alisis de series temporales.
+	En este trabajo, se explora el uso de redes neuronales, tanto simples
+	como convolucionales, para abordar esta tarea. Se presentan dos enfoques:
+	en el primero, se utiliza una red neuronal autoencoder para reconstruir
+	250 puntos de una se\~nal a partir de solo 50 puntos dispersos; en el
+	segundo, se emplea una red neuronal convolucional para reconstruir
+	5000 puntos de una se\~nal a partir de 1000 puntos submuestreados. Los
+	resultados obtenidos muestran que las reconstrucciones basadas en
+	aprendizaje profundo son tan precisas como las obtenidas mediante
+	m\'etodos tradicionales de interpolaci\'on polinomial, lo que resalta
+	el potencial de esta t\'ecnica en problemas de reconstrucci\'on de se\~nales.
+	
+	\vspace{2mm}
+	\noindent {\textbf{Palabras clave}: }reconstrucci\'on de se\~nales, series
+	temporales, aprendizaje profundo, interpolaci\'on.
+\end{abstract}
+
+\section{Introducci\'on.}
+
+La reconstrucci\'on de se\~nales a partir de datos parciales es una tarea fundamental en diversos campos, como el procesamiento de se\~nales, la visi\'on por computadora y el an\'alisis de series temporales \cite{GoodfellowBengioCourville2016, LecunbengioHinton2015}. Tradicionalmente, esta tarea se ha abordado mediante t\'ecnicas de interpolaci\'on, como los polinomios de Lagrange o los splines c\'ubicos, descomposici\'on en frecuencias \cite{MocaBarzanNagy2021}. Sin embargo, estos enfoques presentan limitaciones cuando se trata de se\~nales complejas o no lineales, o cuando los datos disponibles son escasos o ruidosos.
+
+En  a\~nos recientes, el aprendizaje profundo ha demostrado ser una t\'ecnica poderosa para abordar una amplia gama de problemas, incluyendo el procesamiento de se\~nales y series temporales \cite{bengioDeepArch2009, MocaBarzanNagy2021}. Las redes neuronales, especialmente las redes convolucionales, han demostrado una gran capacidad para capturar patrones complejos y no lineales en los datos, lo que las convierte en una alternativa fuerte para la reconstrucci\'on de se\~nales \cite{LiuQianYang2022}.
+ 
+
+\section{Metodolog\'i­a.}
+
+\subsection{Incremento de resoluci\'on series temporales. }
+
+Sea $S=\left\{ (t,y)/\text{ }y=s(t)\text{ }\wedge\text{ }s(t+T)=s(t)\wedge T\in\mathbb{R}\right\} $
+, $S$ es una se\~nal continua, peri\'odica y $S\left|_{B}\right.$ es
+la restricci\'on de $S$ cuando $t\in B\subset\mathbb{R}$ compacto
+y conexo. 
+
+\emph{Definici\'on}. Denominaremos serie temporal asociada a $S$ al
+conjunto:
+
+ $S^{*}\left|_{B}\right.=\left\{ (t_{i},y_{i})\text{ }/i=0,\dots,n\text{ }\wedge t_{i}\in\mathcal{P}(B)\right\} $
+y $S^{*}\left|_{B}\right.\subset S\left|_{B}\right.$, $\mathcal{P}(B)$
+es una partici\'on de $B$ uniforme.
+
+\emph{Definici\'on. }Diremos que una serie temporal $S_{1}^{*}$ tiene
+mayor resoluci\'on que una serie temporal $S_{2}^{*}$ en $B$ si $\left|S_{1}^{*}\left|_{B}\right.\right|>\left|S_{2}^{*}\left|_{B}\right.\right|$
+
+\emph{Definici\'on.} Llamaremos un contexto de se\~nales a la categor\'i­a
+$\mathcal{S}=\left\{ S/S\text{ es una se\~nal}\right\} $ y $\left|\mathcal{S}\right|<\infty$
+si $\mathcal{S}\left|_{B}\right.$ todas las se\~nales de la categor\'i­a
+est\'an restringidas a $B$.
+
+El problema abordado  consiste en que dada una serie
+temporal $S_{2}^{*}\left|_{B}\right.$ se busca construir otra de mayor resoluci\'on $S_{1}^{*}\left|_{B}\right.$
+aprendiendo del contexto $\mathcal{S}$, estas se\~nales tienen, por ejemplo, valores aleatorios de amplitud, fase, frecuencia y per\'i­odo, 
+constantes en  $B$.
+
+En el primer enfoque se construye un modelo con arquitectura de red neuronal $\mathcal{N}$ y se
+puede plantear entonces de la siguiente manera, para $v\in\mathbb{R}^{50}$,
+el procesamiento $\mathcal{N}(v)\in\mathbb{R}^{250}$, entonces la
+p\'erdida producida por la reconstrucci\'on $\mathcal{N}(v)$ es $\mathcal{L}=\left\Vert \mathcal{N}(v)-v^{*}\right\Vert $$^{2}$,
+donde las coordenadas de $v$ son los valores de la serie temporal
+$S_{2}$ de resoluci\'on $50$ y $v^{*}$ son los valores de la serie
+temporal de resoluci\'on 250 asociada y $\left\Vert \cdot\right\Vert $
+es la norma euclideana en $\mathbb{R}^{250}$. Para el procesamiento
+por lotes de tama\~no $k$ se calcula la p\'erdida promedio como $\bar{\mathcal{L}}={\displaystyle \frac{1}{k}\sum_{i=1}^{k}\mathcal{L}_{i}}$. 
+
+En el segundo enfoque se construye un modelo que sigue la misma l\'ogica, pero 
+en la arquitectura de $\mathcal{N}$ se incluyen capas convolucionales
+al procesamiento de la serie temporal de entrada y $\mathcal{N}:\mathbb{R}^{1000}\rightarrow\mathbb{R}^{5000}$.
+Las arquitecturas de la red neuronal y la red convolucional se especificar\'an m\'as adelante.
+
+\subsection{Descripci\'on del conjunto de datos .}
+
+Para la construcci\'on de la red neuronal del primer enfoque contextual
+de los modelos, se utilizaron se\~nales aleatorias sinusoidales sint\'eticas
+de amplitud, fase, per\'i­odo y frecuencia constante sobre el intervalo
+$B=[0,4\pi]$. En este esquema, el contexto $\mathcal{\left.\mathcal{S}\right|_{B}}$
+contiene 700 series temporales de 250 puntos, este contexto proporcional
+el objetivo con la resoluci\'on a alcanzar, los datos de entrada o est\'i­mulos
+iniciales, son series temporales de 50 puntos, las cuales se obtuvieron
+como deterioro de las series del contexto. El conjunto de validaci\'on
+tiene cardinalidad 250. En el segundo enfoque, tambi\'en se utilizaron
+se\~nales aleatorias sinusoidales sint\'eticas de amplitud, fase, per\'i­odo
+y frecuencia constante sobre el intervalo $B=[0,4\pi]$, a diferencia
+del primer enfoque las ondas transportan ondas de mucha mayor frecuencia
+pero menor amplitud. El contexto $\left.\mathcal{S}\right|_{B}$ contiene
+2500 series temporales de 5000 puntos, las series temporales de entrada
+son de 1000 puntos deterioradas de las series del contexto. El conjunto
+de validaci\'on tiene cardinalidad 750.
+
+\subsection{Arquitectura de las redes neuronales }
+
+%\subsubsection{Red neuronal autoencoder, primer enfoque.}
+
+En el primer enfoque, se utiliz\'o una red neuronal autoencoder simple,
+compuesta por un codificador (encoder) y un decodificador (decoder).
+El codificador consta de dos capas lineales con funciones de activaci\'on
+ReLU, mientras que el decodificador consta de dos capas lineales con
+funciones de activaci\'on ReLU en la primera capa. La arquitectura se
+muestra en la figura 1(a).
+
+Para el entrenamiento de la red neuronal autoencoder, se utiliz\'o los
+siguientes hiperpar\'ametros: \verb|n\_input = 50|,  \verb|n\_hidden = 100|, 
+\verb|n\_output = 250|,  \verb|epoch = 1000|  y  \verb|learning\_rate = 0.001|.
+
+
+\begin{figure}[h]
+\begin{centering}
+\subfloat[Red Autoencoder - Decoder ]{\centering{}\includegraphics[height=6cm]{modelo01}}\hspace{3cm}\subfloat[Red convolucional]{\begin{centering}
+\includegraphics[height=6cm]{modelo02}
+\par\end{centering}
+}
+\par\end{centering}
+\caption{\label{fig:Red01}Arquitecturas primer y segundo enfoques.}
+
+\end{figure}
+
+%\subsubsection{Red neuronal convolucional, segundo enfoque.}
+
+En el segundo enfoque, se utiliz\'o una red neuronal convolucional (CNN)
+autoencoder. El codificador consta de dos capas convolucionales 1D
+con una operaci\'on de submuestreo (max pooling) despu\'es de cada capa.
+El decodificador consta de dos capas convolucionales transpuestas
+1D con una operaci\'on de sobremusetreo (upsampling) despu\'es de la primera
+capa. La arquitectura se muestra en la figura 1(b).
+
+Para el entrenamiento de la red neuronal convolucional, se utiliz\'o
+los siguientes hiperpar\'ametros:  
+\verb|batch\_size = 128|, \verb|n\_input = 1000|,  \verb|n\_hidden = 128|, 
+\verb|n\_output = 5000|,  \verb|epoch = 1000|  y  \verb|learning\_rate = 0.001|.
+
+Ambos enfoques fueron programados con PyTorch y  usando como optimizador Adam. 
+Los mejores par\'ametros fueron obtenidos por ensayo y error.
+
+\section{Resultados.}
+
+En la Tabla 1 se muestra el resultado de la p\'erdida de la reconstrucci\'on
+basada en la red neuronal autoencoder-decoder del primer enfoque contra
+la reconstrucci\'on polinomial. La reconstrucci\'on lograda con aprendizaje
+se muestra muy superior a la polinomial. Se debe notar que se calcula los coeficientes de un  polinomio $p$ con todos los puntos
+de  la se\~nal deteriorada, $p$ se eval\'ua en el dominio de mayor resoluci\'on. 
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lcc}
+		\hline
+		\textbf{Modelo} & \textbf{Entrenamiento} & \textbf{Validaci\'on} \\
+		\hline
+		Autoencoder & 0.0408 & 0.1167 \\
+		Polinomial & 46724 & 50216 \\
+		Red convolucional & 0.0156 & 0.0370 \\
+		\hline
+	\end{tabular}
+	\caption{P\'erdida de reconstrucci\'on de los modelos.}
+	\label{tab:results}
+\end{table}
+
+La Figura 2 muestras cuatro ejemplos de la reconstrucci\'on
+seg\'un los esquemas propuestos de acuerdo al primer enfoque incluidos
+los ajustes polinomiales. De la observaci\'on se puede conlcuir que
+cuando la frecuencia es m\'as alta la red nuronal es mejor que el ajuste
+polinomial, mientras que cuando no existe vibraci\'on el polinomio es
+mejor.
+
+\begin{figure}[!ht]
+    \centering`  
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{RedBuena01.png}
+        \caption{Red neuronal, frecuencia moderada}
+        \label{fig:figura1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{RedMaoMeno02.png}
+        \caption{Red enuronal, frecuencia baja }
+        \label{fig:figura2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{RedMala03.png} 
+       \caption{Red neuronal, frecuencia muy baja} 
+       \label{fig:figura3}
+    \end{subfigure}
+
+    \medskip
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{polinomiomalo01.png}
+        \caption{Polinomial, frecuencia moderada}
+        \label{fig:figura4}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{polinomioMalo02.png} 
+        \caption{Polinomial, frecuencia baja}
+        \label{fig:figura5}     \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth} 
+       \includegraphics[height=2.55cm]{PolinomioBueno03.png}
+        \caption{Polinomial, frecuencia muy baja}
+        \label{fig:figura6}
+    \end{subfigure}
+    \caption{Ejemplos de Reconstrucci\'on: Red y Polinomial}
+\end{figure}
+
+En la Tabla 1, tambi\'en se muestra los resultados de p\'erdida del segundo
+enfoque (red neuronal convolucional) tanto en el conjunto de entrenamiento
+como en el de validaci\'on. La Figura 3 muestra ejemplo de la reconstrucci\'on
+de varias se\~nales del conjunto de validaci\'on.Se puede apreciar que
+la reconstrucci\'on (l\'i­nea verde) sigue de cerca la se\~nal original (l\'i­nea
+roja), a pesar de la gran diferencia entre el n\'umero de puntos disponibles
+y el n\'umero de puntos reconstruidos, se observa tambi\'en que cuando
+la onda transportada posee mayor amplitud el efecto de aliasing se
+hace notorio en la reconstruci\'on.
+
+\begin{figure}[!ht]
+    \centering`  
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{s500_frecuencia01.png}
+        \caption{ Onda principal, frecuencia baja}
+        \label{fig:figura1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{s500_frecuencia02.png}
+        \caption{Onda principal, frecuencia }
+        \label{fig:figura2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=2.55cm]{s500_frecuencia03.png} 
+       \caption{Onda transportada, frecuencia alta} 
+       \label{fig:figura3}
+    \end{subfigure}
+	\caption{Ejemplos de reconstrucci\'on: Red convolucional}
+  
+\end{figure}
+
+El trabajo sugiere que el aprendizaje profundo puede ser una alternativa
+fuerte a los m\'etodos de interpolaci\'on tradicionales en situaciones
+donde solo se dispone de una peque\~na fracci\'on de los datos y  la
+serie temporal pertenece a un contexto conocido.
+
+% La complejidad de las arquitecturas es baja.
+
+Por otro lado, el enfoque basado en la red neuronal convolucional
+demostr\'o ser capaz de reconstruir se\~nales a partir de datos submuestreados
+con un factor de submuestreo significativo (1000 puntos a 5000 puntos).
+Esto se debe a la capacidad de las redes convolucionales para capturar
+patrones locales y caracter\'i­sticas relevantes en los datos, lo que
+les permite generalizar de manera efectiva a regiones m\'as amplias
+de la se\~nal.
+
+Ambos enfoques presentan ventajas y limitaciones. La red neuronal
+autoencoder simple es m\'as f\'acil de entrenar y requiere menos recursos
+computacionales, pero puede tener dificultades para capturar patrones
+complejos o no lineales en los datos. Por otro lado, la red neuronal
+convolucional es m\'as poderosa y flexible, pero requiere m\'as datos
+de entrenamiento y recursos computacionales. Entre las desventajas
+del m\'etodo tenemos el requerimiento de informaci\'on previa para generar
+un contexto $\mathcal{S}$, a partir de esto tambi\'en se puede considerar
+una desventaja el hecho de que un mismo conjunto de entrada puede
+generar salidas diferentes cuando $\mathcal{S}$ cambia. 
+
+\section{Conclusiones.}
+
+En este trabajo, se presentaron dos enfoques basados en redes neuronales
+para la reconstrucci\'on de se\~nales a partir de datos parciales o submuestreados.
+El primer enfoque utiliz\'o una red neuronal autoencoder simple para
+reconstruir se\~nales de 250 puntos a partir de solo 50 puntos dispersos
+y se lo compar\'o con la reconstrucci\'on basada en polinomios, mientras
+que el segundo enfoque emple\'o una red neuronal convolucional para
+reconstruir se\~nales de 5000 puntos a partir de 1000 puntos submuestreados.
+
+Los resultados obtenidos demostraron que ambos enfoques son capaces
+de reconstruir se\~nales con precisi\'on aceptable, siendo sus resultados
+comparables, e incluso superiores en algunos casos, a los m\'etodos
+tradicionales de interpolaci\'on polinomial. Esto resalta el potencial
+del aprendizaje profundo para abordar problemas de reconstrucci\'on
+de se\~nales en diversos \'ambitos, como el procesamiento de se\~nales,
+la visi\'on por computadora y el an\'alisis de series temporales.
+
+Finalmente,  se observaron ventajas y limitaciones de cada enfoque.
+En general, este trabajo aprovecha la aplicaci\'on de t\'ecnicas de aprendizaje
+profundo en problemas de reconstrucci\'on de series temporales.
+
+%\begin{thebibliography}{9}
+%	\bibitem{goodfellow2016deep}
+%	Goodfellow, I., Bengio, Y., \& Courville, A. (2016).
+%	\emph{Deep learning}. MIT press.
+%	
+%	\bibitem{lecun2015deep}
+%	LeCun, Y., Bengio, Y., \& Hinton, G. (2015).
+%	Deep learning.
+%	\emph{Nature}, \emph{521}(7553), 436-444.
+%	
+%	\bibitem{bengio2009learning}
+%	Bengio, Y. (2009).
+%	Learning deep architectures for AI.
+%	\emph{Foundations and trends in Machine Learning}, \emph{2}(1), 1-127.
+%	
+%	\bibitem{moca2021nature}
+%	Moca, V.V., B\'i¢rzan, H., Nagy-Dab\'i¢can, A. et al. Time-frequency super-resolution with superlets.  
+%	\emph{Nat Commu}, \emph{12}, 337.
+%	https://doi.org/10.1038/s41467-020-20539-9	
+%	
+%	\bibitem{huiyurong2022electronic}
+%	Liu, H.; Qian, Y.; Yang, G.; Jiang, H (2022). Super-Resolution Reconstruction Model of Spatiotemporal Fusion Remote Sensing Image Based on Double Branch Texture Transformers and Feedback Mechanism. 
+%	\emph{Electronics} , \emph{11}, 2497. 
+%	https://doi.org/10.3390/electronics11162497 
+%\end{thebibliography}
+
+\bibliographystyle{apacite}
+\bibliography{export}
+
+\end{document}

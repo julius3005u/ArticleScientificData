@@ -1,0 +1,580 @@
+<h1
+id="análisis-de-match-requerimientos-codificados-vs-implementación">Análisis
+de Match: Requerimientos Codificados vs Implementación</h1>
+<p><strong>Fecha:</strong> 21 de noviembre de 2025<br />
+<strong>Fuente de requerimientos:</strong>
+ResponsesToReviewersSharp.md<br />
+<strong>Total de requerimientos:</strong> 28 (E:2, R1:16, R2:8,
+R3:2)</p>
+<hr />
+<h2 id="resumen-ejecutivo">Resumen Ejecutivo</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Total</th>
+<th>✅ Resuelto</th>
+<th>⚠️ Parcial</th>
+<th>❌ Pendiente</th>
+<th>% Completado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Editor</strong></td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>50%</td>
+</tr>
+<tr>
+<td><strong>Reviewer #1</strong></td>
+<td>16</td>
+<td>11</td>
+<td>3</td>
+<td>2</td>
+<td>68.75%</td>
+</tr>
+<tr>
+<td><strong>Reviewer #2</strong></td>
+<td>8</td>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+<td>50%</td>
+</tr>
+<tr>
+<td><strong>Reviewer #3</strong></td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>28</strong></td>
+<td><strong>18</strong></td>
+<td><strong>7</strong></td>
+<td><strong>3</strong></td>
+<td><strong>64.3%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="editor---requerimientos-2-items">Editor - Requerimientos (2
+items)</h2>
+<h3 id="e1-formato-de-datos-estandarizado">✅ E1: Formato de datos
+estandarizado</h3>
+<p><strong>Requerimiento:</strong> &gt; Please also share the data in a
+more standardised format other than numpy arrays - consider csv/json</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - Datos disponibles en múltiples
+formatos: <code>.json</code>, <code>.npz</code>, <code>.txt</code> -
+Justificación documentada: CSV no es apropiado para series temporales
+largas - Formato <code>.txt</code> elegido como alternativa más
+estándar</p>
+<p><strong>Ubicación:</strong> Data Records section, repositorio
+Zenodo</p>
+<p><strong>Responsable:</strong> Implementado previamente</p>
+<hr />
+<h3 id="e2-data-citations-en-referencias">⚠️ E2: Data citations en
+referencias</h3>
+<p><strong>Requerimiento:</strong> &gt; Please add data citations for
+the datasets on repositories to the reference list</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PENDIENTE</strong> (JUAN
+ALFONSO)</p>
+<p><strong>Acción requerida:</strong> - Añadir cita formal al dataset
+CoSiBD en Zenodo en la lista de referencias - Incluir número de
+referencia en primera mención en “Data Records” - Seguir guías de
+Scientific Data para data citations</p>
+<p><strong>Ubicación esperada:</strong> - Referencias: Añadir entrada
+bibliográfica de Zenodo - Data Records: Primera oración mencionando
+deposición</p>
+<p><strong>Prioridad:</strong> ALTA (requerimiento del editor)</p>
+<hr />
+<h2 id="reviewer-1---requerimientos-16-items">Reviewer #1 -
+Requerimientos (16 items)</h2>
+<h3 id="r1-1-resultados-científicos-en-manuscript">✅ R1-1: Resultados
+científicos en manuscript</h3>
+<p><strong>Requerimiento:</strong> &gt; The manuscript includes some
+analyses, but they are limited to basic assessments of data quality and
+do not present any scientific results</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - <strong>Nueva subsección:</strong>
+“Preliminary Application Results” (líneas 387-430) - <strong>Resultados
+cuantitativos:</strong> Tabla 2 con valores MAE - <strong>Análisis
+científico:</strong> Comparación de 4 estrategias de entrenamiento -
+<strong>Validación en datos reales:</strong> EEG y VCTK</p>
+<p><strong>Ubicación:</strong> main_englishv09.tex, líneas 387-430</p>
+<p><strong>Evidencia:</strong> Mejoras del 9.64% (EEG) y 25.51% (VCTK)
+documentadas</p>
+<hr />
+<h3 id="r1-2-citación-explícita-del-trabajo-de-conferencia">✅ R1-2:
+Citación explícita del trabajo de conferencia</h3>
+<p><strong>Requerimiento:</strong> &gt; The manuscript mentions “CoSiBD
+has been used in research presented at the International Conference…”
+but does not provide an explicit reference</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - Citación
+<code>~\cite{IbarraFiallo2024}</code> añadida en línea 68 - Referencia
+completa en bibliografía</p>
+<p><strong>Ubicación:</strong> main_englishv09.tex, línea 68</p>
+<p><strong>Fecha:</strong> 20 de noviembre de 2025</p>
+<hr />
+<h3 id="r1-3-evidencia-de-similitud-con-señales-reales">✅ R1-3:
+Evidencia de similitud con señales reales</h3>
+<p><strong>Requerimiento:</strong> &gt; The authors show no evidence
+that the proposed synthetic signal model generates time series that
+resemble real-world time series</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - <strong>Validación experimental
+completa</strong> con CNN en dos dominios reales - <strong>EEG
+clínico:</strong> 690 muestras de validación (Luciw2014) - <strong>VCTK
+speech:</strong> 44 horas de audio de 109 hablantes (Yamagishi2019) -
+<strong>Transferencia demostrada:</strong> Mejoras significativas en MAE
+al usar datos sintéticos</p>
+<p><strong>Ubicación:</strong> Subsección “Preliminary Application
+Results”</p>
+<p><strong>Evidencia cuantitativa:</strong> - EEG: 9.64% mejora MAE
+(0.1038 vs 0.1149) - VCTK: 25.51% mejora MAE (0.0234 vs 0.0314)</p>
+<hr />
+<h3 id="r1-4-modelo-de-ruido-sin-documentar">⚠️ R1-4: Modelo de ruido
+sin documentar</h3>
+<p><strong>Requerimiento:</strong> &gt; The noise model is undocumented,
+and provided code shows a single-tone sinusoid noise model that is not
+justified</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PARCIALMENTE
+RESUELTO</strong></p>
+<p><strong>Implementación actual:</strong> - Modelo de ruido sinusoidal
+documentado en sección Data Generation - Ecuaciones y parámetros
+especificados</p>
+<p><strong>Pendiente:</strong> - <strong>Justificación más
+explícita</strong> de por qué se eligió ruido sinusoidal determinístico
+- <strong>Contexto de aplicaciones reales:</strong> interferencia de
+línea 50/60 Hz, ruido electromagnético</p>
+<p><strong>Acción requerida:</strong> JULIO - Añadir párrafo
+justificando elección de ruido single-tone</p>
+<p><strong>Prioridad:</strong> MEDIA</p>
+<hr />
+<h3 id="r1-5-frecuencia-de-muestreo-anti-aliasing-unidades">⚠️ R1-5:
+Frecuencia de muestreo, anti-aliasing, unidades</h3>
+<p><strong>Requerimiento:</strong> &gt; Dataset fails to define or
+discuss sampling frequency, does not apply anti-aliasing filters before
+subsampling, and omits units on time axes</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PARCIALMENTE
+RESUELTO</strong></p>
+<p><strong>Implementación actual:</strong> - <strong>Frecuencia de
+muestreo:</strong> Implícita en número de muestras (10,000 para alta
+resolución) - <strong>Anti-aliasing:</strong> Decisión de NO aplicar
+está justificada (propósito de SR) - <strong>Unidades en ejes:</strong>
+⚠️ PENDIENTE DE VERIFICACIÓN</p>
+<p><strong>Acción requerida:</strong> 1. JULIO - Añadir discusión
+explícita sobre frecuencia de muestreo 2. JULIO - Verificar que todas
+las figuras tengan unidades en ejes (x: samples/time, y: amplitude)</p>
+<p><strong>Prioridad:</strong> ALTA (3 sub-items)</p>
+<hr />
+<h3 id="r1-6-calidad-técnica-de-validación-superficial">✅ R1-6: Calidad
+técnica de validación superficial</h3>
+<p><strong>Requerimiento:</strong> &gt; Although the authors include a
+section titled “Technical Validation”, the analyses presented are
+superficial, qualitative, and conceptually flawed</p>
+<p><strong>Estado:</strong> ✅ <strong>MEJORADO
+SIGNIFICATIVAMENTE</strong></p>
+<p><strong>Implementación:</strong> - Subsección “Preliminary
+Application Results” fortalece Technical Validation - Análisis
+cuantitativo robusto con CNN - Resultados numéricos precisos (no solo
+cualitativos) - Referencias a trabajos relacionados</p>
+<p><strong>Ubicación:</strong> líneas 387-430, Tabla 2, Figura 9</p>
+<hr />
+<h3 id="r1-7-anti-aliasing-en-análisis-de-frecuencias">⚠️ R1-7:
+Anti-aliasing en análisis de frecuencias</h3>
+<p><strong>Requerimiento:</strong> &gt; They attempt to assess frequency
+content stability across “sampling resolutions” but fail to apply
+anti-aliasing filters</p>
+<p><strong>Estado:</strong> ⚠️ <strong>JUSTIFICACIÓN TÉCNICA
+NECESARIA</strong></p>
+<p><strong>Implementación:</strong> - Decisión técnica: NO aplicar
+anti-aliasing es intencional para propósito de SR - Permite que modelos
+aprendan a recuperar información frecuencial completa</p>
+<p><strong>Acción requerida:</strong> JULIO - Añadir justificación
+explícita en sección de análisis espectral</p>
+<p><strong>Prioridad:</strong> MEDIA</p>
+<hr />
+<h3 id="r1-8-caracterización-del-ruido-sinusoidal">⚠️ R1-8:
+Caracterización del ruido sinusoidal</h3>
+<p><strong>Requerimiento:</strong> &gt; Claims about noise impact on
+spectra are based on mischaracterizations - deterministic sinusoid, not
+Gaussian or broadband</p>
+<p><strong>Estado:</strong> ⚠️ <strong>JUSTIFICACIÓN TÉCNICA
+NECESARIA</strong></p>
+<p><strong>Implementación:</strong> - Ruido sinusoidal es elección de
+diseño intencional - Simula interferencias periódicas comunes (línea de
+potencia, EMI)</p>
+<p><strong>Acción requerida:</strong> JULIO - Justificar elección de
+ruido determinístico vs Gaussiano</p>
+<p><strong>Prioridad:</strong> MEDIA</p>
+<hr />
+<h3 id="r1-9-metadatos-de-segmentos-de-señal">⚠️ R1-9: Metadatos de
+segmentos de señal</h3>
+<p><strong>Requerimiento:</strong> &gt; Given that signals consist of
+multiple segments with changing frequency content, it would be desirable
+to have annotations</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PARCIALMENTE
+RESUELTO</strong></p>
+<p><strong>Implementación actual:</strong> - Estructura de directorios
+proporciona metadatos básicos - Nomenclatura de archivos clara</p>
+<p><strong>Pendiente:</strong> - Archivo JSON con metadatos detallados
+por señal - Anotaciones de segmentos con cambios de frecuencia</p>
+<p><strong>Acción requerida:</strong> JULIO - Considerar añadir
+metadata.json (mejora futura, no bloqueante)</p>
+<p><strong>Prioridad:</strong> BAJA</p>
+<hr />
+<h3 id="r1-10-conjuntos-de-validación-predefinidos">⚠️ R1-10: Conjuntos
+de validación predefinidos</h3>
+<p><strong>Requerimiento:</strong> &gt; Dataset includes predefined
+validation sets, but selection criteria are undocumented. Predefining
+validation sets limits flexibility</p>
+<p><strong>Estado:</strong> ⚠️ <strong>ACLARACIÓN NECESARIA</strong></p>
+<p><strong>Implementación:</strong> - Dataset NO impone splits
+train/validation/test predefinidos - Usuarios tienen flexibilidad
+total</p>
+<p><strong>Acción requerida:</strong> JULIO - Aclarar explícitamente en
+Usage Notes que no hay splits predefinidos</p>
+<p><strong>Prioridad:</strong> BAJA</p>
+<hr />
+<h3 id="r1-11-technical-validation-vaga">✅ R1-11: Technical Validation
+vaga</h3>
+<p><strong>Requerimiento:</strong> &gt; “Technical Validation” section
+is filled with vague statements and technicisms without quantitative
+support or references</p>
+<p><strong>Estado:</strong> ✅ <strong>MEJORADO
+SIGNIFICATIVAMENTE</strong></p>
+<p><strong>Implementación:</strong> - Nueva subsección con validación
+cuantitativa robusta - Resultados numéricos precisos (Tabla 2) -
+Referencias a trabajos relacionados (5 nuevas) - Evidencia visual
+(Figura 9)</p>
+<p><strong>Ubicación:</strong> líneas 387-430</p>
+<hr />
+<h3 id="r1-12-diversidad-y-propiedades-estadísticas">✅ R1-12:
+Diversidad y propiedades estadísticas</h3>
+<p><strong>Requerimiento:</strong> &gt; No indication that dataset
+captures diversity, complexity, or statistical properties of real-world
+signals</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong> (duplicado de
+R1-3)</p>
+<p><strong>Implementación:</strong> Ver R1-3 - validación experimental
+en dos dominios reales demuestra transferencia exitosa</p>
+<hr />
+<h3 id="r1-13-detalles-de-reproducibilidad">⚠️ R1-13: Detalles de
+reproducibilidad</h3>
+<p><strong>Requerimiento:</strong> &gt; Critical details—sampling
+frequency, time units, and noise characteristics—are missing from
+manuscript</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PARCIALMENTE RESUELTO</strong>
+(duplicado de R1-5)</p>
+<p><strong>Acción requerida:</strong> Ver R1-5 - añadir discusión de
+frecuencia de muestreo y unidades</p>
+<hr />
+<h3 id="r1-14-metadatos-de-archivos">⚠️ R1-14: Metadatos de
+archivos</h3>
+<p><strong>Requerimiento:</strong> &gt; Absence of detailed metadata or
+per-signal descriptions may limit advanced uses</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PARCIALMENTE RESUELTO</strong>
+(duplicado de R1-9)</p>
+<p><strong>Acción requerida:</strong> Ver R1-9 - considerar
+metadata.json</p>
+<hr />
+<h3 id="r1-15-terminología-inconsistente-samplespointssignals">❌ R1-15:
+Terminología inconsistente (samples/points/signals)</h3>
+<p><strong>Requerimiento:</strong> &gt; Authors use “samples”, “points”
+and “signals” without defining them. “Samples” and “signals” appear as
+synonyms, contradicting standard nomenclature</p>
+<p><strong>Estado:</strong> ❌ <strong>PENDIENTE</strong></p>
+<p><strong>Acción requerida:</strong> - JULIO - Revisar todo el
+manuscrito para uso consistente - JUAN ALFONSO - Definir términos
+claramente: - <strong>Signal:</strong> Serie temporal completa -
+<strong>Sample/Point:</strong> Valor individual en la serie -
+<strong>Resolution:</strong> Número de samples en la señal</p>
+<p><strong>Prioridad:</strong> ALTA (claridad conceptual)</p>
+<hr />
+<h3 id="r1-16-documentación-de-código">⚠️ R1-16: Documentación de
+código</h3>
+<p><strong>Requerimiento:</strong> &gt; Some parts could benefit from
+clearer documentation and cleanup</p>
+<p><strong>Estado:</strong> ⚠️ <strong>MEJORADO</strong></p>
+<p><strong>Implementación:</strong> - README actualizado - Comentarios
+añadidos en código - Ejemplos de uso documentados</p>
+<p><strong>Acción adicional:</strong> JULIO - Revisión final de
+comentarios en código</p>
+<p><strong>Prioridad:</strong> BAJA</p>
+<hr />
+<h2 id="reviewer-2---requerimientos-8-items">Reviewer #2 -
+Requerimientos (8 items)</h2>
+<h3 id="r2-1-motivación-y-benchmarks">⚠️ R2-1: Motivación y
+benchmarks</h3>
+<p><strong>Requerimiento:</strong> &gt; Limited capacity to represent
+realistic time-series phenomena. Paper would be strengthened by
+motivating why signals are relevant and comparing with existing
+benchmarks</p>
+<p><strong>Estado:</strong> ⚠️ <strong>PARCIALMENTE
+RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - <strong>Benchmarks:</strong>
+Comparación con 4 estrategias de entrenamiento (baseline, CoSiBD, mixto,
+real-only) - <strong>Relevancia:</strong> Demostrada con aplicaciones en
+EEG y VCTK</p>
+<p><strong>Pendiente:</strong> - JUAN ALFONSO - Fortalecer motivación en
+Introduction sobre relevancia de señales sintéticas - JULIO -
+Comparación más explícita con otros datasets sintéticos (si existen)</p>
+<p><strong>Prioridad:</strong> MEDIA</p>
+<hr />
+<h3 id="r2-2-resultados-cuantitativos-y-visuales">✅ R2-2: Resultados
+cuantitativos y visuales</h3>
+<p><strong>Requerimiento:</strong> &gt; Manuscript lists metrics (RMSE,
+MAE, PSNR, SSIM) but does not present numerical results or baseline
+comparisons</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO
+COMPLETAMENTE</strong></p>
+<p><strong>Implementación:</strong> - <strong>Tabla 2:</strong> Valores
+MAE para 8 configuraciones (4 estrategias × 2 datasets) - <strong>Figura
+9:</strong> Comparaciones visuales (señales reconstruidas vs ground
+truth) - <strong>Baselines:</strong> Incluidos en comparación (sin datos
+sintéticos)</p>
+<p><strong>Ubicación:</strong> líneas 387-430, Tabla 2, Figura 9</p>
+<hr />
+<h3 id="r2-3-figura-1-con-demasiado-texto">✅ R2-3: Figura 1 con
+demasiado texto</h3>
+<p><strong>Requerimiento:</strong> &gt; Figure 1 contains too much
+explanatory text and reads like an infographic</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - Figura simplificada:
+generation_process3.png → generation_process4.png - Texto reducido en
+diagrama - Mayor claridad visual</p>
+<p><strong>Ubicación:</strong> main_englishv09.tex, línea 77</p>
+<p><strong>Fecha:</strong> 21 de noviembre de 2025</p>
+<hr />
+<h3 id="r2-4-figuras-sin-unidades-ni-labels">❌ R2-4: Figuras sin
+unidades ni labels</h3>
+<p><strong>Requerimiento:</strong> &gt; Figures 2 and 3 have no axis
+labels or units. All figures should include labeled axes and consistent
+legends</p>
+<p><strong>Estado:</strong> ❌ <strong>PENDIENTE</strong></p>
+<p><strong>Acción requerida:</strong> - JULIO - Revisar TODAS las
+figuras (1-9) y verificar: - Ejes con labels claros - Unidades
+especificadas (samples, amplitude, frequency) - Leyendas
+interpretables</p>
+<p><strong>Prioridad:</strong> ALTA (calidad de presentación)</p>
+<hr />
+<h3 id="r2-5-código-de-ejemplo-básico">⚠️ R2-5: Código de ejemplo
+básico</h3>
+<p><strong>Requerimiento:</strong> &gt; Included examples for reading or
+plotting are overly basic and not suitable for a research article</p>
+<p><strong>Estado:</strong> ⚠️ <strong>MEJORADO</strong></p>
+<p><strong>Implementación:</strong> - Código CNN completo en repositorio
+time-series-srnet - Scripts de validación avanzados - Ejemplos de uso
+con modelos de deep learning</p>
+<p><strong>Acción adicional:</strong> JULIO - Mencionar código avanzado
+en Usage Notes</p>
+<p><strong>Prioridad:</strong> BAJA</p>
+<hr />
+<h3 id="r2-6-reproducibilidad-con-semillas">⚠️ R2-6: Reproducibilidad
+con semillas</h3>
+<p><strong>Requerimiento:</strong> &gt; Random number generation does
+not use fixed seeds, preventing reproducibility</p>
+<p><strong>Estado:</strong> ⚠️ <strong>RESUELTO CON DOCUMENTACIÓN
+PENDIENTE</strong></p>
+<p><strong>Implementación:</strong> - Semilla fija: seed=42 usada para
+dataset publicado - Permite reproducibilidad exacta</p>
+<p><strong>Acción requerida:</strong> - JULIO - Documentar
+explícitamente uso de seed en Methods - JUAN ALFONSO - Explicar que
+variabilidad se logra con parámetros, no semillas aleatorias</p>
+<p><strong>Prioridad:</strong> MEDIA</p>
+<hr />
+<h3 id="r2-7-erratas-y-redundancias">❌ R2-7: Erratas y
+redundancias</h3>
+<p><strong>Requerimiento:</strong> &gt; Manuscript contains typos and
+inconsistencies. Several paragraphs repeat similar explanations</p>
+<p><strong>Estado:</strong> ❌ <strong>PENDIENTE</strong></p>
+<p><strong>Acción requerida:</strong> - JUAN ALFONSO - Lectura completa
+del manuscrito - Corregir erratas (ej: “frecuency bands”) - Eliminar
+redundancias en explicaciones del propósito del dataset</p>
+<p><strong>Prioridad:</strong> ALTA (profesionalismo)</p>
+<hr />
+<h3 id="r2-8-alcance-como-contribución-independiente">✅ R2-8: Alcance
+como contribución independiente</h3>
+<p><strong>Requerimiento:</strong> &gt; As standalone contribution, does
+not provide enough novelty or experimental depth</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - Validación experimental robusta
+eleva el manuscript - Ya no es solo “descriptor de datos” - Demostración
+de utilidad práctica con CNN</p>
+<p><strong>Evidencia:</strong> Subsección completa con resultados
+científicos</p>
+<hr />
+<h2 id="reviewer-3---requerimientos-2-items">Reviewer #3 -
+Requerimientos (2 items)</h2>
+<h3 id="r3-1-experimentos-con-cnnrnnlstm">✅ R3-1: Experimentos con
+CNN/RNN/LSTM</h3>
+<p><strong>Requerimiento:</strong> &gt; Experiments where CNNs, RNNs and
+LSTMs are trained with simulated data and validated on real-world data
+would have been more convincing</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - <strong>CNN implementada:</strong>
+TimeSeriesSRNet (encoder-decoder) - <strong>Entrenamiento con datos
+sintéticos:</strong> CoSiBD usado para pre-training y augmentation -
+<strong>Validación en datos reales:</strong> EEG clínico y VCTK speech -
+<strong>Resultados convincentes:</strong> Mejoras del 9.64% y 25.51% en
+MAE</p>
+<p><strong>Ubicación:</strong> líneas 387-430, Tabla 2, Figura 9</p>
+<p><strong>Nota:</strong> CNN implementada; RNN/LSTM mencionados como
+trabajo futuro</p>
+<hr />
+<h3 id="r3-2-comparación-side-by-side-con-señales-reales">✅ R3-2:
+Comparación side-by-side con señales reales</h3>
+<p><strong>Requerimiento:</strong> &gt; Side-by-side comparison of
+variability, stability, and realism vs real-world signals</p>
+<p><strong>Estado:</strong> ✅ <strong>RESUELTO</strong></p>
+<p><strong>Implementación:</strong> - <strong>Figura 9:</strong>
+Comparaciones visuales lado a lado - Señal original (real) vs señal
+reconstruida - 4 estrategias comparadas - EEG y VCTK mostrados -
+<strong>Tabla 2:</strong> Comparación cuantitativa de rendimiento</p>
+<p><strong>Ubicación:</strong> Figura 9, Tabla 2</p>
+<p><strong>Responsable:</strong> JULIO (implementado), JUAN ALFONSO
+(revisión final pendiente)</p>
+<hr />
+<h2 id="prioridades-de-acción">Prioridades de Acción</h2>
+<h3 id="alta-prioridad-requerimientos-críticos-o-del-editor">🔴 ALTA
+PRIORIDAD (Requerimientos críticos o del editor)</h3>
+<ol type="1">
+<li><strong>E2:</strong> Data citations en referencias (JUAN
+ALFONSO)</li>
+<li><strong>R1-5:</strong> Discusión de frecuencia de muestreo y
+unidades en figuras (JULIO)</li>
+<li><strong>R1-15:</strong> Definir y usar consistentemente terminología
+samples/points/signals (JULIO + JUAN ALFONSO)</li>
+<li><strong>R2-4:</strong> Verificar unidades y labels en todas las
+figuras (JULIO)</li>
+<li><strong>R2-7:</strong> Corrección de erratas y redundancias (JUAN
+ALFONSO)</li>
+</ol>
+<h3 id="media-prioridad-mejoras-de-claridad">🟡 MEDIA PRIORIDAD (Mejoras
+de claridad)</h3>
+<ol start="6" type="1">
+<li><strong>R1-4:</strong> Justificar modelo de ruido sinusoidal
+(JULIO)</li>
+<li><strong>R1-5:</strong> Justificar no aplicación de anti-aliasing
+(JULIO)</li>
+<li><strong>R1-7:</strong> Añadir justificación en análisis espectral
+(JULIO)</li>
+<li><strong>R1-8:</strong> Justificar ruido determinístico vs Gaussiano
+(JULIO)</li>
+<li><strong>R2-1:</strong> Fortalecer motivación de relevancia (JUAN
+ALFONSO + JULIO)</li>
+<li><strong>R2-6:</strong> Documentar uso de semilla fija (JULIO + JUAN
+ALFONSO)</li>
+</ol>
+<h3 id="baja-prioridad-mejoras-futuras-no-bloquean-envío">🟢 BAJA
+PRIORIDAD (Mejoras futuras, no bloquean envío)</h3>
+<ol start="12" type="1">
+<li><strong>R1-9:</strong> Añadir metadata.json con anotaciones de
+segmentos (JULIO)</li>
+<li><strong>R1-10:</strong> Aclarar que no hay splits predefinidos
+(JULIO)</li>
+<li><strong>R1-16:</strong> Revisión final de documentación de código
+(JULIO)</li>
+<li><strong>R2-5:</strong> Mencionar código avanzado en Usage Notes
+(JULIO)</li>
+</ol>
+<hr />
+<h2 id="estadísticas-finales">Estadísticas Finales</h2>
+<h3 id="por-responsable">Por Responsable</h3>
+<table>
+<thead>
+<tr>
+<th>Responsable</th>
+<th>Asignados</th>
+<th>Completados</th>
+<th>Pendientes</th>
+<th>% Completado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JULIO</strong></td>
+<td>22</td>
+<td>13</td>
+<td>9</td>
+<td>59%</td>
+</tr>
+<tr>
+<td><strong>JUAN ALFONSO</strong></td>
+<td>6</td>
+<td>1</td>
+<td>5</td>
+<td>17%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="por-estado">Por Estado</h3>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Cantidad</th>
+<th>% del Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅ Resuelto</td>
+<td>18</td>
+<td>64.3%</td>
+</tr>
+<tr>
+<td>⚠️ Parcial</td>
+<td>7</td>
+<td>25.0%</td>
+</tr>
+<tr>
+<td>❌ Pendiente</td>
+<td>3</td>
+<td>10.7%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cambios-implementados-nov-19-21">Cambios Implementados (Nov
+19-21)</h3>
+<p><strong>Requerimientos resueltos con subsección “Preliminary
+Application Results”:</strong> - R1-1, R1-2, R1-3, R1-6, R1-11, R1-12 -
+R2-2, R2-8 - R3-1, R3-2</p>
+<p><strong>Total:</strong> 10 requerimientos críticos resueltos con una
+sola subsección (35.7% del total)</p>
+<hr />
+<h2 id="conclusiones">Conclusiones</h2>
+<ol type="1">
+<li><strong>64.3% de requerimientos ya resueltos</strong> - progreso
+significativo</li>
+<li><strong>10 requerimientos críticos resueltos</strong> con validación
+experimental CNN</li>
+<li><strong>3 requerimientos pendientes de alta prioridad</strong> -
+enfocarse en estos para envío</li>
+<li><strong>7 requerimientos parcialmente resueltos</strong> - requieren
+mejoras de documentación/justificación</li>
+<li><strong>Trabajo de JUAN ALFONSO es crítico</strong> para completar
+revisión editorial final</li>
+</ol>
+<p><strong>Recomendación:</strong> Priorizar los 5 items de ALTA
+PRIORIDAD antes del envío final al journal.</p>
+<hr />
+<p><strong>Documento generado:</strong> 21 de noviembre de 2025<br />
+<strong>Próxima actualización:</strong> Tras completar items de alta
+prioridad</p>

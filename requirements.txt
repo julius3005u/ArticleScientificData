@@ -1,0 +1,19 @@
+# CNN Super-Resolution Training Requirements
+# Para CnnModel2 - CoSiBD Dataset
+
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Numerical Computing
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# Progress Bars
+tqdm>=4.65.0
+
+# Optional: For Jupyter Notebook support
+jupyter>=1.0.0
+ipykernel>=6.25.0

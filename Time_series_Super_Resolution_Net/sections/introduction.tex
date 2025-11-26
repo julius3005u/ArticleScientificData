@@ -1,0 +1,28 @@
+The resolution of one-dimensional (1D) signals plays a crucial role in a wide range of scientific and industrial domains, from biomedical monitoring to audio processing and network analysis. However, limitations in hardware, energy constraints, and transmission bottlenecks often force the collection of signals at suboptimal sampling rates. This undersampling can obscure short-lived but critical events, reducing the performance of downstream tasks such as classification or anomaly detection. Super-resolution (SR) techniques aim to mitigate this by increasing the number of points in a signal without introducing distortion or losing original information.
+
+\subsection{Related work}
+Classical SR methods have traditionally relied on interpolation and signal processing techniques, but these often fail to reconstruct high-frequency components or preserve structural consistency in complex data. In contrast, deep learning approaches have recently emerged as state-of-the-art solutions by learning to generate plausible high-resolution reconstructions from coarse inputs.
+
+One of the earliest deep learning approaches for 1D signal super-resolution was proposed by \cite{kuleshov2017audio}, who demonstrated that a convolutional neural network (CNN) could upsample speech and music audio by factors ranging from $2\times$ to $6\times$, outperforming traditional interpolation techniques. CNN-based architectures have since been adapted for other domains. For example, \cite{kaniraja2024deep} proposed ECG-SRCNN, a model capable of $4\times$ upsampling of electrocardiogram (ECG) signals. Their approach not only improved signal reconstruction but also enhanced arrhythmia classification accuracy to 99\%.
+
+Generative Adversarial Networks (GANs) have also proven effective for SR by encouraging the generator to produce more realistic outputs through adversarial training. \cite{hu2020phase} developed a phase-aware GAN model for music super-resolution, reconstructing both magnitude and phase of the spectrogram and showing significant perceptual improvements. \cite{kim2018adversarial} explored adversarial training with unsupervised feature losses for general audio SR, achieving high fidelity in upsampled signals. \cite{luo2020eeg} proposed a Wasserstein GAN with temporal-spatial-frequency loss (TSF-MSE) to reconstruct high-sensitivity EEG signals, preserving critical neural features and improving classification performance.
+
+Transformers have recently been adopted for 1D SR tasks due to their ability to capture long-range dependencies. \cite{iversen2025t2sr} introduced T2SR, a transformer-based model for smart meter energy data. The model achieved superior performance in terms of mean squared error (MSE) when compared to CNN and RNN baselines. \cite{gong2024super} addressed super-resolution in network telemetry time series with Zoom2Net, a transformer model capable of upsampling coarse network data by up to $100\times$, significantly improving downstream prediction accuracy.
+
+Diffusion models have recently set new performance benchmarks in audio SR. \cite{liu2024audiosr} proposed AudioSR, a diffusion-based model that can upsample audio from 2--16\,kHz to 48\,kHz across domains including speech, music, and sound effects. \cite{im2025flashsr} later introduced FlashSR, which distills the diffusion process into a single step, achieving near real-time inference with performance comparable to full diffusion sampling.
+
+State-space models, especially those leveraging recent advances such as the Mamba architecture \autocite{gu2023mamba}, have been incorporated into SR pipelines for both efficiency and accuracy. \cite{abreu2024aeromamba} developed AEROMamba, replacing attention mechanisms in a GAN-based audio SR model with Mamba blocks, leading to a $5\times$ reduction in GPU memory usage and improved perceptual quality. Similarly, \cite{lin2025msecg} proposed MSECG, an ECG super-resolution model using bidirectional Mamba layers and $10\times$ upsampling, surpassing prior CNN-based methods in both signal-to-noise ratio and reconstruction fidelity.
+
+To capture multi-scale dynamics in nonstationary signals, \cite{yu2024adawavenet} introduced AdaWaveNet, a hybrid wavelet-deep network for both forecasting and super-resolution tasks. AdaWaveNet adaptively learns wavelet decompositions and achieves state-of-the-art performance across ten benchmark datasets.
+
+\subsection{Contribution}
+In this work, we address the critical challenge of limited data availability. We explore how synthetic data can be leveraged to train effective SR models in scenarios where real high-resolution signals are scarce. Thus, we aim to answer the following research questions:
+
+\begin{itemize}
+    \item \textbf{RQ1:} How effective are convolutional neural networks and other deep learning models for 1D signal super-resolution?
+
+    \item \textbf{RQ2:} Does the inclusion of synthetic data contribute to the performance of models trained only on real data? And if so, how?
+
+\end{itemize}
+
+Our contribution includes a detailed empirical evaluation across synthetic and real datasets, a structured analysis of different training strategies, and an assessment of the role that synthetic data plays in enhancing performance.

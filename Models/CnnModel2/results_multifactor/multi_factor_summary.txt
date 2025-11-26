@@ -1,0 +1,95 @@
+======================================================================
+MULTI-FACTOR TRAINING SUMMARY - CNN Super-Resolution CoSiBD
+======================================================================
+
+Date: 2025-11-23 11:46:29
+
+EXPERIMENT CONFIGURATION:
+  - Output Size: 5000 samples
+  - Batch Size: 16
+  - Learning Rate: 0.001
+  - Max Epochs per Factor: 50
+  - Validation Frequency: 10 epochs
+  - Early Stopping Patience: 3 validations
+  - Weight Decay: 1e-05
+  - Device: mps
+
+TRAINED MODELS:
+  Total models trained: 4
+
+  5x UPSAMPLING (1000 → 5000 samples):
+    - Best Validation Loss: 0.08454564
+    - Final Training Loss: 0.96327979
+    - Total Epochs: 50
+    - Early Stopped: No
+    - Model Parameters: 412,673
+    - Model File: models_multifactor/best_model_upsample5x.pth
+    - Results Directory: results_multifactor/5x/
+
+  10x UPSAMPLING (500 → 5000 samples):
+    - Best Validation Loss: 0.15243123
+    - Final Training Loss: 1.09193049
+    - Total Epochs: 50
+    - Early Stopped: No
+    - Model Parameters: 412,673
+    - Model File: models_multifactor/best_model_upsample10x.pth
+    - Results Directory: results_multifactor/10x/
+
+  20x UPSAMPLING (250 → 5000 samples):
+    - Best Validation Loss: 0.43759776
+    - Final Training Loss: 1.31943926
+    - Total Epochs: 50
+    - Early Stopped: No
+    - Model Parameters: 412,673
+    - Model File: models_multifactor/best_model_upsample20x.pth
+    - Results Directory: results_multifactor/20x/
+
+  33x UPSAMPLING (150 → 5000 samples):
+    - Best Validation Loss: 1.03262245
+    - Final Training Loss: 1.94735849
+    - Total Epochs: 50
+    - Early Stopped: No
+    - Model Parameters: 412,673
+    - Model File: models_multifactor/best_model_upsample33x.pth
+    - Results Directory: results_multifactor/33x/
+
+COMPARATIVE ANALYSIS:
+  - Best Performing Model: 5x upsampling
+    (Validation Loss: 0.08454564)
+
+  - Performance Ranking (by validation loss):
+    1. 5x upsampling: 0.08454564
+    2. 10x upsampling: 0.15243123
+    3. 20x upsampling: 0.43759776
+    4. 33x upsampling: 1.03262245
+
+GENERATED FILES:
+  - Multi-factor comparison: results_multifactor/multi_factor_comparison.png
+  - Summary report: results_multifactor/multi_factor_summary.txt
+  - Results JSON: results_multifactor/all_results.json
+
+  5x Upsampling:
+    - Model: models_multifactor/best_model_upsample5x.pth
+    - Loss curves: results_multifactor/5x/loss_curves.png
+    - Loss history CSV: results_multifactor/5x/loss_history.csv
+    - Prediction examples: results_multifactor/5x/prediction_examples.png
+
+  10x Upsampling:
+    - Model: models_multifactor/best_model_upsample10x.pth
+    - Loss curves: results_multifactor/10x/loss_curves.png
+    - Loss history CSV: results_multifactor/10x/loss_history.csv
+    - Prediction examples: results_multifactor/10x/prediction_examples.png
+
+  20x Upsampling:
+    - Model: models_multifactor/best_model_upsample20x.pth
+    - Loss curves: results_multifactor/20x/loss_curves.png
+    - Loss history CSV: results_multifactor/20x/loss_history.csv
+    - Prediction examples: results_multifactor/20x/prediction_examples.png
+
+  33x Upsampling:
+    - Model: models_multifactor/best_model_upsample33x.pth
+    - Loss curves: results_multifactor/33x/loss_curves.png
+    - Loss history CSV: results_multifactor/33x/loss_history.csv
+    - Prediction examples: results_multifactor/33x/prediction_examples.png
+
+======================================================================

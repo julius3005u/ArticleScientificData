@@ -1,0 +1,902 @@
+[
+  {
+    "signal_id": 0,
+    "seed": 1000,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.2,
+    "tau_amplitude": 5.0
+  },
+  {
+    "signal_id": 1,
+    "seed": 1001,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.9,
+    "tau_amplitude": 8.0
+  },
+  {
+    "signal_id": 2,
+    "seed": 1002,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.6,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 3,
+    "seed": 1003,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.3,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 4,
+    "seed": 1004,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 5,
+    "seed": 1005,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.45,
+    "tau_amplitude": 15.0
+  },
+  {
+    "signal_id": 6,
+    "seed": 1006,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.5,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 7,
+    "seed": 1007,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.05,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 8,
+    "seed": 1008,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.35,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 9,
+    "seed": 1009,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 10,
+    "seed": 1010,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.7000000000000002,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 11,
+    "seed": 1011,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.3,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 12,
+    "seed": 1012,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 13,
+    "seed": 1013,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.15,
+    "tau_amplitude": 1.0
+  },
+  {
+    "signal_id": 14,
+    "seed": 1014,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.6,
+    "tau_amplitude": 3.0
+  },
+  {
+    "signal_id": 15,
+    "seed": 1015,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.55,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 16,
+    "seed": 1016,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.65,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 17,
+    "seed": 1017,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 2.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 18,
+    "seed": 1018,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 19,
+    "seed": 1019,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.35,
+    "tau_amplitude": 1.0
+  },
+  {
+    "signal_id": 20,
+    "seed": 1020,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.85,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 21,
+    "seed": 1021,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.15,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 22,
+    "seed": 1022,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 23,
+    "seed": 1023,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.25,
+    "tau_amplitude": 1.0
+  },
+  {
+    "signal_id": 24,
+    "seed": 1024,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.55,
+    "tau_amplitude": 15.0
+  },
+  {
+    "signal_id": 25,
+    "seed": 1025,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 26,
+    "seed": 1026,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.65,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 27,
+    "seed": 1027,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.6,
+    "tau_amplitude": 8.0
+  },
+  {
+    "signal_id": 28,
+    "seed": 1028,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.6,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 29,
+    "seed": 1029,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.55,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 30,
+    "seed": 1030,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.35,
+    "tau_amplitude": 20.0
+  },
+  {
+    "signal_id": 31,
+    "seed": 1031,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 32,
+    "seed": 1032,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.4,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 33,
+    "seed": 1033,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.6,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 34,
+    "seed": 1034,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.6,
+    "tau_amplitude": 1.0
+  },
+  {
+    "signal_id": 35,
+    "seed": 1035,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.2,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 36,
+    "seed": 1036,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.35,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 37,
+    "seed": 1037,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.4,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 38,
+    "seed": 1038,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.45,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 39,
+    "seed": 1039,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.5,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 40,
+    "seed": 1040,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.3,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 41,
+    "seed": 1041,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 42,
+    "seed": 1042,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 43,
+    "seed": 1043,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.7000000000000002,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 44,
+    "seed": 1044,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.25,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 45,
+    "seed": 1045,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.7000000000000002,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 46,
+    "seed": 1046,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 47,
+    "seed": 1047,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.1,
+    "tau_amplitude": 12.0
+  },
+  {
+    "signal_id": 48,
+    "seed": 1048,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.75,
+    "tau_amplitude": 15.0
+  },
+  {
+    "signal_id": 49,
+    "seed": 1049,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9500000000000002,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 50,
+    "seed": 1050,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.35,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 51,
+    "seed": 1051,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.05,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 52,
+    "seed": 1052,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.65,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 53,
+    "seed": 1053,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.3,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 54,
+    "seed": 1054,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.3,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 55,
+    "seed": 1055,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.45,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 56,
+    "seed": 1056,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.7000000000000002,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 57,
+    "seed": 1057,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.85,
+    "tau_amplitude": 12.0
+  },
+  {
+    "signal_id": 58,
+    "seed": 1058,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 2.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 59,
+    "seed": 1059,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.65,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 60,
+    "seed": 1060,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.05,
+    "tau_amplitude": 3.0
+  },
+  {
+    "signal_id": 61,
+    "seed": 1061,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 2.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 62,
+    "seed": 1062,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.85,
+    "tau_amplitude": 20.0
+  },
+  {
+    "signal_id": 63,
+    "seed": 1063,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.4,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 64,
+    "seed": 1064,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.85,
+    "tau_amplitude": 10.0
+  },
+  {
+    "signal_id": 65,
+    "seed": 1065,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.9500000000000002,
+    "tau_amplitude": 3.0
+  },
+  {
+    "signal_id": 66,
+    "seed": 1066,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 2.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 67,
+    "seed": 1067,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.05,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 68,
+    "seed": 1068,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.05,
+    "tau_amplitude": 8.0
+  },
+  {
+    "signal_id": 69,
+    "seed": 1069,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.55,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 70,
+    "seed": 1070,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.1,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 71,
+    "seed": 1071,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.75,
+    "tau_amplitude": 3.0
+  },
+  {
+    "signal_id": 72,
+    "seed": 1072,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.8,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 73,
+    "seed": 1073,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.45,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 74,
+    "seed": 1074,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.55,
+    "tau_amplitude": 3.0
+  },
+  {
+    "signal_id": 75,
+    "seed": 1075,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 76,
+    "seed": 1076,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.45,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 77,
+    "seed": 1077,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 78,
+    "seed": 1078,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 79,
+    "seed": 1079,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.1,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 80,
+    "seed": 1080,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.6,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 81,
+    "seed": 1081,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.6,
+    "tau_amplitude": 15.0
+  },
+  {
+    "signal_id": 82,
+    "seed": 1082,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.6,
+    "tau_amplitude": 1.0
+  },
+  {
+    "signal_id": 83,
+    "seed": 1083,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.5,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 84,
+    "seed": 1084,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.2,
+    "tau_amplitude": 10.0
+  },
+  {
+    "signal_id": 85,
+    "seed": 1085,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.55,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 86,
+    "seed": 1086,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.75,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 87,
+    "seed": 1087,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.5,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 88,
+    "seed": 1088,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.1,
+    "tau_amplitude": 8.0
+  },
+  {
+    "signal_id": 89,
+    "seed": 1089,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "tension",
+    "tau_frequency": 1.15,
+    "tau_amplitude": 10.0
+  },
+  {
+    "signal_id": 90,
+    "seed": 1090,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.3,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 91,
+    "seed": 1091,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.6,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 92,
+    "seed": 1092,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 2.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 93,
+    "seed": 1093,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.9,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 94,
+    "seed": 1094,
+    "noise_type": "gaussian",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.7000000000000002,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 95,
+    "seed": 1095,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.0,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 96,
+    "seed": 1096,
+    "noise_type": "structured",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.55,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 97,
+    "seed": 1097,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.05,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 98,
+    "seed": 1098,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.5,
+    "tau_amplitude": "N/A"
+  },
+  {
+    "signal_id": 99,
+    "seed": 1099,
+    "noise_type": "none",
+    "frequency_profile_type": "non_uniform_high_low",
+    "amplitude_spline_type": "zero_order",
+    "tau_frequency": 1.2,
+    "tau_amplitude": "N/A"
+  }
+]
