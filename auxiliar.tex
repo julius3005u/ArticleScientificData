@@ -1,0 +1,76 @@
+\subsection*{Related synthetic time-series resources}
+
+Publicly available synthetic resources for temporal signals exist, but they are typically designed for tasks other than time-series super-resolution (SR), or they target a specific domain. In wireless communications, the RadioML family provides large collections of synthetic complex I/Q sequences with varying SNR and channel impairments, mainly to benchmark automatic modulation classification rather than paired SR reconstruction \cite{oshea2016grcon,deepsig_datasets,deepsig_radioml2018}. In biomedical signal processing, physiological simulators such as ECGSYN (ECG) and SEREEGA (EEG) enable controlled generation with tunable morphology, sampling settings, and noise, supporting method development when real data access is constrained \cite{mcsharry2003ecg,ecgsyn_physionet,krol2018sereega}. In power systems, LoadGAN provides multi-resolution generation of load time series across sampling rates and time horizons (from sub-second to long-term scales), but it is not distributed as a standardized paired SR benchmark \cite{pinceti2021loadgan}. Domain-specific paired low-/high-resolution training data can also be produced via physical forward modeling, e.g., low- and high-resolution 1D seismic traces for learning-based resolution enhancement \cite{yuan2024seismic}.
+
+Table~\ref{tab:related_synthetic_datasets} summarizes these representative resources and highlights a practical gap: while many tools provide synthetic signals, they usually do not jointly offer (i) multi-factor paired LR--HR signals for time-series SR, (ii) both direct re-evaluation and anti-aliasing-filtered downsampling pipelines for constructing low-resolution observations, and (iii) per-signal metadata (including random seeds) enabling exact sample-level reproducibility. CoSiBD is designed to address this gap by providing multi-resolution paired signals, optional anti-aliased observations, explicit nuisance modeling (noise and structured interference), and comprehensive metadata for reproducible SR benchmarking across multiple difficulty levels.
+
+\begin{table*}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{2.7cm}|p{2.3cm}|p{1.6cm}|p{1.9cm}|p{1.7cm}|p{2.2cm}|p{2.4cm}|}
+\hline
+\textbf{Resource} & \textbf{Domain} & \textbf{Form} & \textbf{Paired LR--HR SR} & \textbf{Multi-resolution} & \textbf{Noise / artifacts} & \textbf{Reproducibility granularity} \\
+\hline
+\textbf{CoSiBD (this work)} &
+Generic time series (complex-structured signals) &
+Dataset + generator &
+Yes (LR $\rightarrow$ HR targets) &
+Yes (150/250/500/1000 $\rightarrow$ 5000) &
+Gaussian + structured interference; filtered LR also provided &
+Per-signal metadata + seeds (exact regeneration) \\
+\hline
+RadioML 2016.10A \cite{oshea2016grcon,deepsig_datasets} &
+Wireless communications (I/Q) &
+Dataset &
+No (classification benchmark) &
+N/A (not SR) &
+Variable SNR + channel impairments &
+Dataset-level (labels/SNR); not per-sample ``recipe'' \\
+\hline
+RadioML 2018.01A \cite{deepsig_radioml2018} &
+Wireless communications (I/Q) &
+Dataset &
+No (classification benchmark) &
+N/A (not SR) &
+Simulated channel effects + SNR variability &
+Dataset-level; not SR-paired \\
+\hline
+ECGSYN \cite{mcsharry2003ecg,ecgsyn_physionet} &
+ECG (physiology) &
+Simulator/tool &
+Configurable\footnotemark[1] &
+Configurable (via sampling settings) &
+Model-based; supports controlled variability &
+Configurable via simulator parameters (user-defined) \\
+\hline
+SEREEGA \cite{krol2018sereega} &
+EEG (physiology) &
+Simulator/toolbox &
+Configurable\footnotemark[1] &
+Configurable (user-defined) &
+Supports noise and event-related components &
+Configurable via simulator parameters (user-defined) \\
+\hline
+LoadGAN \cite{pinceti2021loadgan} &
+Power systems load time series &
+Generator/tool &
+No (generation) &
+Yes (variable sampling rates) &
+Domain-specific variability (load patterns) &
+Tool-based; generation is configurable \\
+\hline
+Synthetic LR--HR seismic traces (example) \cite{yuan2024seismic} &
+Seismic traces (geophysics) &
+Paper-specific paired data &
+Yes (LR--HR pairs) &
+Typically limited (study-specific) &
+Study-dependent &
+Paired data available for the study; limited generality \\
+\hline
+\end{tabular}
+\caption{Representative publicly available synthetic time-series datasets and simulators related to signal processing and learning. ``Form'' indicates whether the resource is distributed primarily as a fixed dataset or as a simulator/generator. ``Reproducibility granularity'' summarizes whether exact per-sample regeneration is supported via documented parameters and seeds.}
+\label{tab:related_synthetic_datasets}
+\end{table*}
+
+\footnotetext[1]{``Configurable'' indicates that LR--HR pairs can be constructed by running the simulator at different sampling settings and/or applying controlled downsampling, but a standardized paired SR benchmark (multi-factor LR versions aligned to a fixed HR target) is not typically distributed as part of the resource.}

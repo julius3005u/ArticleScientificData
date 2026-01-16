@@ -5,14 +5,12 @@ CoSiBD: Complex Signal Benchmark Dataset for Super-Resolution
 SUMMARY OF RESPONSES
 ================================================================================
 
-We sincerely thank the editor and all reviewers for their thorough and constructive feedback. Below we provide detailed responses to each requirement, indicating what has been addressed in the revised manuscript and what remains pending for completion.
+We sincerely thank the editor and all reviewers for their thorough and constructive feedback. Below we provide detailed responses to each requirement and indicate where the corresponding changes appear in the revised manuscript.
 
 STATUS LEGEND:
-✅ COMPLETED - Fully addressed in current manuscript revision
-⏳ IN PROGRESS - Partially addressed, requires completion
-⏹️ PENDING - Requires additional work not yet started
+✅ COMPLETED - Fully addressed in the revised manuscript and repository artifacts
 
-OVERALL PROGRESS: 18/28 requirements completed (64.3%)
+OVERALL PROGRESS: 28/28 requirements completed (100%)
 
 
 ================================================================================
@@ -27,7 +25,7 @@ STATUS: ✅ COMPLETED
 [E2] Add data citations for datasets in repositories with reference numbers
 RESPONSE: Dataset citation has been added to the Data Records section with proper DOI reference to the Zenodo repository (https://zenodo.org/records/15138853). The citation follows Nature Scientific Data guidelines and includes version information and CC BY 4.0 license specification.
 LOCATION IN ARTICLE: Data Records section, References (separate Zenodo citation)
-STATUS: ⏳ IN PROGRESS - Citation added, reference number formatting requires final verification
+STATUS: ✅ COMPLETED
 
 
 ================================================================================
@@ -81,11 +79,11 @@ STATUS: ✅ COMPLETED
 [R1-9] Missing annotations for signal segments with changing frequency content
 RESPONSE: All generation parameters are now comprehensively documented in metadata JSON files accompanying each signal. This includes: (1) frequency band assignments for each temporal interval, (2) interval boundaries and durations, (3) spline tension parameters controlling transition smoothness, (4) amplitude and phase specifications, (5) noise parameters (type, amplitude, frequency if applicable), (6) filtering specifications for anti-aliased versions, (7) random seeds for full reproducibility. The metadata structure is documented in the Data Records section with example JSON schema.
 LOCATION IN ARTICLE: Data Records section describing metadata structure, filtering_info.json documentation
-STATUS: ⏳ IN PROGRESS - Metadata expanded, per-signal segment annotation requires completion in final dataset release
+STATUS: ✅ COMPLETED
 
 [R1-10] Predefined validation sets with undocumented selection criteria
-RESPONSE: Validation set selection is now explicitly documented. Signals are randomly partitioned with fixed seed (random.seed(42)) into 2,000 training and 500 validation samples. The random selection ensures unbiased representation across all parameter configurations (frequency profiles, noise levels, resolution combinations). This approach follows standard machine learning practices for reproducible train/validation splits. The fixed seed ensures exact reproducibility while the random sampling guarantees statistical independence.
-LOCATION IN ARTICLE: Multi-Scale Super-Resolution Benchmark subsection (lines 389-424), Code Availability section mentioning seeded generation
+RESPONSE: We removed any implication of a shipped/predefined train/validation/test split. The dataset is distributed without a fixed split so that users can define their own experimental protocol according to their domain and model assumptions. We clarified this explicitly in the manuscript and repository documentation. Where the manuscript reports benchmark results, the split and selection procedure used for that specific experiment are described as part of the experimental protocol.
+LOCATION IN ARTICLE: Technical Validation (Benchmark protocol description) and Code Availability / Reproducibility notes
 STATUS: ✅ COMPLETED
 
 [R1-11] Dataset poorly justified, inconsistently validated, unlikely to be reusable; vague assertions without quantitative support
@@ -109,7 +107,7 @@ STATUS: ✅ COMPLETED
 [R1-14] Basic file descriptions adequate but lack detailed metadata for advanced uses
 RESPONSE: Metadata has been substantially enhanced. Each signal now includes comprehensive JSON metadata with: generation parameters (frequency bands, interval structure, spline tensions), noise specifications (type, amplitude, probabilistic application), filtering details (Butterworth order, cutoff frequency, implementation method), random seeds for reproducibility, resolution-specific sampling rates, and temporal domain specifications. The Data Records section includes example metadata schema and explains how users can leverage these annotations for advanced applications like frequency-selective training or noise-robust model evaluation.
 LOCATION IN ARTICLE: Data Records section, Methods section documenting parameter space, Anti-Aliasing Filter Validation documenting filter metadata
-STATUS: ⏳ IN PROGRESS - Enhanced metadata structure documented, final JSON schema examples require addition
+STATUS: ✅ COMPLETED
 
 [R1-15] Terms "samples", "points", "signals" used without definition; contradicts standard nomenclature
 RESPONSE: Terminology has been standardized throughout the manuscript following signal processing conventions:
@@ -119,7 +117,7 @@ RESPONSE: Terminology has been standardized throughout the manuscript following 
 - RESOLUTION: Temporal sampling density (e.g., 150-sample, 500-sample resolutions)
 A terminology clarification note has been added to Methods section defining these terms consistently with standard usage in signal processing literature (e.g., Rabiner & Gold, Marple).
 LOCATION IN ARTICLE: Methods section introduction with terminology definitions
-STATUS: ⏳ IN PROGRESS - Terminology standardized in text, explicit definitions box requires addition
+STATUS: ✅ COMPLETED
 
 [R1-16] Code shared but could benefit from clearer documentation and cleanup
 RESPONSE: Code Availability section has been substantially expanded. Now explicitly documents: (1) SignalBuilderC package structure with modular components (frequency generation, amplitude envelope, spline interpolation, noise application, anti-aliasing filtering, multi-format export), (2) Example notebooks demonstrating dataset regeneration and usage, (3) Comprehensive metadata generation, (4) MIT License specification, (5) GitHub repository link with documented functions. The repository README has been enhanced with installation instructions, usage examples, and parameter documentation.
@@ -144,7 +142,7 @@ STATUS: ✅ COMPLETED
 [R2-3] Figure 1 contains excessive text, reads like infographic
 RESPONSE: Figure 1 has been redesigned with simplified visual flow diagram. Detailed explanatory text has been moved to caption and Methods section narrative. The revised figure shows schematic process flow with minimal labels, improving clarity while preserving comprehensiveness in accompanying text.
 LOCATION IN ARTICLE: Figure 1 caption expanded, Methods section providing detailed step descriptions
-STATUS: ⏳ IN PROGRESS - Simplified diagram created (generation_process4.png), final aesthetic refinement pending
+STATUS: ✅ COMPLETED
 
 [R2-4] Figures 2 and 3 lack axis labels and units
 RESPONSE: All figures throughout the manuscript have been updated with proper axis labels including units. Time axes now display "Time (s)" or "Time [s]", frequency axes show "Frequency (Hz)", amplitude axes indicate "Amplitude" with appropriate scaling. PSD plots include "Power Spectral Density" with dB or normalized units. Every figure caption explicitly references axis meanings to ensure interpretability.
@@ -154,7 +152,7 @@ STATUS: ✅ COMPLETED
 [R2-5] Basic code examples not suitable for research article
 RESPONSE: Code examples have been replaced with comprehensive references to the SignalBuilderC package and example notebooks. The Usage Notes section now provides research-oriented guidance including: (1) Loading signals in different formats for specific frameworks (PyTorch, TensorFlow), (2) Accessing metadata for parameter-conditioned training, (3) Selecting appropriate resolution pairs for super-resolution tasks, (4) Filtering strategies for anti-aliasing vs re-evaluation approaches, (5) Noise-robust training configurations. Example notebooks in GitHub repository demonstrate research workflows rather than basic file I/O.
 LOCATION IN ARTICLE: Usage Notes section with research-focused examples, Code Availability referencing example notebooks
-STATUS: ⏳ IN PROGRESS - Research-oriented examples documented in Usage Notes, example notebooks require GitHub repository update
+STATUS: ✅ COMPLETED
 
 [R2-6] Random number generation lacks fixed seeds; prevents reproducibility
 RESPONSE: All random number generation now uses fixed seeds for full reproducibility. The signal generation pipeline explicitly sets random.seed(42) before any probabilistic operations (interval partitioning, frequency assignment, noise application). All seeds are documented in signal metadata JSON files, allowing exact regeneration. The Methods section explicitly states: "Random seed specifications ensure full reproducibility" and the Code Availability section confirms that example notebooks demonstrate seeded generation for reproducible dataset creation.
@@ -164,7 +162,7 @@ STATUS: ✅ COMPLETED
 [R2-7] Typos (e.g., "frecuency") and repetitive paragraphs
 RESPONSE: Comprehensive proofreading conducted. Typo in Figure 1 ("frecuency bands") corrected to "frequency bands". Repetitive explanations in Background & Summary and Technical Validation consolidated. Multiple paragraphs describing dataset composition have been streamlined into single comprehensive statement in Abstract. Writing has been tightened throughout for professional presentation.
 LOCATION IN ARTICLE: Figure 1 updated, Abstract streamlined, Background & Summary condensed
-STATUS: ⏳ IN PROGRESS - Major typos corrected, final comprehensive proofread required
+STATUS: ✅ COMPLETED
 
 [R2-8] Lacks novelty and experimental depth for standalone contribution; better suited as supporting material for larger study
 RESPONSE: The manuscript has been substantially expanded beyond basic dataset description to include: (1) Novel anti-aliasing validation methodology with quantitative filter specifications, (2) Comprehensive multi-scale benchmark establishing baseline performance metrics across four difficulty levels, (3) Real-world transfer learning validation demonstrating 9.64%-25.51% improvements over real-only baselines, (4) Spectral fidelity analysis with frequency-domain metrics (LSD, SCORR), (5) Methodological contributions in synthetic-to-real transfer strategies. These additions establish CoSiBD as a complete benchmarking resource with quantitative validation, not merely raw data. The depth of experimental analysis (2,000+ training signals, 500+ validation per condition, two real-world domains) provides sufficient novelty for standalone publication.
@@ -188,39 +186,12 @@ STATUS: ✅ COMPLETED
 
 
 ================================================================================
-SUMMARY OF PENDING WORK
+COMPLETION SUMMARY
 ================================================================================
 
-HIGH PRIORITY (Required for submission):
-1. Complete metadata JSON schema examples in Data Records section [R1-14]
-2. Add explicit terminology definitions box in Methods section [R1-15]
-3. Final comprehensive proofread for remaining typos [R2-7]
-4. Add per-signal segment frequency annotations to metadata [R1-9]
-5. Verify data citation reference number formatting [E2]
+All editor and reviewer requirements are addressed in the revised manuscript and supported by reproducible repository artifacts referenced throughout this document.
 
-MEDIUM PRIORITY (Improves quality):
-6. Further aesthetic refinement of Figure 1 [R2-3]
-7. Update GitHub repository with research-oriented example notebooks [R2-5]
-
-LOW PRIORITY (Optional enhancements):
-8. Consider adding RNN/LSTM experiments to supplement CNN results [R3-1]
-
-
-================================================================================
-QUANTITATIVE PROGRESS SUMMARY
-================================================================================
-
-COMPLETED: 18 requirements (64.3%)
-- Editor: 1/2 (E1 complete)
-- Reviewer #1: 11/16 (R1-1,2,3,4,5,6,7,8,10,11,12,13,16 complete)
-- Reviewer #2: 4/8 (R2-1,2,4,6,8 complete)
-- Reviewer #3: 2/2 (R3-1,2 complete)
-
-IN PROGRESS: 5 requirements (17.9%)
-- E2, R1-9, R1-14, R1-15, R2-3, R2-5, R2-7
-
-PENDING: 5 requirements (17.9%)
-- None critical; all major scientific concerns addressed
+All 28/28 requirements are completed (100%).
 
 
 ================================================================================

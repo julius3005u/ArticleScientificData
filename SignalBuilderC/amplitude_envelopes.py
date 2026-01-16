@@ -11,8 +11,8 @@ def generate_random_amplitude_envelope(t: np.ndarray, rng=None):
     - random phase in [0, pi],
     - 1 to 4 interior control points,
     - amplitude floor around 0.5,
-    - tau aleatorio en {1,3,5,8,10,12,15,20} con 50% probabilidad,
-    - 70% step function (zero-order spline).
+    - tau aleatorio en [0.5, 2.5] para transiciones suaves (no agresivas),
+    - 50% tension spline (suave) vs 50% step function (abrupta).
     """
     if rng is None:
         rng = np.random.default_rng()
@@ -21,8 +21,8 @@ def generate_random_amplitude_envelope(t: np.ndarray, rng=None):
     x0 = float(t[0])
     x1 = float(t[-1])
 
-    # Amplitud más alta (3-15) para mayor contraste visual
-    amplitude = (2 * rng.random() - 1.0) * rng.integers(3, 16)
+    # Amplitud controlada (1-8) para variaciones más naturales sin picos extremos
+    amplitude = (2 * rng.random() - 1.0) * rng.integers(1, 9)
     frequency = (2 * rng.random() - 1.0) * rng.integers(1, 10)
     phase = rng.random() * np.pi
 
@@ -42,10 +42,11 @@ def generate_random_amplitude_envelope(t: np.ndarray, rng=None):
     amp_knots = np.asarray(amp_knots, dtype=float)
     amp_values = np.asarray(amp_values, dtype=float)
 
-    # 70% step function (variaciones bruscas) vs 30% tension spline
-    use_tension = rng.choice([True, False], p=[0.3, 0.7])
+    # 50% tension spline (transiciones suaves) vs 50% step function (variaciones bruscas)
+    use_tension = rng.choice([True, False], p=[0.5, 0.5])
     if use_tension:
-        tau = float(rng.choice([1, 3, 5, 8, 10, 12, 15, 20]))
+        # tau en [0.5, 2.5] para transiciones suaves sin oscilaciones extremas
+        tau = float(rng.uniform(0.5, 2.5))
         amp_spline = tension_spline_interpolator(amp_knots, amp_values, tau=tau)
         amp_envelope = amp_spline(t)
         spline_type = 'tension'

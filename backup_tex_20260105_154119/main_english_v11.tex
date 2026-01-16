@@ -1,0 +1,641 @@
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lineno}
+ \usepackage{multirow}
+ \newcommand{\fromYour}[1]{\textcolor{blue}{#1}}
+\newcommand{\fromProf}[1]{#1} % negro
+\newcommand{\fromAI}[1]{\textcolor{red}{#1}}
+\usepackage{array}  % Añade esto en el preámbulo
+\renewcommand{\arraystretch}{1.3}  % Espaciado vertical entre filas
+
+\usepackage{subcaption}
+\linenumbers
+\usepackage{float}
+
+% ===== TRACK CHANGES PACKAGE =====
+% Use [draft] to show changes with highlighting
+% Use [final] to hide all markup for submission
+\usepackage[final]{changes}
+\usepackage{xcolor}
+
+% Define authors for tracked changes
+\definechangesauthor[name={Revision}, color=yellow]{REV}
+
+% Custom commands for easier tracking
+\newcommand{\addtext}[1]{\added[id=REV]{#1}}
+\newcommand{\deltext}[1]{\deleted[id=REV]{#1}}
+\newcommand{\replacetext}[2]{\replaced[id=REV]{#1}{#2}}
+\newcommand{\notetext}[1]{\comment[id=REV]{#1}}
+\newcommand{\highlighttext}[1]{\highlight[id=REV]{#1}}
+% ===== END TRACK CHANGES =====  
+
+%\title{CoSiBD: A Versatile Dataset for Benchmarking Signal Processing and Machine Learning Algorithms}
+%\title{CoSiBD: A Synthetic Dataset for Super-Resolution Deep Learning Temporal Series Analysis}
+%\title{A synthetic dataset for super-resolution of Time Series using Deep Learning}
+\title{A synthetic dataset for Time Series Super-Resolution with Deep Learning}
+\author[1]{Julio Ibarra-Fiallo}
+\author[2]{Juan A. Lara}
+\author[1]{D'hamar Agudelo-Moreno}
+%\author[2,*]{autor }
+\affil[1]{Colegio de Ciencias e Ingenierías, Universidad San Francisco de Quito, Cumbayá, Ecuador}
+\affil[2]{Universidad de Córdoba, Córdoba, España}
+
+\affil[*]{corresponding author: Julio Ibarra-Fiallo (jibarra@usfq.edu.ec)}
+
+\begin{abstract}
+High quality temporal data are essential for training and evaluating machine learning models used in fields such as biomedical monitoring, telecommunications, and industrial sensing. In practice, real-world signals with controlled resolution, noise, and variability are often difficult or costly to obtain because data collection depends on constraints that include privacy, instrumentation, and experimental conditions. To address this limitation, we present CoSiBD, a synthetic benchmark dataset of 2,500 multicomponent time series designed for research on temporal super resolution, reconstruction, and denoising. The dataset provides high resolution reference signals sampled at 5,000 points together with four systematically subsampled versions at 150, 250, 500, and 1,000 points. Each signal includes structured metadata describing all generation parameters, noise settings, and frequency characteristics to ensure full reproducibility. CoSiBD spans a broad range of temporal dynamics that include slow variations, localized high frequency bursts, and non uniform transitions that reflect common patterns in biomedical, mechanical, and communication signals. To support realistic low resolution scenarios, the dataset includes both directly subsampled and anti aliasing filtered variants. By combining multi resolution signals, controlled noise, and detailed metadata, CoSiBD provides a flexible resource for benchmarking deep learning models and signal processing methods under diverse and fully reproducible conditions.
+\end{abstract}
+
+\begin{document}
+
+\flushbottom
+\maketitle
+
+\section*{Background and summary}
+
+Temporal signals are central to scientific and engineering analysis because they provide direct access to the dynamic processes that govern physical, biological, and technological systems. Methods for interpreting such signals are widely used in biomedical applications, where electroencephalography and electrocardiography help characterize neural and cardiac activity \cite{Karacan2024, Nayak2023, shaffer2017}. Similar methods support telecommunications, where signal processing ensures data fidelity under noise and channel distortions \cite{Chen2022}. Time series forecasting plays a central role in finance \cite{Zhang2016}, industrial monitoring relies on temporal patterns for early fault detection \cite{Bhatia2021}, and environmental research applies temporal analysis to remote sensing and climate observations \cite{Mallat1989}. Although these domains differ in purpose and methodology, they all depend on well sampled signals that capture relevant temporal patterns at appropriate resolutions.
+\\ \\
+Obtaining real world signals that satisfy these requirements is often challenging. High resolution measurements can be limited by privacy regulations such as those governing biomedical data \cite{Isasa2024}, by restrictions on hardware availability, by the cost of acquisition, or by logistical constraints during data collection. These limitations directly affect research on temporal super resolution, a task that requires paired low resolution and high resolution signals for supervised learning. In many domains such pairs are unavailable or cannot be collected at scale, which restricts reproducible experimentation and hinders the development of new reconstruction models.
+\\ \\
+Synthetic datasets offer a practical alternative because they allow controlled variation of sampling resolution, frequency content, and noise while preserving full reproducibility. Prior work in fluid dynamics \cite{Yasuda2023}, bioimaging \cite{Priessner2024}, and live cell microscopy \cite{Qiao2025} has shown that synthetic data can approximate the complexity of real signals while avoiding ethical and logistical constraints. These studies demonstrate that synthetic benchmarks serve as valuable testbeds for developing and comparing computational methods when real measurements are difficult to obtain or standardize.
+\\ \\
+The Complex Signal Benchmark Dataset (CoSiBD) is designed within this context to support research on temporal super resolution, interpolation, and spectral reconstruction. CoSiBD contains 2{,}500 high resolution synthetic signals sampled at 5{,}000 points, together with corresponding low resolution versions at 150, 250, 500, and 1{,}000 points. The signals include probabilistic frequency transitions, amplitude variations, spline based smoothing, and configurable noise, which together generate diverse temporal behaviors that reflect patterns commonly encountered in biomedical, mechanical, and communication signals. This diversity is fully reproducible because each instance is accompanied by metadata that records frequency profiles, amplitude envelopes, spline parameters, noise configurations, and the random seed used for generation.
+\\ \\
+Low resolution signals in CoSiBD are produced through two complementary strategies: direct subsampling at coarser temporal grids and anti aliased filtered downsampling. These complementary versions allow researchers to evaluate reconstruction models under distinct degradation scenarios, ranging from simple resolution loss to more realistic low pass sampling. The dataset provides a structured benchmark for interpolation methods, deep learning based reconstruction, and spectral analysis techniques. CoSiBD has been used in previous research on synthetic temporal modeling \cite{IbarraFiallo2024} and is publicly released to support reproducible experimentation, methodological comparison, and adoption across multiple application domains.
+
+\section*{Methods}
+
+\subsection*{Overview of the signal generation pipeline}
+
+The CoSiBD dataset is generated through a deterministic and reproducible pipeline designed to synthesize temporal signals with controlled variability in frequency content, amplitude evolution, noise conditions, and sampling resolution. Each signal is created using a unique random seed, and all configuration parameters are stored in individual metadata files. The generation process consists of seven stages: (1) definition of an adimensional temporal domain, (2) segmentation into non-uniform intervals, (3) frequency-band assignment per segment, (4) sinusoidal synthesis, (5) transition smoothing, (6) optional noise injection, and (7) multi-resolution generation through direct re-evaluation or filtered downsampling. Figure~\ref{fig:generation_process} provides a schematic overview of these steps.
+\\ \\
+The process is designed to produce a wide range of nonstationary and multi-scale temporal behaviors, without aiming to replicate any specific real-world signal. The resulting diversity of transitions, oscillatory patterns, and amplitude changes supports the creation of paired datasets for evaluating temporal super resolution and related reconstruction methods.
+
+\subsection*{Temporal domain and sampling scheme}
+
+All signals are defined over the adimensional temporal domain
+\[
+t \in [0,4\pi].
+\]
+The term adimensional indicates that the temporal axis does not correspond to a physical unit of time. Users may rescale the domain to match specific applications.
+
+For a signal sampled at \(N\) points,
+\[
+f_s = \frac{N}{4\pi}, \qquad \Delta t = \frac{4\pi}{N - 1}.
+\]
+High-resolution reference signals use \(N = 5000\) samples. Low-resolution versions are produced at 1000, 500, 250, and 150 points. This formulation ensures that sampling density scales linearly with the number of points and enables consistent comparisons across resolutions.
+
+\subsection*{Segment definition and interval partitioning}
+
+Each signal is partitioned into \(K\) temporal segments, where
+\[
+K \sim \text{UniformInteger}(2,11).
+\]
+Segment boundaries are obtained by sampling a Dirichlet-distributed vector of positive values, which is then normalized to span \([0,4\pi]\). This probabilistic partitioning introduces structural variability and supports localized temporal changes.
+
+\subsection*{Frequency profile generation}
+
+Each segment is assigned a dominant frequency sampled from one of two normalized bands:
+\begin{itemize}
+    \item low-frequency: 1 to 5,
+    \item high-frequency: 20 to 100.
+\end{itemize}
+Selections follow a user-defined categorical distribution. Piecewise-constant profiles may be optionally smoothed using tension splines, with parameters recorded in metadata. These mechanisms support a variety of spectral behaviors, including abrupt changes and locally smooth variations.
+
+\subsection*{Amplitude envelope modeling}
+
+Amplitude modulation is defined through an envelope \(A(t)\), implemented either as a step-wise constant function or as a spline-based curve. Amplitude values are sampled from the range 3 to 16, and a normally distributed baseline shift \(b \sim \mathcal{N}(0,3.0)\) introduces vertical offsets. Including both envelope types increases morphological diversity while remaining reproducible through metadata.
+
+\subsection*{Signal synthesis}
+
+The clean signal is generated as
+\[
+x_{\text{clean}}(t) = A(t)\,\sin\!\left(2\pi f(t)\,t + \phi\right) + b,
+\]
+where \(\phi \sim \text{Uniform}(0, 2\pi)\).
+This flexible sinusoidal construction enables a broad variety of oscillatory patterns driven by the combination of frequency, amplitude, phase, and segmentation choices.
+
+\subsection*{Transition smoothing}
+
+To avoid discontinuities at segment boundaries, adjacent segments are blended using short overlap regions. The windowing strategy, which can involve cosine tapers, Hann windows, or spline interpolation, is deterministic and fully documented in metadata. Smoothing ensures continuity in amplitude and instantaneous frequency across transitions.
+
+\subsection*{Noise injection model}
+
+Two optional noise families may be added to the clean signal:
+\begin{enumerate}
+    \item Gaussian additive noise with configurable standard deviation.
+    \item Structured sinusoidal bursts with configurable amplitude, duration, frequency, and temporal placement.
+\end{enumerate}
+Noise is applied with a probability of 50 percent. All noise-related parameters used during generation are stored per signal in the metadata, allowing exact reconstruction of the applied noise.
+
+\textcolor{red}{The exact numerical ranges for the Gaussian standard deviation and all sinusoidal burst parameters should be reviewed and confirmed, since they are defined directly in the generation code and must match the published dataset.}
+
+\subsection*{Anti-aliasing filtering for downsampling}
+
+Before decimation, high-resolution signals are passed through a low-pass filter to reduce aliasing artifacts. Filter configuration parameters, including cutoff frequency and filter type, are stored in metadata for each signal.
+
+\textcolor{red}{The precise filter characteristics used in the final dataset, including the cutoff definition relative to the target Nyquist rate and the filter order, should be verified with the original implementation to ensure that Methods accurately reflects the published data.}
+
+\subsection*{Generation of multi-resolution versions}
+
+Two complementary approaches are used to generate low-resolution versions:
+\begin{enumerate}
+    \item Direct re-evaluation of the analytic model at the target sampling grid.
+    \item Filtered downsampling, where the high-resolution signal is low-pass filtered and then decimated by a factor \(k = 5000 / N_{\text{target}}\).
+\end{enumerate}
+This dual strategy allows evaluation of interpolation-based reconstruction as well as approaches that assume anti-aliased inputs.
+
+\subsection*{Random seed management and reproducibility}
+
+Each signal is generated using a unique seed in the range 10000 to 12499. All random decisions, including segmentation, amplitude sampling, noise application, and spline parameter selection, are determined by this seed. Documented seeds ensure that each signal can be regenerated exactly.
+
+\subsection*{Construction of validation subsets}
+
+Validation subsets are created through deterministic sampling of seeds. Subset sizes and sampling rules are stored in metadata, ensuring non-overlapping partitions across resolution levels.
+
+\textcolor{red}{The specific criteria used to select validation subsets, including seed ranges or sampling patterns, should be verified and documented to satisfy reproducibility requirements.}
+
+\subsection*{Parameter summary table}
+
+Table~\ref{tab:parameters} summarizes the main parameter types used during generation. All numerical values are stored per signal in metadata, allowing users to recover exact configurations without requiring full parameter ranges in this section.
+
+\begin{table}
+\centering
+\small
+\caption{Main parameters used in the generation of CoSiBD synthetic signals. All values and configurations are stored per signal in metadata.}
+\label{tab:parameters}
+\begin{tabular}{l l p{7.5cm}}
+\hline
+\textbf{Parameter} & \textbf{Range or type} & \textbf{Description} \\
+\hline
+Low-frequency band & 1 to 5 & Dominant low-frequency component. \\
+High-frequency band & 20 to 100 & Dominant high-frequency component. \\
+Number of change points & 2 to 11 & Number of temporal segments. \\
+Segment boundaries & Dirichlet-normalized & Defines non-uniform intervals. \\
+Envelope type & Constant or spline-based & Amplitude modulation strategy. \\
+Amplitude range & 3 to 16 & Envelope value range. \\
+Vertical offset & \(\mathcal{N}(0,3.0)\) & Baseline shift. \\
+Noise probability & 50 percent & Probability of applying noise. \\
+Random seed & 10000 to 12499 & Unique seed ensuring reproducibility. \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Data Records}
+
+The CoSiBD dataset is publicly available on Zenodo under a CC-BY 4.0 license.  
+It contains synthetic one-dimensional temporal signals generated at multiple sampling resolutions, stored in three equivalent formats: NumPy NPZ archives, plain-text files, and JSON representations.  
+All three formats contain the same waveform arrays and temporal grid, allowing users to select the format that best fits their computational workflow.  
+Metadata describing the generative parameters is stored separately in a dedicated directory.  
+The full dataset occupies approximately 1.3 GB.
+\\ \\
+CoSiBD is organized into four top-level directories:
+
+\begin{verbatim}
+signals_high_resolution/
+signals_subsampled_simple/
+signals_subsampled_filtered/
+metadata/
+\end{verbatim}
+
+Each directory contains NPZ, TXT, and JSON files named according to resolution level and processing method.  
+Examples include:
+
+\begin{itemize}
+    \item \texttt{signals\_high\_resolution\_5000.npz}
+    \item \texttt{signals\_subsampled\_simple\_150.json}
+    \item \texttt{signals\_subsampled\_filtered\_150.txt}
+\end{itemize}
+
+\subsection*{High-resolution records}
+
+The \texttt{signals\_high\_resolution/} directory contains 2,500 reference signals sampled at 5,000 points.  
+Each NPZ archive includes:
+
+\begin{itemize}
+    \item \texttt{'signals'}: noisy high-resolution waveform,
+    \item \texttt{'clean\_signals'}: corresponding noise-free waveform,
+    \item \texttt{'t'}: the temporal grid of 5,000 samples.
+\end{itemize}
+
+TXT and JSON files in this directory contain the same numerical arrays and temporal grid in alternative formats. They do not include metadata.
+
+\subsection*{Low-resolution records}
+
+Low-resolution signals are obtained using two complementary procedures:
+
+\begin{itemize}
+    \item \textbf{Simple subsampled signals}: analytic re-evaluation of the generative model at 150, 250, 500, or 1,000 points.
+    \item \textbf{Filtered subsampled signals}: low-pass filtering followed by decimation to the same resolutions.
+\end{itemize}
+
+Each NPZ file in these directories contains:
+
+\begin{itemize}
+    \item \texttt{'signals'}: subsampled or filtered waveform arrays,
+    \item \texttt{'t'}: temporal grid matching the target resolution.
+\end{itemize}
+
+TXT and JSON files provide the same waveform arrays and temporal grid as alternative representations.  
+As with the high-resolution directory, no metadata is stored inside these files.
+
+\subsection*{Metadata directory}
+
+All metadata is stored exclusively in the \texttt{metadata/} directory.  
+It includes three global JSON files:
+
+\begin{itemize}
+    \item \texttt{dataset\_summary.json}: overall dataset characteristics, seed ranges, and resolution counts.
+    \item \texttt{signals\_metadata.json}: per-signal generative parameters, including segmentation structure, frequency selection, amplitude envelope configuration, spline settings, noise flags, and random seeds.
+    \item \texttt{filtering\_info.json}: global information on the filtering procedure used prior to downsampling.
+\end{itemize}
+
+\textcolor{red}{The fields in \texttt{filtering\_info.json} should be reviewed to ensure they fully describe the anti-aliasing configuration used in the final dataset, including cutoff definition and filter characteristics.}
+
+\subsection*{Noise-related metadata}
+
+Noise information is recorded only inside \texttt{signals\_metadata.json}.  
+This file specifies the type of noise applied to each signal and the associated parameters.
+
+\textcolor{red}{Exact field names and numerical ranges for Gaussian and sinusoidal burst noise should be validated directly from the generation code to ensure complete documentation.}
+
+\subsection*{Representative examples}
+
+Figures~\ref{fig:amplitud} and~\ref{fig:simples} illustrate representative examples of the dataset.  
+Figure~\ref{fig:amplitud} shows one signal at different sampling densities, while Figure~\ref{fig:simples} presents four high-resolution waveforms generated under different parameter configurations.
+
+\textcolor{red}{Note: panel (d) currently duplicates an earlier image and will be updated in the final version.}
+
+% ---------------------------------------------------
+% FIGURES INTRO
+% ---------------------------------------------------
+\begin{figure}[H]
+    \centering
+
+    % --- Row 1 ---
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/amplitud_high.png}
+        \caption*{(a)}
+        \label{fig:amp_high}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/amplitud_medium.png}
+        \caption*{(b)}
+        \label{fig:amp_medium}
+    \end{subfigure}
+
+    \vspace{0.25cm}
+
+    % --- Row 2 ---
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/amplitud_low.png}
+        \caption*{(c)}
+        \label{fig:amp_low}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/amplitud_low.png}
+        \caption*{(d)}
+        \label{fig:amp_noisy}
+    \end{subfigure}
+
+    \caption{
+        Example of a single synthetic signal represented at four sampling 
+        resolutions: (a) 5000 points, (b) 500 points, (c) 250 points, and (d) a 
+        filtered subsampled version including noise. These variants illustrate the 
+        multi-resolution and noise conditions available in CoSiBD.
+    }
+    \label{fig:amplitud}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+
+    % --- Row 1 ---
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/simples_high_low.png}
+        \caption*{(a)}
+        \label{fig:simp_highlow}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/simples_localized.png}
+        \caption*{(b)}
+        \label{fig:simp_localized}
+    \end{subfigure}
+
+    \vspace{0.25cm}
+
+    % --- Row 2 ---
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/simples_smooth.png}
+        \caption*{(c)}
+        \label{fig:simp_smooth}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/simples_irregular.png}
+        \caption*{(d)}
+        \label{fig:simp_irregular}
+    \end{subfigure}
+
+    \caption{
+        Examples of different temporal behaviors generated by the synthesis 
+        pipeline, including high–low frequency transitions (a), localized 
+        variation (b), smooth oscillations (c), and irregular peak spacing (d).
+    }
+    \label{fig:simples}
+\end{figure} 
+
+\subsection*{Dataset overview}
+
+Table~\ref{tab:dataset_overview} summarizes the directory structure and the number of signals provided at each resolution.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Directory structure and record types in the CoSiBD dataset.}
+\label{tab:dataset_overview}
+\begin{tabular}{l l l l p{6.3cm}}
+\hline
+\textbf{Directory} & \textbf{Subset} & \textbf{Files} & \textbf{Samples} & \textbf{Description} \\
+\hline
+
+\texttt{signals\_high\_resolution} 
+  & Reference (HR) & 2500 & 5000 
+  & High-resolution signals with clean and noisy versions provided in NPZ, TXT, and JSON formats. \\
+
+\texttt{signals\_subsampled\_simple} 
+  & 150/250/500/1000 & 2500 per level & 150--1000 
+  & Direct analytic subsampling of the generative model. \\
+
+\texttt{signals\_subsampled\_filtered} 
+  & 150/250/500/1000 & 2500 per level & 150--1000 
+  & Low-pass filtered and decimated versions at matching resolutions. \\
+
+\texttt{metadata} 
+  & Global metadata & 3 files & N/A 
+  & Summary descriptors, per-signal metadata dictionary, and filtering configuration files. \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Technical Validation}
+
+\subsection*{Consistency of Signal Generation}
+
+We validated the internal consistency of all 2{,}500 high-resolution signals by comparing their waveform properties with the corresponding metadata fields. All signals exhibited the expected temporal domain $[0,4\pi]$, confirming correct construction of the sampling grid. The number of temporal segments derived from \texttt{base\_points} ranged from 3 to 11 (Fig.~\ref{fig:validation},a), matching the generation rules and showing an approximately uniform distribution across this range.
+\\ \\
+Amplitude envelopes contained between 3 and 6 spline knots (Fig.~\ref{fig:validation},b), with similar counts across the four possible configurations, consistent with the envelope definition procedure in the metadata. Noise injection followed the prescribed Bernoulli$(p=0.5)$ sampling process, resulting in approximately equal proportions of noisy (1{,}210) and clean (1{,}290) signals (Fig.~\ref{fig:validation},c), which is consistent with expected sampling variability.
+\\ \\
+All metadata entries were syntactically valid and aligned with the properties observed in the corresponding waveforms. These checks confirmed agreement between stored parameters and the derived characteristics of each signal, ensuring that the dataset reliably reflects the controlled variability imposed during generation.
+
+\begin{figure}[H]
+    \centering
+
+    % ---- Panel (a) ----
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/validation_segments_hist.png}
+        \caption{}
+    \end{subfigure}
+    \hfill
+    % ---- Panel (b) ----
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/validation_amp_knots_hist.png}
+        \caption{}
+    \end{subfigure}
+    \hfill
+    % ---- Panel (c) ----
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/validation_noise_hist.png}
+        \caption{}
+    \end{subfigure}
+
+    \caption{Summary of internal consistency checks across the 2{,}500 high-resolution signals. 
+    (a) Distribution of temporal segment counts derived from \texttt{base\_points}. 
+    (b) Distribution of amplitude-envelope spline knots per signal. 
+    (c) Proportion of signals with and without noise, matching the expected sampling probability in the generation process.}
+    \label{fig:validation}
+\end{figure}
+
+\subsection*{Parameter Distribution Validation}
+
+To characterize the diversity of the generative configuration space, we analyzed metadata-derived parameter distributions across all 2{,}500 high-resolution signals. Figures~\ref{fig:param_variation_seed}--\ref{fig:param_amp_highfreq} summarize the empirical distributions obtained from the metadata. The distribution of variation types (Fig.~\ref{fig:param_variation_seed}, left) shows that most segment-level labels fall into the \texttt{low} category, with fewer occurrences of \texttt{high}. Random seed values (Fig.~\ref{fig:param_variation_seed}, right) span the full documented range (10{,}000--12{,}499) with approximately uniform occupancy across bins, consistent with the one-seed-per-signal structure of the dataset.
+\\ \\
+Continuous parameters also display broad numerical coverage. The Tau amplitude values (Fig.~\ref{fig:param_tau_amp}) appear across the discrete set defined in the generation code, while Tau frequency values (Fig.~\ref{fig:param_tau_freq}) occupy the intended interval used during synthesis. Vertical offsets (Fig.~\ref{fig:param_offset}) form a bell-shaped distribution centered near zero, matching the sampling from a normal distribution. 
+\\ \\
+Amplitude values (Fig.~\ref{fig:param_amp}) span the full intended range and appear with decreasing frequency at higher amplitudes, consistent with the underlying sampling scheme. High-frequency values (Fig.~\ref{fig:param_highfreq}) populate the entire 20--100 unit interval without sharp discontinuities or empty regions, indicating that the assigned high-frequency points cover the full specified band. 
+\\ \\
+Overall, these distributions confirm that the metadata parameters occupy their expected numerical ranges and that the dataset includes heterogeneous combinations of frequency, amplitude, transition, and offset characteristics. The results ensure that users can reliably relate waveform variability to the corresponding generation settings recorded in metadata.
+
+% ------------------------------------------------
+% FIGURE A — VARIATION + SEEDS
+% ------------------------------------------------
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_variation_type_bar.png}
+    \caption{Distribution of variation types.}
+    \label{fig:param_variation}
+\end{subfigure}
+\hspace{0.03\textwidth}
+\begin{subfigure}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_seed_hist.png}
+    \caption{Distribution of random seed values.}
+    \label{fig:param_seed}
+\end{subfigure}
+
+\caption{Variation-type and seed distribution across all generated signals.}
+\label{fig:param_variation_seed}
+\end{figure}
+
+% ------------------------------------------------
+% FIGURE B — TAU + OFFSET
+% ------------------------------------------------
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.31\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_tau_amp_hist.png}
+    \caption{Tau amplitude}
+    \label{fig:param_tau_amp}
+\end{subfigure}
+\hspace{0.02\textwidth}
+\begin{subfigure}{0.31\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_tau_freq_hist.png}
+    \caption{Tau frequency}
+    \label{fig:param_tau_freq}
+\end{subfigure}
+\hspace{0.02\textwidth}
+\begin{subfigure}{0.31\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_offset_hist.png}
+    \caption{Vertical offsets}
+    \label{fig:param_offset}
+\end{subfigure}
+
+\caption{Distribution of continuous parameters controlling transitions and baseline shifts.}
+\label{fig:param_tau_offset}
+\end{figure}
+
+% ------------------------------------------------
+% FIGURE C — AMPLITUDE + HIGH-FREQ
+% ------------------------------------------------
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_amplitude_hist.png}
+    \caption{Amplitude envelope values.}
+    \label{fig:param_amp}
+\end{subfigure}
+\hspace{0.03\textwidth}
+\begin{subfigure}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/param_high_freq_hist.png}
+    \caption{High-frequency breakpoint magnitudes.}
+    \label{fig:param_highfreq}
+\end{subfigure}
+
+\caption{Amplitude- and frequency-related variability across the dataset.}
+\label{fig:param_amp_highfreq}
+\end{figure}
+
+\subsection*{Metadata Integrity Checks}
+
+We performed a set of structural and cross-consistency checks to ensure that all dataset files are complete, well-formed, and aligned with their corresponding metadata. For every high-resolution record, we verified the presence of the expected waveform arrays (\texttt{signals}, \texttt{clean\_signals}, \texttt{t}) and the metadata dictionary storing the associated generation parameters. All fields required for reproducibility—temporal bounds, segment definitions, amplitude and frequency control points, noise configuration, and random seeds—were confirmed to follow the correct data types and to be syntactically valid.
+\\ \\
+Cross-checks between metadata and waveforms included verifying the length of the temporal grid, confirming that segment and amplitude-knot counts matched their metadata descriptors, and ensuring consistency between \texttt{has\_noise} flags and the presence of noise-free counterparts. All metadata entries were additionally screened for missing values, NaNs, and out-of-range parameters.
+\\ \\
+Across all inspected records, no malformed entries or inconsistencies were detected, indicating that the dataset maintains a uniform structure and can be reliably parsed for downstream analysis and benchmarking tasks.
+
+\section*{Usage Notes}
+
+The CoSiBD dataset is provided in three interchangeable formats (NPZ, TXT, and JSON), all containing the same waveform data. Users may choose the format that best matches their computational environment, storage constraints, or preferred toolchain. All signal-generation parameters are stored separately in the \texttt{metadata/} directory in human-readable JSON files.
+
+\subsection*{Accessing the signals}
+
+All signal subsets (high-resolution, simple subsampled, and filtered subsampled) use a consistent file structure.  
+NPZ archives contain two arrays:
+\begin{itemize}
+    \item \texttt{signals}: a matrix of shape $(2500, N)$ with the synthetic signals,
+    \item \texttt{t}: the corresponding temporal grid.
+\end{itemize}
+
+\begin{verbatim}
+import numpy as np
+data = np.load("signals_high_resolution/signals_high_resolution_5000.npz")
+x = data["signals"]
+t = data["t"]
+\end{verbatim}
+
+Plain-text (\texttt{.txt}) files contain one signal per row, while the JSON versions store the same arrays using standard lists. These formats provide flexibility for users working in environments where NumPy archives are not ideal.
+
+\subsection*{Accessing metadata}
+
+Metadata is stored exclusively in the \texttt{metadata/} directory.  
+The file \texttt{signals\_metadata.json} contains one entry per signal, indexing every parameter used during synthesis:
+
+\begin{verbatim}
+import json
+with open("metadata/signals_metadata.json") as f:
+    metadata = json.load(f)
+md0 = metadata["0"]
+\end{verbatim}
+
+Global dataset information is provided in \texttt{dataset\_summary.json}, while filtering parameters used during anti-aliasing are described in \texttt{filtering\_info.json}. These files allow users to trace the full generative process or regenerate signals when needed.
+
+\subsection*{Visualization and exploratory analysis}
+
+Signals can be visualized with standard scientific libraries:
+
+\begin{verbatim}
+import matplotlib.pyplot as plt
+plt.plot(t, x[0])
+plt.xlabel("t")
+plt.ylabel("Amplitude")
+plt.title("Example synthetic signal")
+plt.tight_layout()
+plt.show()
+\end{verbatim}
+
+Comparisons across resolutions can be performed by loading the corresponding files and overlaying the temporal grids.
+
+\subsection*{Recommended practices}
+
+For reconstruction, filtering, or learning-based tasks, users may consider:
+\begin{itemize}
+    \item Aligning temporal grids before direct comparisons across resolutions.
+    \item Inspecting per-signal metadata to study the influence of segmentation, amplitude envelope, or noise parameters.
+    \item Using filtered subsampled signals for algorithms assuming anti-aliased inputs.
+    \item Using simple subsampled signals to evaluate robustness under non-filtered undersampling.
+    \item Treating the 5000-sample signals as ground truth for supervised super-resolution tasks.
+\end{itemize}
+
+The dataset is compatible with major scientific computing ecosystems (NumPy, SciPy, JAX, PyTorch, TensorFlow, and MATLAB). Users may wrap the arrays into custom data loaders according to their workflow.
+
+\subsection*{Availability}
+
+The full dataset is publicly available at:
+
+\[
+\text{The dataset is available at \url{<ZENODO_URL>} under a CC-BY 4.0 license}.
+\]
+
+Users are encouraged to cite this dataset in methodological or benchmarking studies.
+
+\section*{Code availability}
+
+All code used to generate the CoSiBD dataset is openly available at:
+
+\noindent\href{https://github.com/DhamarAM/SignalBuilder/tree/main}{\texttt{https://github.com/DhamarAM/SignalBuilder}}.
+
+The repository contains the complete signal-generation pipeline, including configuration files and example notebooks that allow users to regenerate the dataset using the same seeds released in this publication. The code provides modular functions for constructing high-resolution signals, producing subsampled versions, applying optional noise, performing anti-aliasing filtering, and exporting results together with their metadata.
+
+The code is distributed under the MIT License.
+
+The dataset is released independently under a CC--BY~4.0 license and can be accessed at:
+
+\noindent\href{https://zenodo.org/records/15138853}{\texttt{https://zenodo.org/records/15138853}}.
+
+
+% ===== BIBLIOGRAPHY =====
+% Using BibTeX with naturemag-doi style for Nature Scientific Data
+% References stored in referencias.bib
+% Note: \bibliographystyle{naturemag-doi} is defined in wlscirep.cls
+\bibliography{referencias}
+
+
+
+\section*{Acknowledgments}
+This research was supported by Dean's Office of the Polytechnic College of the San Francisco de Quito University  and partially by ProyExcel-0069 project of the Andalusian University, Research and Innovation Department.
+
+\section*{Author Contributions}
+J. I. F. handled the methodological design for artificial data creation, probabilistic analysis, spline-based variations, noise distributions, and random node selection. J. A. L. was responsible for the time series methodological design. D. A. M. performed data processing and validation analysis. All of the authors have contributed to writing the manuscript.
+
+\section*{Competing Interests}
+The authors declare no competing interests
+
+\end{document}

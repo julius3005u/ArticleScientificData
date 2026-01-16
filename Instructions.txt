@@ -1,0 +1,78 @@
+INSTRUCTIONS / PROJECT CONTEXT (ArticleScientificData)
+Date: 2026-01-16
+
+Purpose
+- Prepare a Scientific Data (Nature Portfolio) Data Descriptor manuscript for the CoSiBD dataset.
+- Ensure all editor/reviewer feedback is incorporated DIRECTLY into the manuscript text (no separate rebuttal required for submission).
+- Provide a durable, auditable mapping from reviewer requirements to the final manuscript text.
+
+Hard Constraints (DO NOT VIOLATE)
+1) No dataset/raw-data inspection for reviewer-response work
+   - When answering reviewers or justifying claims, do NOT open/analyze dataset files (e.g., SignalBuilderC/data/*, Zenodo files, generated signals). Use ONLY:
+     - TeX manuscripts
+     - Reviewer/editor requirement list
+     - BibTeX/references
+     - Figures already included in the manuscript
+2) Super-Resolution (SR) pairing narrative must be consistent
+   - Low-resolution (LR) signals are defined strictly as uniform decimation / uniform subsampling of the high-resolution (HR) sequence.
+   - Do NOT describe prefiltered/anti-aliasing variants as dataset objectives.
+   - The only allowed filtering-related sentence is exactly:
+     “Reconstructing low-pass filtered signals is not an objective of CoSiBD.”
+3) Keep Scientific Data “Data Descriptor” tone
+   - Validation is descriptive/illustrative, not hypothesis-driven.
+4) Do NOT delete unrelated project content
+   - Creating new files/folders is fine; avoid removing other work.
+
+Authoritative Files (Sources of Truth)
+- Reviewer/editor checklist: ReviewrsRequirementsAndAnswers.txt
+- Clean manuscript (authoritative final text): main_englishv09_final.tex
+- Tracked-changes manuscript: main_englishv09.tex
+- Bibliography: referencias.bib
+
+Key Submission/Packaging Deliverables
+- Release package folder: ArticleFinal/
+  - Contains the TeX manuscripts (clean + tracked), PDFs, bib, class/style files, and figures with preserved paths.
+  - Build/compile was previously verified inside that folder.
+
+Licensing Statements (Must remain consistent)
+- Code/scripts: MIT License (GitHub repo referenced in manuscript)
+- Dataset record (Zenodo): CC BY 4.0
+
+Evidence-Backed Reviewer Response Artifact
+- Notebook: AnswersToReviewers.ipynb
+  - English, item-by-item answers for Editor items (E1–E2) and reviewer items (R1-1..R1-16, R2-1..R2-8, R3-1..R3-2).
+  - Each item includes:
+    - Manuscript location pointers (sections/labels, figures/tables)
+    - Verbatim TeX excerpts as evidence
+    - A concise response explaining what changed / where
+  - Must not claim dataset inspection.
+
+Build / Compile Notes (for LaTeX)
+- Class/style present in repo: wlscirep.cls, naturemag-doi.bst, jabbrv.sty, jabbrv-*.ldf
+- Typical build uses BibTeX; see COMPILE_INSTRUCTIONS.md if present.
+
+Terminology & Conventions to Keep Stable
+- “signal” = one full 1D time-series sequence
+- “samples” = discrete values in that sequence (e.g., N=5000 samples per signal)
+- Frequency/Hz reporting uses an illustrative time-scaling convention described in Methods; Hz axes depend on assumed sampling rate.
+
+What to Do When Continuing Work
+- For ANY reviewer answer or manuscript claim, first locate evidence in main_englishv09_final.tex.
+- If tracked changes visibility is needed, corroborate in main_englishv09.tex.
+- If you cannot support a claim with manuscript text, do NOT invent; instead, revise manuscript text or mark as “not addressed.”
+
+Files You Should NOT Treat as Evidence for Reviewer Responses
+- Any dataset/data outputs, generated files, or raw signal arrays.
+- Backups (backup_tex/*) should not override the authoritative final manuscript unless explicitly requested.
+
+
+Quick Checklist (read in 30 seconds)
+- Evidence source: main_englishv09_final.tex is authoritative.
+- Do NOT open/analyze dataset/raw data files for reviewer answers.
+- LR definition: uniform decimation / uniform subsampling only.
+- Keep this exact sentence (and avoid other low-pass objectives):
+  “Reconstructing low-pass filtered signals is not an objective of CoSiBD.”
+- Do not claim anti-aliasing/prefiltering as a dataset objective.
+- Maintain Scientific Data tone: validation is descriptive/illustrative.
+- Licensing must remain consistent: code MIT; dataset record CC BY 4.0.
+- Do not delete unrelated project content.

@@ -1,0 +1,35 @@
+# ⚠️ CRITICAL - IMPORTANT NOTES FOR SIGNAL GENERATION
+
+## Sobre la reconstrucción de señales:
+
+**NO usar versiones FILTRADAS de submuestreos**
+- Solo usar: `signals_subsampled_simple_*.npz` 
+- NUNCA usar: `signals_subsampled_filtered_*.npz`
+
+**Razón científica:**
+El objetivo del artículo es RECONSTRUIR la señal TAL COMO ES, 
+sin artefactos de filtrado. Los submuestreos "simple" (decimación) 
+preservan la información original sin distorsión por filtros.
+
+## Parámetros temporales:
+
+- **Intervalo temporal:** 0 a 4π (no 0 a 10 segundos)
+- 4π ≈ 12.566370614359172
+- Las fórmulas se aplican en este rango
+
+## Estructura de datos:
+
+- **2500 señales** en arrays consolidados
+- **Alta resolución:** 5000 muestras en signals_high_resolution_5000.npz
+- **Submuestreos simples:** 150, 250, 500, 1000 muestras
+- **Metadatos:** UN ÚNICO archivo JSON consolidado (no miles de archivos)
+
+## Archivos a usar:
+
+✓ signals_high_resolution_5000.npz       (2500, 5000)
+✓ signals_subsampled_simple_150.npz      (2500, 150)
+✓ signals_subsampled_simple_250.npz      (2500, 250)
+✓ signals_subsampled_simple_500.npz      (2500, 500)
+✓ signals_subsampled_simple_1000.npz     (2500, 1000)
+
+❌ NO usar signals_subsampled_filtered_*.npz

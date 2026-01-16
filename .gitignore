@@ -350,3 +350,30 @@ __pycache__/
 *.synctex.gz
 
 
+
+# --- Exclusions for data and model folders ---
+
+# Data folders in SignalBuilderC
+SignalBuilderC/signals/
+
+# Output and data folders in SignalBuilderCLI
+SignalBuilderCLI/output/
+SignalBuilderCLI/signalsVer/
+
+# General models folder
+Models/
+
+# Audio models and data folders
+AudioModels/data/
+AudioModels/models/
+
+# Large data corpus
+VCTK-Corpus/
+
+# Audio reconstruction outputs
+AudioRebuild/output/
+AudioRebuild/output_v02/
+
+# Data and results in time-series-srnet
+time-series-srnet/data/
+time-series-srnet/results/

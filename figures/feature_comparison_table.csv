@@ -1,0 +1,9 @@
+Metric,ECG (avg),Synthetic (avg)
+Mean,-0.0011,0.0015
+Std Dev,70.5593,0.3932
+Range,8265.6426,1.8401
+RMS,70.5593,0.3932
+Low-Freq Energy %,11.489,14.7542
+Mid-Freq Energy %,3.495,0.0751
+High-Freq Energy %,1.311,81.6177
+Envelope CV,3.9195,0.0936

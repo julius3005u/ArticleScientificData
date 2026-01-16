@@ -1,0 +1,6 @@
+Observed property in real signals,CoSiBD mechanism,Concrete real-signal examples (qualitative)
+Non-stationary regime changes with variable duration,Non-uniform interval partitioning + per-interval parameter reassignment,EEG/ECG segments with changing dominant rhythm; speech phoneme transitions
+Multi-band oscillations + intermittent bursts/transients,Explicit low/high-frequency change-points (base_points / high_freq_points),ECG sharp events; speech fricatives/rapid transitions
+Smooth amplitude modulation (envelope),Spline-based amplitude envelope (piecewise smooth),Respiration/prosody-like amplitude trends in ECG/EEG and speech
+Slow baseline drift / offsets,Vertical offsets + low-frequency trend components,Baseline wander and offset changes in physiological recordings
+Narrow-band interference + broadband noise floor,Structured sinusoid + Gaussian noise components,Powerline-like sinusoids and measurement noise in real acquisition

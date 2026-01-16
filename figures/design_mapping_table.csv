@@ -1,0 +1,17 @@
+CoSiBD Parameter,Real-World Inspiration,Justification,Evidence Figure
+low_freq_band [1-5 Hz],"ECG: P-waves, T-waves, baseline drift (0.05-5 Hz)
+EEG: Delta/Theta waves (0.5-8 Hz)",Captures slow physiological rhythms and morphological features,Fig. ecg_frequency_analysis
+high_freq_band [20-100 Hz],"ECG: QRS complex (10-100 Hz)
+EEG: Beta/Gamma waves (13-100 Hz)",Captures fast transients and high-frequency components,Fig. ecg_frequency_analysis
+amplitude_envelope,"Speech: Syllable-level amplitude modulation
+ECG: Heart rate variability envelope",Spline interpolation mimics natural amplitude dynamics,Fig. ecg_envelope + vctk_time_domain
+vertical_offset,"ECG: Baseline wander from respiration
+EEG: DC offset drift",Linear/quadratic drift matches respiration coupling,Fig. ecg_time_domain
+frequency_profile,"Speech: Pitch contours (F0 variation)
+ECG: Inter-beat interval variation",Smooth frequency variation matches prosodic patterns,Fig. vctk_pitch_variation
+noise_sinusoidal [50/60 Hz],"ECG: 50/60 Hz powerline interference
+Universal artifact in biomedical signals",Addresses R1-4: Models ubiquitous powerline interference,Standard biomedical literature
+noise_gaussian,"ECG: Muscle noise, thermal noise
+Speech: Background noise, microphone hiss",White noise floor present in all measurement systems,Fig. noise_analysis (below)
+n_samples = 5000,"ECG @ 500 Hz: 10 seconds of recording
+Speech @ 48 kHz: ~100 ms segment",Standard segment length for ML training,CoSiBD design choice
