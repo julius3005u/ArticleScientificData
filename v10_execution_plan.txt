@@ -1,0 +1,118 @@
+TODO LIST FOR V10 EXECUTION
+
+[ ] SETUP
+    [x] Create v10 tex files
+    [ ] Create CorrectionsLog_v10.ipynb
+    [ ] Read 'CorreccionesArticleScientificData_temp.txt' into memory for processing
+
+[ ] GENERAL
+    [ ] 1. Replace "random seed" -> "seed" globally. Remove "random" where implying non-reproducibility.
+    [ ] 2. Clean references.bib (remove unused) - *Check at the end*
+    [ ] 3. Fix Figures 2, 5, 6, 15 (Missing units/labels). *Action: Generate code in Notebook*
+    [ ] 4. English check (User responsability, but I will polish).
+
+[ ] ABSTRACT
+    [ ] 1. Remove "industrial monitoring" -> Focus: biomedical, telecom.
+    [ ] 2. Remove generic "signal processing" -> Focus: "temporal super-resolution".
+    [ ] 3. Refine metadata phrase ("comprehensive metadata describing...").
+    [ ] 4. "random seeds" -> "seeds for full reproducibility".
+    [ ] 5. Rewrite validation sentence -> Focus on real-world scenarios/transfer.
+    [ ] 6. Check word count (<170).
+
+[ ] BACKGROUND & SUMMARY
+    [ ] 1. Para 1: Filter domains (Biomed/Telecom only). Update citations. Use v12 narrative flow.
+    [ ] 2. Para 2: Limit DL list (CNNs, GANs). Remove "forecasting".
+    [ ] 3. Para 3: Constraints. Medical privacy (GDPR/HIPAA).
+    [ ] 4. Para 3 (cont): Remove Environmental monitoring example. REPLACE with Telecom/Audio limitation + NEW REF.
+    [ ] 5. Para 4: Temporal SR potential. Biomed (EEG/Physio). REPLACE/ADD Telecom/Audio SR benefits + NEW REF.
+    [ ] 6. Para 6: Adapt DL alternatives. CNNs spatio-temporal. Prior synthetic work.
+    [ ] 7. Para 7: Synthetic datasets solution. REMOVE fluid/bioimaging examples. ADD Biomed/Telecom examples + REFS.
+    [ ] 8. Para 8: "To support research...". Double purpose: (a) benchmark, (b) pre-training for real-world. Mention CoSiBD use in prelim results.
+    [ ] 9. Page break after support paragraph.
+    [ ] 10. "To further position..." phrasing update.
+    [ ] 11. Related Work Para 1: Improve description (RadioML, ECGSYN, SEREEGA, LoadGAN, Seismic).
+    [ ] 12. Table 1 (now Table ?):
+        [ ] 12.1 Explain columns in text.
+        [ ] 12.2 Clarify "difficulty levels".
+        [ ] 12.3 Remove footnote -> Move to text.
+        [ ] 12.4 Define LR/HR acronyms.
+
+[ ] METHODS
+    [ ] 1. "constitute the CoSiBD dataset is illustrated in Figure 1...".
+    [ ] 2. Line break.
+    [ ] 3. "Design rationale...": Rewrite. Focus on training for real-world SR. List properties (i-iv).
+    [ ] 4. Figure 2 Explanation:
+        [ ] Label A/B/C/D in text.
+        [ ] Explain source of each real signal + Refs.
+        [ ] Explain feature exemplified in each.
+        [ ] Remove explanation from caption (move to text).
+        [ ] *Action: Fix Fig 2 units in code*.
+    [ ] 5. Noise Injection: Expand explanation thoroughly.
+    [ ] 6. Figure 3 Explanation (Similar requirements to Fig 2).
+    [ ] 7. Spacing.
+    [ ] 8. Sampling units text update (Hz interpretation).
+    [ ] 9. Figure 4 Explanation (Similar requirements to Fig 2/3).
+    [ ] 10. DELETE last paragraph "The parameters that govern...".
+
+[ ] DATA RECORDS
+    [ ] 1. Rewrite intro paragraph (Zenodo + support SR/real-world).
+    [ ] 2. Rewrite High-resolution signals item (T=[0, 4pi], fs~398Hz).
+    [ ] 3. Rewrite Simple subsampled signals item (150, 250... Hz specific illustrative values).
+    [ ] 4. Rewrite Reproducibility/Metadata paragraph.
+    [ ] 5. Rewrite File structure/names paragraph.
+    [ ] 6. DELETE "Each signal is stored in three formats..." (repetitive).
+    [ ] 7. NEW paragraph "Regarding the three formats..." before Reproducibility.
+    [ ] 8. Metadata Table (Table 2):
+        [ ] Add "Type" and "Example" columns.
+        [ ] Fix text overflow.
+        [ ] Add explanatory paragraph (crucial: segment labels/variation_type).
+        [ ] Explain the JSON example in text.
+        [ ] *Action: Generate a plot/graphic for metadata example? (See requirement 7.5)*.
+    [ ] 9. Delete redundant resolution list.
+    [ ] 10. NEW Subsection "Parameters for signal generation".
+    [ ] 11. Rewrite text introducing Table 3.
+    [ ] 12. Expand discussion on diversity/complexity (refer to Fig 5 & 6).
+    [ ] 13. NEW Paragraph + FIGURE: Command line tool for custom dataset generation.
+        [ ] *Action: Create mockup or screenshot code*.
+    [ ] 14. Explain Table 3 parameters + Mention default values used for Zenodo.
+    [ ] 15. Table 3: Add "Default Value" column.
+    [ ] 16. Fix Fig 5 & 6 Units/Labels (*Action: Code*).
+
+[ ] TECHNICAL VALIDATION
+    [ ] 1. Rewrite intro paragraph (Spectral stability + CNN study + Real World transfer).
+    [ ] 2. Validation Context: Add specific parameter text.
+    [ ] 3. Dominant Freq: Detailed analysis of Fig 7 and Table 4.
+    [ ] 4. Add Ref for "controlled variability" conclusion.
+    [ ] 5. Force Fig 8 before Fig 9.
+    [ ] 6. Expand Fig 8 explanation (amplitude fluctuations vs temporal structure).
+    [ ] 7. Spec Stability: Add conclusion paragraph + Ref.
+    [ ] 8. Noise: Fix "Fig 10 illustrates..." (formatting).
+    [ ] 9. Fix color reference "0.2 (red curve)" -> "0.2 (green curve)".
+    [ ] 10. Noise: Add conclusion paragraph + Ref.
+    [ ] 11. Multi-Scale: Clarify "scaling factors" (5x... 33x).
+    [ ] 12. Add Ref for TimeSeriesSRNet architecture.
+    [ ] 13. Justify architecture choice.
+    [ ] 14. Justify training config (MSE, Adam, etc.) + Refs.
+    [ ] 15. Expand Table 5 discussion.
+    [ ] 16. Move "Figure 11 illustrates..." paragraph up.
+    [ ] 17. Expand Fig 11 text.
+    [ ] 18. Expand Fig 12 text (too many subfigures? Explain reconstruction by signal type).
+    [ ] 19. Reorder: Spectral Metrics (Fig 14->13) THEN Spectrogram (Fig 13->14).
+    [ ] 19bis. Explain Spectrogram artifacts (red vertical bars).
+    [ ] 20. Interpret LSD/SCORR trends + Ref.
+    [ ] 21. Rewrite Conclusion paragraph (Benchmark baseline + Task difficulty protocol).
+    [ ] 22. Title "Illustrative Transfer Experiments" (remove optional).
+    [ ] 23. Rewrite Intro Transfer Exp (Source/Target domains, Architecture, EEG/VCTK).
+    [ ] 24. Rewrite Training Strategies (Real/Synth/Mixed/Tuned).
+    [ ] 25. Rewrite Results discussion (Table 6, Fig 15). Better results with CoSiBD.
+    [ ] 26. Explain Fig 15 specifically.
+    [ ] 27. Fix Fig 15 Units/Labels (*Action: Code*).
+    [ ] 28. Rewrite Audio Reconstruction usage note (Pearson corr, audible quality).
+
+[ ] USAGE NOTES
+    [ ] 1. Rewrite "Reading the Data".
+    [ ] 2. Rewrite "Visualizing Signal Pairs".
+    [ ] 3. Code Example: Add comments to "Training a baseline model".
+
+[ ] AUTHORS
+    [ ] 1. Update contribution for J.A.L.

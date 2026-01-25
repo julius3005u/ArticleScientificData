@@ -204,7 +204,7 @@ The methodology used to generate the synthetic temporal signals that constitute 
     \label{fig:r1_4_powerline_noise}
 \end{figure}
 
-\addtext{\noindent\textbf{Sampling units and frequency interpretation.} CoSiBD signals are provided as discrete sequences $x[n]$ (e.g., $N=5{,}000$ samples) that are directly used as inputs/targets by SR models. The internal generation domain $\tau\in[0,4\pi]$ is a reference parameterization; interpreting it as physical time requires choosing a duration $T$ (in seconds) for the reference interval. Under this convention, the implied sampling rate is $f_s = N/T$ and all frequencies reported in Hz scale linearly with $4\pi/T$. Throughout this manuscript, when reporting example frequencies in Hz we adopt the illustrative convention $T=4\pi$\,s, yielding $f_s \approx 5000/(4\pi) \approx 398\,$Hz; other equally valid mappings exist depending on application. Figure~\ref{fig:r1_5_sampling_units} illustrates that the discrete samples are unchanged under different time scalings and that Hz axes shift with the assumed $f_s$, while the normalized spectrum (cycles/sample) is invariant.} % R1-5
+\addtext{\noindent\textbf{Sampling units and frequency interpretation.} CoSiBD signals are provided as discrete sequences $x[n]$ (e.g., $N=5{,}000$ samples) that are directly used as inputs/targets by SR models. The internal generation domain $\tau\in[0,4\pi]$ is a reference parameterization; interpreting it as physical time requires choosing a duration $T$ (in seconds) for the reference interval. Under this convention, the implied sampling rate is $f_s = N/T$ and all frequencies reported in Hz scale linearly with $4\pi/T$. Throughout this manuscript, when reporting example frequencies in Hz we adopt the illustrative convention $T=4\pi$\,s, yielding $f_s \approx 5000/(4\pi) \approx 398\,$Hz; other equally valid mappings exist depending on application. Consequently, any band-specific interpretation in Hz (e.g., ``low/high'' frequency ranges) should be understood under the chosen $T$; changing $T$ rescales all reported Hz values while preserving the underlying discrete sequences, which is a key feature of CoSiBD's reference-domain design. Figure~\ref{fig:r1_5_sampling_units} illustrates that the discrete samples are unchanged under different time scalings and that Hz axes shift with the assumed $f_s$, while the normalized spectrum (cycles/sample) is invariant.} % R1-5
 
 \begin{figure}
     \centering
@@ -238,6 +238,53 @@ The Complex Signal Benchmark Dataset (CoSiBD) is publicly available on Zenodo\ci
 
 \noindent \deltext{Signals are stored in plain text `.txt` files containing NumPy-formatted arrays. Each file represents a single temporal signal as a one-dimensional sequence of numerical values. The dataset folder structure mirrors the subset naming scheme.}
 \addtext{Each signal is stored in three formats: (1) NumPy compressed format (.npz) containing the signal array, time array, and (for high-resolution only) clean signal without noise; (2) consolidated plain text format (.txt) with one signal per row (samples separated by whitespace) for maximum portability; and (3) JSON format (.json) with both time and signal arrays for web-based applications and interoperability. Per-signal metadata is provided in \texttt{signals\_metadata.json} (one entry per signal), and dataset-level configuration is provided in \texttt{dataset\_summary.json}.}
+
+\subsection*{Metadata schema and example}
+
+\addtext{CoSiBD provides per-signal metadata to support (i) deterministic regeneration, (ii) principled partitioning (e.g., by noise type/level or segment labels), and (iii) analysis of the piecewise structure induced by change-points. Table~\ref{tab:metadata_schema} summarizes representative fields contained in \texttt{signals\_metadata.json}. A minimal example entry is shown below (one signal; values truncated for brevity).}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{3.2cm}|p{7.2cm}|}
+\hline
+\textbf{Field} & \textbf{Type / example} & \textbf{Meaning} \\ \hline
+\texttt{signal\_id}, \texttt{index} & \texttt{"signal\_0000"}, 0 & Unique identifier and row index used to align LR--HR pairs across consolidated files. \\ \hline
+\texttt{seed} & 10000--12499 & Per-signal random seed enabling deterministic regeneration. \\ \hline
+\texttt{t\_start}, \texttt{t\_end} & 0.0, 12.566... & Reference-domain interval (\(\tau\in[0,4\pi]\)) used by the generator. \\ \hline
+\texttt{fs\_high} & 397.887... & Illustrative sampling rate under the manuscript convention \(T=4\pi\) s (see Sampling units and frequency interpretation). \\ \hline
+\texttt{tau\_frequency} & 1.15 & Frequency-profile spline tension parameter. \\ \hline
+\texttt{amplitude\_spline\_type}, \texttt{tau\_amplitude} & \texttt{"zero\_order"}, \texttt{"N/A"} & Envelope model type and, when applicable, its tension parameter. \\ \hline
+\texttt{base\_points} & \(K\times 2\) array & Change-points and base-band frequencies defining the piecewise frequency profile. \\ \hline
+\texttt{high\_freq\_points} & \(K\times 2\) array & Change-points and high-frequency component levels (intermittent transients). \\ \hline
+\texttt{variation\_type} & \texttt{["low", ...]} & Segment labels aligned to change-points (e.g., low/high/no-change regime). \\ \hline
+\texttt{amp\_knots}, \texttt{amp\_values} & arrays & Envelope control knots and values. \\ \hline
+\texttt{vertical\_offset} & 0.069... & Additive baseline drift term. \\ \hline
+\texttt{noise\_profile} & JSON object & Noise flags and parameters (e.g., Gaussian vs structured interference; probabilities; amplitudes). \\ \hline
+\end{tabular}
+\caption{Representative per-signal metadata fields in \texttt{signals\_metadata.json}. The file contains one entry per signal, supporting deterministic regeneration and analysis/partitioning based on the signal's piecewise structure and nuisance settings.}
+\label{tab:metadata_schema}
+\end{table}
+
+\begin{verbatim}
+{
+    "t_start": 0.0,
+    "t_end": 12.566370614359172,
+    "fs_high": 397.88735772973837,
+    "tau_frequency": 1.15,
+    "amplitude_spline_type": "zero_order",
+    "vertical_offset": 0.06905161748158965,
+    "base_points": [[0.0, 2.076409156965817], [1.9229451245119575, 2.076409156965817], ...],
+    "high_freq_points": [[0.0, 0.0], [1.9229451245119575, 0.0], ...],
+    "variation_type": ["low", "low", "low", "low"],
+    "amp_knots": [0.0, 6.28192867011815, 12.5638573402363],
+    "amp_values": [0.7237770021649202, 1.2266792057266251, 0.9661294815645534],
+    "noise_profile": {"has_noise": true, "noise_type": "gaussian", "p_has_noise": 0.5, ...},
+    "seed": 10000,
+    "signal_id": "signal_0000",
+    "index": 0
+}
+\end{verbatim}
 
 \noindent The following resolution levels are available:
 
@@ -610,6 +657,78 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+\end{verbatim}
+
+\subsection*{Training a baseline model (synthetic-only)}
+
+\addtext{The following example illustrates a minimal synthetic-only training loop for time-series super-resolution using CoSiBD pairs (LR input from simple uniform decimation, HR target). The intent is to provide a compact, reproducible starting point; full training scripts and additional configurations are available in the accompanying repository.}
+
+\begin{verbatim}
+import numpy as np
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader, TensorDataset
+
+# Load paired signals (rows align by index)
+x = np.loadtxt('SignalBuilderC/data/signals_subsampled_simple_250.txt')   # (2500, 250)
+y = np.loadtxt('SignalBuilderC/data/signals_high_resolution_5000.txt')   # (2500, 5000)
+
+# Train/val split (example protocol)
+x_train, y_train = x[:2000], y[:2000]
+x_val,   y_val   = x[2000:2500], y[2000:2500]
+
+device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
+
+def to_tensor(a):
+    return torch.tensor(a, dtype=torch.float32).unsqueeze(1)  # (B, 1, L)
+
+train_loader = DataLoader(TensorDataset(to_tensor(x_train), to_tensor(y_train)),
+                          batch_size=16, shuffle=True)
+val_loader   = DataLoader(TensorDataset(to_tensor(x_val), to_tensor(y_val)),
+                          batch_size=16, shuffle=False)
+
+class TinySRNet(nn.Module):
+    def __init__(self, out_len=5000):
+        super().__init__()
+        self.enc = nn.Sequential(
+            nn.Conv1d(1, 64, kernel_size=5, padding=2), nn.ReLU(),
+            nn.Conv1d(64, 128, kernel_size=5, padding=2), nn.ReLU(),
+            nn.Conv1d(128, 256, kernel_size=5, padding=2), nn.ReLU(),
+        )
+        self.up = nn.Upsample(size=out_len, mode='linear', align_corners=False)
+        self.dec = nn.Sequential(
+            nn.Conv1d(256, 128, kernel_size=5, padding=2), nn.ReLU(),
+            nn.Conv1d(128, 64, kernel_size=5, padding=2), nn.ReLU(),
+            nn.Conv1d(64, 1, kernel_size=5, padding=2),
+        )
+
+    def forward(self, x):
+        z = self.enc(x)
+        z = self.up(z)
+        return self.dec(z)
+
+model = TinySRNet(out_len=5000).to(device)
+opt = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-5)
+loss_fn = nn.MSELoss()
+
+for epoch in range(1, 11):
+    model.train()
+    for xb, yb in train_loader:
+        xb, yb = xb.to(device), yb.to(device)
+        opt.zero_grad()
+        pred = model(xb)
+        loss = loss_fn(pred, yb)
+        loss.backward()
+        opt.step()
+
+    model.eval()
+    with torch.no_grad():
+        val_loss = 0.0
+        for xb, yb in val_loader:
+            xb, yb = xb.to(device), yb.to(device)
+            val_loss += loss_fn(model(xb), yb).item()
+    val_loss /= len(val_loader)
+    print(f"epoch={epoch:02d} val_mse={val_loss:.4f}")
 \end{verbatim}
 
 
