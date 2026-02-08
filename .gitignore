@@ -377,3 +377,4 @@ AudioRebuild/output_v02/
 # Data and results in time-series-srnet
 time-series-srnet/data/
 time-series-srnet/results/
+time-series-srnet/
