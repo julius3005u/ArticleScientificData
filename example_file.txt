@@ -1,2 +1,0 @@
-This is an example file created from the notebook.
-We can write multiple lines of text.

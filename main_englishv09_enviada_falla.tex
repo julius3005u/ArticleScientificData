@@ -13,7 +13,7 @@
 % ===== TRACK CHANGES PACKAGE =====
 % Use [draft] to show changes with highlighting
 % Use [final] to hide all markup for submission
-\usepackage[final]{changes}
+\usepackage[draft]{changes}
 \usepackage{xcolor}
 
 % Define authors for tracked changes
@@ -74,7 +74,8 @@ The methodology used to generate the synthetic temporal signals that constitute 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.35\textwidth]{diagrams/generation_process4.png}
+    \deleted{\includegraphics[width=0.35\textwidth]{diagrams/generation_process3.png}}
+    \added{\includegraphics[width=0.35\textwidth]{diagrams/generation_process4.png}}
     \caption{Schematic overview of the CoSiBD signal generation process.}
     \label{fig:generation_process}
 \end{figure}
@@ -357,6 +358,7 @@ Despite the increased power in the high-frequency range with higher noise levels
 \addtext{This anti-aliasing approach follows established signal processing best practices and directly addresses the reviewer requirement for proper frequency aliasing prevention. The dataset provides both filtered and unfiltered subsampled versions, allowing researchers to evaluate the impact of anti-aliasing on their specific super-resolution algorithms. Detailed filter parameters and implementation are documented in the filtering\_info.json metadata file included with the dataset.}
 \notetext{New subsection addressing reviewer requirement for anti-aliasing filter documentation and validation.}
 
+\addtext{
 \subsection*{Multi-Scale Super-Resolution Benchmark}
 
 To systematically validate the utility of CoSiBD across a wide range of upsampling challenges, we trained a series of convolutional neural network (CNN) models for time series super-resolution at four different scaling factors: 5$\times$, 10$\times$, 20$\times$, and 33$\times$. All models employed the TimeSeriesSRNet architecture—a five-layer encoder-decoder network with 1D convolutional layers (kernel size 5, ReLU activations) and bilinear upsampling. Each model was trained on 2,000 paired signals (low-resolution input to 5,000-sample high-resolution target) and validated on 500 independent signals, using mean squared error (MSE) loss, Adam optimizer (learning rate 0.001, weight decay $10^{-5}$), batch size 16, and early stopping with patience of 3 validation checks (every 10 epochs). Training was conducted on Apple Silicon GPU (MPS backend) to accelerate convergence.
@@ -368,19 +370,19 @@ Table~\ref{tab:multiscale_benchmark} summarizes the validation performance, conv
 \small
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\textbf{Input Size} & \textbf{Factor} & \textbf{Val Loss} & \textbf{Epochs} & \textbf{Early Stop} & \textbf{LSD} & \textbf{SCORR} \\
+\textbf{Input Size} & \textbf{Factor} & \textbf{Val Loss} & \textbf{Epochs} & \textbf{Early Stop} & \addtext{\textbf{LSD}} & \addtext{\textbf{SCORR}} \\
 \hline
-1000 samples & 5$\times$ & 0.0845 & 50 & No & 0.51$\pm$0.63 & 0.98$\pm$0.10 \\
-500 samples & 10$\times$ & 0.1524 & 50 & No & 0.64$\pm$0.63 & 0.98$\pm$0.10 \\
-250 samples & 20$\times$ & 0.4376 & 50 & No & 0.95$\pm$0.67 & 0.98$\pm$0.10 \\
-150 samples & 33$\times$ & 1.0326 & 50 & No & 1.21$\pm$0.67 & 0.98$\pm$0.11 \\
+1000 samples & 5$\times$ & 0.0845 & 50 & No & \addtext{0.51$\pm$0.63} & \addtext{0.98$\pm$0.10} \\
+500 samples & 10$\times$ & 0.1524 & 50 & No & \addtext{0.64$\pm$0.63} & \addtext{0.98$\pm$0.10} \\
+250 samples & 20$\times$ & 0.4376 & 50 & No & \addtext{0.95$\pm$0.67} & \addtext{0.98$\pm$0.10} \\
+150 samples & 33$\times$ & 1.0326 & 50 & No & \addtext{1.21$\pm$0.67} & \addtext{0.98$\pm$0.11} \\
 \hline
 \end{tabular}
-\caption{Multi-scale super-resolution benchmark results. Validation loss measured as mean squared error on 500 independent test signals. LSD (Log Spectral Distance) quantifies spectral content deviation (lower is better), while SCORR (Spectral Correlation) measures frequency-domain similarity (higher is better, range [0,1]). Early Stop indicates whether training terminated before maximum epochs. All models completed the full 50-epoch training without early termination, demonstrating stable convergence across all upsampling factors.}
+\caption{Multi-scale super-resolution benchmark results. Validation loss measured as mean squared error on 500 independent test signals. \addtext{LSD (Log Spectral Distance) quantifies spectral content deviation (lower is better), while SCORR (Spectral Correlation) measures frequency-domain similarity (higher is better, range [0,1]).} Early Stop indicates whether training terminated before maximum epochs. All models completed the full 50-epoch training without early termination, demonstrating stable convergence across all upsampling factors.}
 \label{tab:multiscale_benchmark}
 \end{table}
 
-To complement amplitude-based validation with frequency-domain assessment, we computed spectral fidelity metrics for all reconstructed signals. Log Spectral Distance (LSD), which quantifies the difference between power spectral densities on a logarithmic scale, increased systematically from 0.51 (5$\times$) to 1.21 (33$\times$), confirming that spectral degradation correlates with upsampling difficulty. However, all LSD values remained below 1.5—a threshold typically considered acceptable for high-fidelity reconstruction in audio processing—indicating that models preserve essential frequency characteristics even under extreme compression. Spectral Correlation (SCORR) remained consistently high across all factors (0.98$\pm$0.10), demonstrating that reconstructed signals maintain strong frequency-domain similarity to ground truth despite increasingly sparse inputs. Figure~\ref{fig:spectral_analysis} presents representative spectrogram comparisons across all upsampling factors, visually confirming the preservation of spectral structure and the gradual emergence of reconstruction artifacts at higher factors. These results establish that CoSiBD enables training models capable of maintaining both temporal and spectral fidelity across diverse super-resolution challenges.
+\addtext{To complement amplitude-based validation with frequency-domain assessment, we computed spectral fidelity metrics for all reconstructed signals. Log Spectral Distance (LSD), which quantifies the difference between power spectral densities on a logarithmic scale, increased systematically from 0.51 (5$\times$) to 1.21 (33$\times$), confirming that spectral degradation correlates with upsampling difficulty. However, all LSD values remained below 1.5—a threshold typically considered acceptable for high-fidelity reconstruction in audio processing—indicating that models preserve essential frequency characteristics even under extreme compression. Spectral Correlation (SCORR) remained consistently high across all factors (0.98$\pm$0.10), demonstrating that reconstructed signals maintain strong frequency-domain similarity to ground truth despite increasingly sparse inputs. Figure~\ref{fig:spectral_analysis} presents representative spectrogram comparisons across all upsampling factors, visually confirming the preservation of spectral structure and the gradual emergence of reconstruction artifacts at higher factors. These results establish that CoSiBD enables training models capable of maintaining both temporal and spectral fidelity across diverse super-resolution challenges.}
 
 \begin{figure}[H]
     \centering
@@ -403,16 +405,17 @@ These multi-scale experiments establish quantitative baseline performance metric
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{graphs/spectral_analysis_grid.png}
-    \caption{Spectrogram comparison across all upsampling factors. Each row represents a different upsampling factor (5$\times$, 10$\times$, 20$\times$, 33$\times$), showing original signal (left), CNN-reconstructed signal (center), and spectral difference (right). Visual analysis confirms preservation of spectral structure across all factors, with reconstruction artifacts gradually increasing at higher upsampling rates. Representative signals selected based on median Log Spectral Distance (LSD) for each factor.}
+    \caption{\addtext{Spectrogram comparison across all upsampling factors. Each row represents a different upsampling factor (5$\times$, 10$\times$, 20$\times$, 33$\times$), showing original signal (left), CNN-reconstructed signal (center), and spectral difference (right). Visual analysis confirms preservation of spectral structure across all factors, with reconstruction artifacts gradually increasing at higher upsampling rates. Representative signals selected based on median Log Spectral Distance (LSD) for each factor.}}
     \label{fig:spectral_analysis}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{graphs/spectral_metric_trends.png}
-    \caption{Spectral quality metrics vs upsampling factor. Left: Log Spectral Distance (LSD) increases systematically with upsampling factor, from 0.51 (5$\times$) to 1.21 (33$\times$), while remaining below the 1.5 threshold for high-fidelity reconstruction. Right: Spectral Correlation (SCORR) maintains consistently high values (>0.97) across all factors, demonstrating robust frequency-domain similarity. Error bars represent standard deviation over 500 validation signals per factor.}
+    \caption{\addtext{Spectral quality metrics vs upsampling factor. Left: Log Spectral Distance (LSD) increases systematically with upsampling factor, from 0.51 (5$\times$) to 1.21 (33$\times$), while remaining below the 1.5 threshold for high-fidelity reconstruction. Right: Spectral Correlation (SCORR) maintains consistently high values (>0.97) across all factors, demonstrating robust frequency-domain similarity. Error bars represent standard deviation over 500 validation signals per factor.}}
     \label{fig:spectral_metrics}
 \end{figure}
+}
 
 
 \subsection*{\addtext{Preliminary Application Results}}
@@ -422,8 +425,6 @@ These multi-scale experiments establish quantitative baseline performance metric
 \addtext{Four training strategies were evaluated: (1) Real-only: trained exclusively on domain-specific real data; (2) Synth-only: trained exclusively on CoSiBD synthetic signals; (3) Mixed: trained on combined synthetic and real data; (4) Tunned: pre-trained on synthetic data, then fine-tuned on real data. Performance was measured using Mean Absolute Error (MAE) between predicted and ground-truth high-resolution signals.}
 \\ \\
 \addtext{Results demonstrate that synthetic data augmentation significantly improves model performance on real-world signals~\cite{Forestier2017}. For EEG validation, the Mixed strategy achieved MAE of $9.73 \times 10^{-2}$, representing a 9.64\% improvement over the Real-only baseline ($10.77 \times 10^{-2}$). For out-of-domain VCTK speech data, the Tunned approach achieved MAE of $4.41 \times 10^{-3}$, a substantial 25.51\% improvement over Real-only ($5.92 \times 10^{-3}$). Notably, models trained exclusively on synthetic data (Synth-only) exhibited higher errors, confirming that synthetic signals complement rather than replace real data~\cite{Forestier2017}. These findings provide quantitative evidence that CoSiBD successfully bridges the gap between synthetic training and real-world application, validating its design objectives. Detailed experimental methodology, complete results, and model comparisons are documented in a separate manuscript currently under preparation.}
-\\ \\
-\addtext{As an additional validation experiment, we evaluated the generalization capability of a CNN model trained exclusively on CoSiBD synthetic data by reconstructing complete 2-second audio segments from the VCTK corpus~\cite{Yamagishi2019}. The TimeSeriesSRNet model, trained with 5$\times$ upsampling factor on synthetic signals, was applied to speech recordings (48 kHz, 96,000 samples) without any domain-specific fine-tuning. The reconstruction pipeline processed audio in overlapping chunks of 5,000 samples using Overlap-Add synthesis. Results showed a Pearson correlation coefficient of 0.928 between reconstructed and original signals, indicating that the temporal structure of speech waveforms was substantially preserved despite the model having been trained only on synthetic data. This experiment provides additional evidence that CoSiBD captures fundamental temporal patterns that generalize beyond the synthetic domain. Reconstructed audio examples are available in the supplementary repository.}
 \notetext{New subsection addressing reviewer requirements for real-world application validation, CNN/deep learning model demonstration, and quantitative performance metrics.}
 
 \begin{table}[h]
