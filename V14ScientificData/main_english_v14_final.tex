@@ -81,14 +81,14 @@ CoSiBD is designed to close the gap by providing a fixed, standardized set of LR
 \begin{table*}[t]
 \centering
 \begingroup
-\small
+\scriptsize
 \setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{|p{2.7cm}|p{2.3cm}|p{1.6cm}|p{1.9cm}|p{1.7cm}|p{2.2cm}|p{2.4cm}|}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{1.4cm}|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
 \hline
-                                     \csname textbf\endcsname{Resource} & \textbf{Domain} & \textbf{Form} & \textbf{Paired LR--HR SR} & \textbf{Multi-resolution} & \textbf{Noise / artifacts} & \textbf{Reproducibility granularity} \\
+\textbf{Resource} & \textbf{Domain} & \textbf{Form} & \textbf{Paired LR--HR SR} & \textbf{Multi-resolution} & \textbf{Noise / artifacts} & \textbf{Reproducibility granularity} \\
 \hline
-                                     \csname textbf\endcsname{CoSiBD (this work)} &
+\textbf{CoSiBD (this work)} &
 Generic time series (complex-structured signals) &
 Dataset + generator &
 Yes (LR $\rightarrow$ HR targets) &
@@ -144,7 +144,7 @@ Typically limited (study-specific) &
 Study-dependent &
 Paired data available for the study; limited generality \\
 \hline
-\end{tabular}
+\end{tabularx}
 \endgroup
 \caption{Representative publicly available synthetic time-series datasets and simulators related to signal processing and learning.}
 \label{tab:related_synthetic_datasets}
@@ -164,9 +164,9 @@ The methodology used to generate the synthetic temporal signals that constitute 
 
 \textbf{Design rationale inspired by real signals.} It is important to note that one of the main applications of the proposed dataset will be the training of deep learning models to be used for SR purposes in other real-world datasets, like, for instance, physiological or speech signals. Therefore, there is a need for our dataset to resemble real-world data. In particular, real signals exhibit (i) non-stationary regime changes, (ii) coexisting low- and high-frequency components with intermittent transients, (iii) smooth amplitude-envelope evolution, and (iv) slow baseline drift and measurement noise. CoSiBD instantiates these properties via non-uniform interval partitioning with change-points, separate low/high-frequency bands, spline-based envelopes and frequency profiles, and explicit offset/noise terms. Figure~\ref {fig:design_rationale_motivations} provides qualitative examples of these motivating properties found in real-world time series; the main goal of our dataset is to be able to capture challenging structure for SR benchmarking rather than match a specific domain distribution.
 
- The design of CoSiBD is informed by the inherent limitations of standard synthetic datasets in capturing the irregular morphologies of real-world signals. As shown in Figure~\ref{fig:design_rationale_motivations}, physiological signals such as ECG or EEG (A-B) are rarely stationary, often exhibiting abrupt regime shifts and highly structured spectral components that pose significant challenges for temporal reconstruction. By implementing explicit change-points and multi-band frequency partitioning, CoSiBD attempts to approximate these localized dynamics, providing a more demanding benchmark than globally stationary models.
+ The design of CoSiBD is informed by the inherent limitations of standard synthetic datasets in capturing the irregular morphologies of real-world signals. As shown in Figure~\ref{fig:design_rationale_motivations}, physiological signals such as ECG or EEG (\textbf{\subref{fig:motivations_physio_time}--\subref{fig:motivations_physio_psd}}) are rarely stationary, often exhibiting abrupt regime shifts and highly structured spectral components that pose significant challenges for temporal reconstruction. By implementing explicit change-points and multi-band frequency partitioning, CoSiBD attempts to approximate these localized dynamics, providing a more demanding benchmark than globally stationary models.
 
- Similarly, the inclusion of spline-based modulation seeks to address the continuous but non-linear fluctuations observed in acoustic data (C-D). The amplitude envelopes and F0 trajectories in speech represent a level of temporal complexity that rigid parametric approaches often oversimplify. Using smooth spline profiles allows the framework to emulate these high-order dependencies without assuming a fixed functional form. This ensures that the resulting dataset, while still synthetic, exposes super-resolution models to the morphological variability—such as pitch drifting and dynamic scaling—required for generalization to authentic signals.
+ Similarly, the inclusion of spline-based modulation seeks to address the continuous but non-linear fluctuations observed in acoustic data (\textbf{\subref{fig:motivations_speech_time}--\subref{fig:motivations_speech_f0}}). The amplitude envelopes and F0 trajectories in speech represent a level of temporal complexity that rigid parametric approaches often oversimplify. Using smooth spline profiles allows the framework to emulate these high-order dependencies without assuming a fixed functional form. This ensures that the resulting dataset, while still synthetic, exposes super-resolution models to the morphological variability—such as pitch drifting and dynamic scaling—required for generalization to authentic signals.
 
 \begin{figure}
 
@@ -175,12 +175,14 @@ The methodology used to generate the synthetic temporal signals that constitute 
         \centering
         \includegraphics[width=\textwidth]{graphs/r1_3_design_rationale/r1_3_real_signal_motivations01.jpg}
         \subcaption{Physiological example: ECG/EEG like waveform}
+        \label{fig:motivations_physio_time}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{graphs/r1_3_design_rationale/r1_3_real_signal_motivations02.jpg}
         \subcaption{Physiological PSD (Welch, qualitative).}
+        \label{fig:motivations_physio_psd}
     \end{minipage}
 
 
@@ -189,12 +191,14 @@ The methodology used to generate the synthetic temporal signals that constitute 
         \centering
         \includegraphics[width=\textwidth]{graphs/r1_3_design_rationale/r1_3_real_signal_motivations03.jpg}
         \subcaption{Speech example: waveform + amplitude envelope}
+        \label{fig:motivations_speech_time}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{graphs/r1_3_design_rationale/r1_3_real_signal_motivations04.jpg}
         \subcaption{Speech example: pitch trend (F0)}
+        \label{fig:motivations_speech_f0}
     \end{minipage}
 
     \caption{Qualitative real-signal properties motivating the CoSiBD design, specifically non-stationarity and spectral structure in physiological data, and envelope-pitch dynamics in speech.}
@@ -309,6 +313,29 @@ Reproducibility is ensured through documented seeds: each high-resolution signal
 
 CoSiBD provides per-signal metadata to support (i) deterministic regeneration, (ii) principled partitioning (e.g., by noise type/level or segment labels), and (iii) analysis of the piecewise structure induced by change-points. Table~\ref{tab:metadata_schema} summarizes representative fields contained in \texttt{signals\_metadata.json}. A minimal example entry is shown below (one signal; values truncated for brevity).
 
+Table~\ref{tab:metadata_schema} details the key fields describing each signal, specifically the \texttt{variation\_type} list which provides categorical labels aligned with the \texttt{base\_points} anchors (e.g., ``low'', ``high'', or ``no\_change''), enabling users to filter for signals containing specific dynamic behaviors. The following JSON snippet shows a simplified illustrative metadata record (Example 1; values truncated for readability). Figure~\ref{fig:metadata_visualization} provides a visual counterpart of the same record: it highlights how consecutive \texttt{base\_points} (and, when present, \texttt{high\_freq\_points}) define temporal intervals and frequency targets, while \texttt{variation\_type} provides the corresponding per-anchor labels (here, yielding two intervals: ``low'' then ``high''), and \texttt{amp\_knots}/\texttt{amp\_values} define the amplitude envelope.
+
+\begin{verbatim}
+{
+    "t_start": 0.0,
+    "t_end": 12.566370614359172,
+    "fs_high": 397.88735772973837,
+    "tau_frequency": 1.15,
+    "amplitude_spline_type": "zero_order",
+    "tau_amplitude": "N/A",
+    "vertical_offset": 0.06905161748158965,
+    "base_points": [[0.0, 1.0], [6.28, 3.0], [12.56, 3.0]],
+    "high_freq_points": [[0.0, 0.0], [6.28, 0.0], [12.56, 0.0]],
+    "variation_type": ["low", "high", "high"],
+    "amp_knots": [0.0, 6.28, 12.56],
+    "amp_values": [0.72, 1.22, 0.96],
+    "noise_profile": {"has_noise": true, "noise_type": "gaussian", "p_has_noise": 0.5, ...},
+    "seed": 10000,
+    "signal_id": "signal_0000",
+    "index": 0
+}
+\end{verbatim}
+
 \begin{table}[htbp]
 \centering
 \footnotesize
@@ -333,30 +360,7 @@ CoSiBD provides per-signal metadata to support (i) deterministic regeneration, (
 \label{tab:metadata_schema}
 \end{table}
 
-Table~\ref{tab:metadata_schema} details the key fields describing each signal, specifically the \texttt{variation\_type} list which provides categorical labels aligned with the \texttt{base\_points} anchors (e.g., ``low'', ``high'', or ``no\_change''), enabling users to filter for signals containing specific dynamic behaviors. The following JSON snippet shows a simplified illustrative metadata record (Example 1; values truncated for readability). Figure~\ref{fig:metadata_visualization} provides a visual counterpart of the same record: it highlights how consecutive \texttt{base\_points} (and, when present, \texttt{high\_freq\_points}) define temporal intervals and frequency targets, while \texttt{variation\_type} provides the corresponding per-anchor labels (here, yielding two intervals: ``low'' then ``high''), and \texttt{amp\_knots}/\texttt{amp\_values} define the amplitude envelope.
-
-\begin{verbatim}
-{
-    "t_start": 0.0,
-    "t_end": 12.566370614359172,
-    "fs_high": 397.88735772973837,
-    "tau_frequency": 1.15,
-    "amplitude_spline_type": "zero_order",
-    "tau_amplitude": "N/A",
-    "vertical_offset": 0.06905161748158965,
-    "base_points": [[0.0, 1.0], [6.28, 3.0], [12.56, 3.0]],
-    "high_freq_points": [[0.0, 0.0], [6.28, 0.0], [12.56, 0.0]],
-    "variation_type": ["low", "high", "high"],
-    "amp_knots": [0.0, 6.28, 12.56],
-    "amp_values": [0.72, 1.22, 0.96],
-    "noise_profile": {"has_noise": true, "noise_type": "gaussian", "p_has_noise": 0.5, ...},
-    "seed": 10000,
-    "signal_id": "signal_0000",
-    "index": 0
-}
-\end{verbatim}
-
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{graphs/metadata_vis.png}
     \caption{Visual representation of an illustrative metadata record for signal\_0000 (Example 1). The plot illustrates how \texttt{base\_points} define temporal intervals and frequency targets, while \texttt{amp\_values} control the amplitude envelope segments, corresponding directly to the JSON structure.}
@@ -378,13 +382,13 @@ Table~\ref{tab:metadata_schema} details the key fields describing each signal, s
 \textbf{Resolution and sampling.} Each instance is first generated at the target high-resolution length (e.g., 5,000 samples in the released dataset), and lower-resolution views are derived by subsampling, enabling consistent multi-scale analysis and SR benchmarking (Figure~\ref{fig:amplitud}).
 
 \textbf{Mathematical formulation.} Let $t\in[t_\mathrm{start},t_\mathrm{end}]$ with the paper's convention $T=t_\mathrm{end}-t_\mathrm{start}=4\pi$\,s. A generated signal can be written as
-\[
+\begin{equation}
 x(t)=v + a(t)\,\sin\!\big(\phi(t)\big) + \varepsilon(t),
-\]
+\end{equation}
 where $v$ is a vertical offset, $a(t)\ge 0$ is the amplitude envelope, and $\varepsilon(t)$ is an optional additive noise term. The instantaneous frequency trajectory is encoded through the phase derivative
-\[
+\begin{equation}
 f(t)=\frac{1}{2\pi}\,\frac{d\phi(t)}{dt},
-\]
+\end{equation}
 and is constructed from a spline defined by a set of control points and a tension parameter (Table~\ref{tab:Parameter}). This separation (frequency trajectory vs. amplitude envelope) allows generating signals that share the same transition structure but differ in amplitude dynamics, or vice versa.
 
 \textbf{Mapping Table~\ref{tab:Parameter} to metadata fields.} The parameters in Table~\ref{tab:Parameter} correspond to concrete entries in each per-signal metadata record (Figure~\ref{fig:metadata_visualization} shows an illustrative example):
@@ -422,7 +426,7 @@ Seed & Integer & - & Unique initialization seed per signal. \\ \hline
 \label{tab:Parameter}
 \end{table}
 
-To explicitly characterize dataset diversity and complexity, CoSiBD spans multiple controlled axes of variation (Table~\ref{tab:Parameter}), including the number and location of change points, categorical transition types, low/high frequency bands, and amplitude-envelope configurations. The resulting variability is visible in representative realizations (Figures~\ref{fig:amplitud} and~\ref{fig:simples}) and is quantified in Technical Validation via the distribution of dominant frequencies (Figure~\ref{fig:dominant_frequency_distribution} and Table~\ref{tab:density_label}) and PSD behavior under different resolutions and noise settings (Figures~\ref{fig:average_psd} and~\ref{fig:noise_psd}). While the dataset is synthetic and not fitted to match a single domain-specific distribution, these controlled variations provide reproducible coverage of common real-world time-series phenomena such as non-stationarity, transient high-frequency events, and additive noise.
+To explicitly characterize dataset diversity and complexity, CoSiBD spans multiple controlled axes of variation (Table~\ref{tab:Parameter}), including the number and location of change points, categorical transition types, low/high frequency bands, and amplitude-envelope configurations.While the dataset is synthetic and not fitted to match a single domain-specific distribution, these controlled variations provide reproducible coverage of common real-world time-series phenomena such as non-stationarity, transient high-frequency events, and additive noise.
 
  Figure~\ref{fig:amplitud} shows a representative signal from the dataset sampled at different resolution levels, as well as a version with added noise. This illustrates the variety of sampling and noise conditions included in CoSiBD. Figure~\ref{fig:simples} displays four additional synthetic signals generated using different configuration parameters. These examples demonstrate the variability in temporal structure across instances in the dataset.
 
@@ -677,61 +681,63 @@ As the upsampling factor increases, the reconstruction problem becomes increasin
 
 \begin{figure}[htbp]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    % Using subcaption package settings for spacing
+    \captionsetup[subfigure]{font=scriptsize, skip=3pt, margin=0pt} 
+    % Removed undefined subfigbottomskip
+    
+    % Enforcing height limit to fit on page, but ensuring no overlap
+    % Images are ~2.1cm high. 
+    
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions01.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions01.jpg}
         \subcaption{5x upsampling}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
+    \end{subfigure}
+    
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions02.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions02.jpg}
         \subcaption{5x upsampling}
-    \end{minipage}
+    \end{subfigure}
 
-
-
-    \begin{minipage}{0.48\textwidth}
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions03.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions03.jpg}
         \subcaption{10x upsampling}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions04.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions04.jpg}
         \subcaption{10x upsampling}
-    \end{minipage}
+    \end{subfigure}
 
-
-
-    \begin{minipage}{0.48\textwidth}
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions05.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions05.jpg}
         \subcaption{20x upsampling}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions06.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions06.jpg}
         \subcaption{20x upsampling}
-    \end{minipage}
+    \end{subfigure}
 
-
-
-    \begin{minipage}{0.48\textwidth}
+    \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions07.jpg}
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions07.jpg}
         \subcaption{33x upsampling}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{graphs/multifactor_predictions08.jpg}
-        \subcaption{33x upsampling}
-    \end{minipage}
+    \end{subfigure}
 
-    \caption{\footnotesize Representative qualitative prediction examples, comparing LR inputs, HR ground truth, and CNN-reconstructed outputs across the multi-scale benchmark.}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth, height=2.1cm, keepaspectratio]{graphs/multifactor_predictions08.jpg}
+        \subcaption{33x upsampling}
+    \end{subfigure}
+    
+    \captionsetup{skip=5pt}
+    \caption{\footnotesize Representative qualitative prediction examples, comparing LR inputs, HR ground truth, and CNN-reconstructed outputs across the multi-scale benchmark. Each panel shows a full-width example.}
     \label{fig:multifactor_predictions}
 \end{figure}
 
@@ -772,20 +778,22 @@ Tuned (pretrain + finetune) & 10.68 & \textbf{4.41} \\
 
 \begin{figure}[htbp]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/eeg_model_comparison_1.pdf}
-        \subcaption{EEG clinical signal reconstruction.}
+        \subcaption{EEG clinical signal reconstruction.(x =samples, y=Amplitude)}
         \label{fig:eeg_comparison}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
+    \end{subfigure}
+    
+    \vspace{0.3cm} % Space between subfigures
+
+    \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/vctk_model_comparison_5.pdf}
-        \subcaption{VCTK speech signal reconstruction.}
+        \subcaption{VCTK speech signal reconstruction. (x =samples, y=Amplitude)}
         \label{fig:vctk_comparison}
-    \end{minipage}
-    \caption{Visual comparison of super-resolution predictions. CoSiBD-enhanced models (Mixed/Tuned) recover finer details in both (a) EEG transients and (b) speech waveforms compared to the baseline. In this figure, the horizontal axis is sample index and the vertical axis is amplitude.}
+    \end{subfigure}
+    \caption{Visual comparison of super-resolution predictions. CoSiBD-enhanced models (Mixed/Tuned) recover finer details in both (a) EEG transients and (b) speech waveforms compared to the baseline.}
     \label{fig:model_comparisons}
 \end{figure}
 
