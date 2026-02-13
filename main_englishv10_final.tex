@@ -523,14 +523,14 @@ Figure~\ref{fig:multifactor_loss_curves} illustrates the training and validation
 
 These multi-scale experiments provide quantitative baseline results for future benchmarking studies. The systematic increase in task difficulty—from moderate 5$\times$ upsampling to extreme 33$\times$ reconstruction—provides a reference protocol for comparing architectures, loss functions, and training strategies in the time series super-resolution domain.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{graphs/spectral_analysis_grid.png}
     \caption{Spectrogram comparison across all upsampling factors. Each row represents a different upsampling factor (5$\times$, 10$\times$, 20$\times$, 33$\times$), showing original signal (left), CNN-reconstructed signal (center), and spectral difference (right). Reconstruction artifacts become more visible at higher upsampling rates. Representative signals selected based on median Log Spectral Distance (LSD) for each factor.}
     \label{fig:spectral_analysis}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{graphs/spectral_metric_trends.png}
     \caption{Spectral quality metrics vs upsampling factor. Left: Log Spectral Distance (LSD) increases systematically with upsampling factor, from 0.51 (5$\times$) to 1.21 (33$\times$). Right: Spectral Correlation (SCORR) maintains consistently high values (>0.97) across all factors. Error bars represent standard deviation over 500 validation signals per factor.}
@@ -579,7 +579,7 @@ Tuned (pretrain + finetune) & 10.68 & \textbf{4.41} \\
         \subcaption{VCTK speech signal reconstruction.}
         \label{fig:vctk_comparison}
     \end{minipage}
-    \caption{Visual comparison of super-resolution predictions. CoSiBD-enhanced models (Mixed/Tuned) recover finer details in both (a) EEG transients and (b) speech waveforms compared to the baseline.}
+    \caption{Visual comparison of super-resolution predictions. CoSiBD-enhanced models (Mixed/Tuned) recover finer details in both (a) EEG transients and (b) speech waveforms compared to the baseline. In all panels, the horizontal axis denotes samples and the vertical axis denotes amplitude.}
     \label{fig:model_comparisons}
 \end{figure}
 

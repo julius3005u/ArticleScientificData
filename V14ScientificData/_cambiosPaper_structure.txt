@@ -1,0 +1,106 @@
+Extracted checklist structure from cambiosPaper.md
+
+[ITEM] 1\. En el paper se habla en varios sitios de "random seed" cuando en realidad la semilla ya no es aleatoria, sino un parámetro que establece el usuario o, en su caso, toma un valor fijo por defecto, ¿No es así? Quita "random" de todos sitios cuando se refiere a "seed" y deja solo "seed". De hecho, yo quitaría "random" de todos sitios donde se use en este sentido, porque ya no hay nada "random", ya todo son parámetros que tienen un cierto valor por defecto y que el usuario, si lo desea, puede modificarlos.
+[ITEM] 2\. Elimina del listado de referencias bibliográficas (referencias.bib) aquellas que, tras estos cambios, ya no se usen.
+[ITEM] 3\. Creo que siguen faltando unidades en los ejes de las figuras 2 (superior izquierda), 5 (no se muestra ni titulo de ejes ni unidades de medida), 6 (no se muestra ni titulo de ejes ni unidades de medida), y 15 (no se muestra ni titulo de ejes ni unidades de medida). Arregla eso porque, si no, nos van a volver a criticar.
+[ITEM] 4\. Al final de todo, hay que realizar una revisión global del ***inglés***. A ver cómo podemos hacerlo y quién lo hace, lo suyo sería usar algún servicio profesional o persona nativa.
+[HEADING] **ABSTRACT**
+[ITEM] 1\. En la primera frase del abstract, eliminaría la referencia a "industrial monitoring" porque luego en el paper no aparece nada relativo a ello. Podría quedar algo así:
+[ITEM] 2\. Más adelante en el abstract, ya que el dataset está pensado para super-resolution, quitaría la referencia genérica a "signal processing", quedando algo así:
+[ITEM] 3\. La frase en la que indicas los metadatos la reharía tal que así:
+[ITEM] 4\. Donde pone "including random seeds" yo quitaría "random" ya que, si yo no he entendido mal, ahora mismo la semilla ya no es aleatoria sino que realmente es un parámetro al que el usuario puede dar valor o, en su caso, toma un valor por defecto que es siempre el mismo, no aleatorio. Si estoy equivocado, infórmame y vemos como lo dejamos, pero lo de "random" precisamente va en contra de la reproducibilidad. Por tanto, yo lo dejaría como:
+[ITEM] 5\. La última frase del abstract estaba bien para la versión anterior, pero ahora mismo hay en la validación técnica otros apartados que son mucho más importantes, el de la experimentación con datos reales y la transferencia. Yo la reharía y pondría algo como esto:
+[ITEM] 6\. Revisa que el abstract, si es posible, no supere las 170 palabras que es la recomendación de la revista.
+[ITEM] 1\. El primer párrafo hace referencia a múltiples dominios y aplicaciones. Yo dejaría solo las que están relacionadas con los estudios que luego vas a mostrar en el artículo. Asegúrate de eliminar las referencias bibliográficas tachadas del listado final. Lo dejaría algo como esto:
+[ITEM] 2\. El segundo párrafo habla de demasiados tipos de técnicas de deep learning cuando, realmente, luego el paper solo muestra un ejemplo de CNN. Yo pondría solo CNNs y quizá GANs para no tener que quitar la referencia 9. Quitaría también la referencia explícita a "forecasting" porque nosotros no hacemos nada de eso. Quedaría algo así:
+[ITEM] 3\. Reharía el comienzo tercer párrafo un poquito:
+[ITEM] 4\. En ese tercer párrafo hay un ejemplo de limitación causada en el área de "environmental monitoring", que tampoco es algo que nosotros trabajemos por ningún lado en el artículo. Vamos a quitar ese ejemplo y su referencia bibliográfica asociada. En su lugar, te voy a pedir que quites ese ejemplo y pongas otra limitación relacionada con los datos de Telecomunicaciones o de audio o similar. Quedaría algo así:
+[ITEM] 5\. Le metemos algunos cambios al cuarto párrafo y habría que meter una referencia nueva que hable del potencial de la SR en temas de audio o telecomunicaciones:
+[ITEM] 6\. Cambiamos también un poco el sexto párrafo:
+[ITEM] 7\. En el séptimo párrafo propongo varios cambios. En particular, quitar los ejemplos que pones relacionados con áreas no estudiadas en el paper. Por favor, pon otros ejemplos relacionados con biomedicina, telecomunicaciones o áreas similares más afines a los datos reales con los que luego vamos a trabajar:
+[ITEM] 8\. Le damos una vuelta al octavo párrafo, sobre todo para incluir la doble aportación del dataset y su relevancia para el uso combinado con datos del mundo real:
+[ITEM] 9\. Mete un salto de página entre el párrafo "To support research in super-resolution ..." y el párrafo "To further position CoSiBD".
+[ITEM] 10\. Le damos una vuelta al párrafo que empieza por "To further position";
+[ITEM] 11\. Algunas sugerencias para el primer párrafo de la subsección "Related synthetic ...":
+[ITEM] 12\. Al último párrafo ("Table 1 summarizes ...") le veo varios problemas que te pido abordar:
+[SUBITEM] 12.1) Falta una explicación más profunda de todas y cada una de las columnas de la tabla y un comentario al contenido de la misma, aunque sea breve.
+[SUBITEM] 12.2) Al final del párrafo, cuando dices "... across multiple dificulty levels", no queda claro a que se refiere "dificulty". Hay que explicarlo mejor. Entiendo que te refieres a que hay diferentes niveles de degradación en las señales y cada vez eso hace que la reconstrucción sea más compleja. Hay que explicarlo porque no se entiende bien.
+[SUBITEM] 12.3) Hay una nota al pie para explicar qué significa "Configurable". Quita esa nota al pie porque se confunde con las referencias y explica eso en el cuerpo principal del paper.
+[SUBITEM] 12.4) Hay dos acrónimos LR y HR que no está definidos. Pon algo así:
+[ITEM] 1\. Vamos a rehacer la primera oración:
+[ITEM] 2\. Deja un salto de línea entre el primer párrafo ("The methodoloy used to ...") y el siguiente subapartado ("Design rationale inspired by real signals")
+[ITEM] 3\. La primera oración de la subsección "Design rationale inspired by real signals" no me gusta nada. Vamos a rehacerla:
+[ITEM] 4\. Tras el párrafo anterior, tienes que añadir un párrafo amplio para explicar mejor la figura 2. Hay que mejorarla así:
+[SUBITEM] 4.1) Cada una de las cuatro figuras de la figura 2 debe ir etiquetada con A), B), C) y D) para poder referirte bien en el texto a cada una de esas subfiguras.
+[SUBITEM] 4.2) Tienes que explicar en el texto de donde has sacado cada subfigura, de donde viene esa serie temporal y poner una referencia al artículo o dataset de donde has sacado es información
+[SUBITEM] 4.3) Tienes que explicar cada una de esas 4 subfiguras, indicando lo que quieres ejemplificar en cada una de ellas, qué aspecto concreto se muestra en cada figura que luego tú has usado para diseñar tu dataset
+[SUBITEM] 4.4) No pongas la explicación a la figura en el "caption" de la figura. Pon la explicación de la figura en el cuerpo principal del artículo.
+[SUBITEM] 4.5) La figura superior izquierda no tiene unidades en el eje horizontal
+[ITEM] 5\. El punto 7 de la metodología (Noise injection) es muy importante. Los revisores han incidido mucho en él y han pedido documentar bien el tema del ruido. Apenas hay 3 líneas. Creo que hay que explicarlo más a fondo el tema del ruido.
+[ITEM] 6\. Hay un momento donde te refieres a la figura 3 y dices "Figure 3 illustrates ...". Ahí debes explicar mucho mejor la figura 3, del siguiente modo:
+[SUBITEM] 6.1) Cada una de las cuatro figuras de la figura 3 debe ir etiquetada con A), B), C) y D) para poder referirte bien en el texto a cada una de esas subfiguras.
+[SUBITEM] 6.2) Tienes que explicar en el texto de donde has sacado cada subfigura y poner una referencia al artículo o dataset de donde has sacado es información
+[SUBITEM] 6.3) Tienes que explicar cada una de esas 4 subfiguras, indicando lo que quieres ejemplificar en cada una de ellas, qué aspecto concreto quieres ilustrar de cada una de ellas que motiva tus decisiones adoptadas.
+[SUBITEM] 6.4) No pongas la explicación a la figura en el "caption" de la figura. Pon la explicación de la figura en el cuerpo principal del artículo.
+[ITEM] 7\. Deja una línea en blanco de separación entre las subsecciones "Rationale for structured ..." y "Sampling units ..."
+[ITEM] 8\. Al final del primer párrafo de la subseccion "Sampling units ..." propongo el siguiente cambio:
+[ITEM] 9\. Hay que mejorar la Figura 4 del siguiente modo:
+[SUBITEM] 9.1) Cada una de las seis figuras de la figura 4 debe ir etiquetada con A), B), C) \... para poder referirte bien en el texto a cada una de esas subfiguras.
+[SUBITEM] 9.2) Tienes que aclarar en el texto de donde has sacado cada subfigura (entiendo que son propias de nuestro dataset, pero no queda claro)
+[SUBITEM] 9.3) Tienes que explicar cada una de esas 6 subfiguras, indicando lo que quieres ejemplificar en cada una de ellas, qué aspecto concreto quieres ilustrar de cada una de ellas según la idea que quieres transmitir.
+[SUBITEM] 9.4) No pongas la explicación a la figura en el "caption" de la figura. Pon la explicación de la figura en el cuerpo principal del artículo.
+[ITEM] 10\. Directamente quita el último párrafo, el que empieza por "The parameters that govern each step ...". En ese párrafo se habla de parámetros y del SignalBuilderC. Ambas cosas se explican más adelante con más detalle, así que veo repetitivo hablar de esto aquí. Por favor, elimina ese párrafo.
+[ITEM] 1\. Vamos a darle una vuelta al primer párrafo:
+[ITEM] 2\. Cuando explicas las los dos tipos de señales, le vamos a dar una vuelta:
+[ITEM] 3\. Rehacemos el siguiente párrafo:
+[ITEM] 4\. Retocamos un poco el siguiente párrafo:
+[ITEM] 5\. El último párrafo, el que comienza por "Each signal is stored in three formats ..." lo veo repetitivo con cosas que se han dicho ya y debes quitarlo.
+[ITEM] 6\. A lo sumo, propongo tomar esas ideas y ponerlas en un nuevo párrafo justo antes del párrafo de "Reproducibility is ensured through ...". Ese nuevo párrafo podría ser algo así:
+[ITEM] 7\. En la subsección "Metadata schema and example", propongo varias mejoras:
+[SUBITEM] 7.1) En la tabla 2, hay que poner una columna para el tipo y otra diferente para el ejemplo.
+[SUBITEM] 7.2) Hay alguna fila en la que el texto de la primera columna se mete en la segunda columna.
+[SUBITEM] 7.3) Intenta añadir un nuevo párrafo explicando un poco la tabla, sus columnas, ... (al menos las más importantes). **LO MÁS IMPORTANTE, DEBES EXPLICAR LOS TIPOS DE ETIQUETAS QUE PONES EN CADA SEGMENTO PARA DESCRIBIR LA TIPOLOGÍA COMPLETA DE SEGMENTOS HAY. Esto es FUNDAMENTAL.**
+[SUBITEM] 7.4) Importantísimo, hay que explicar el ejemplo de metadatos que presentas. Tienes que poner un párrafo explicando ese ejemplo, los diferentes metadatos que hay, sus valores, qué tipo de segmento estás representando, etc.
+[SUBITEM] 7.5) También muy importante, intenta dibujar una serie temporal donde se vea un segmento que se corresponda con ese ejemplo de metadatos que has puesto.
+[ITEM] 8\. Con lo que hemos cambiado anteriormente, puedes eliminar ya todo lo que va desde "The following resolutions levels are ..." hasta "- 150 samples (illustrative ... 4 pi s)".
+[ITEM] 9\. Antes del párrafo "Table 3 outlines the main parameters used in ..." mete un título de subsección llamado "Parameters for signal generation".
+[ITEM] 10\. Le damos una vuelta a ese primer párrafo de esa nueva subsección:
+[ITEM] 11\. Vamos a cambiar un poco toda la parte final de la explicación de los parámetros:
+[ITEM] 12\. Justo después del párrafo anterior, debes meter un párrafo donde expliques que hay una funcionalidad con la que el usuario puede generarse su propio dataset con los valores de parámetros que el usuario desee ofrecer. Explica cómo funciona ese comando y pon una figura nueva (captura de pantalla) donde haya un ejemplo de esa línea de comandos con el comando para crearlos y algunos parámetros de ejemplo. En el texto del artículo explica bien esa figura nueva.
+[ITEM] 13\. Quita el pequeño párrafo del final "The full dataset is hosted in Zenodo ... structured folders". Ya has puesto al principio de la sección la referencia, que es la forma correcta de hacerlo. Este párrafito aquí ya queda repetitivo.
+[ITEM] 14\. Antes de todo eso, creo que deberías explicar un poco más la tabla 3, explicando un poco cada uno de los parámetros. Debes indicar que los valores por defecto mostrados en la tabla son los que se han usado para generar el dataset que hay depositado en Zenodo.
+[ITEM] 15\. Por cierto, al hilo del comentario anterior, debes indicar en la tabla 3 una nueva columna para el valor por defecto de cada parámetro.
+[ITEM] 16\. Las figuras 5 y 6 no tienen títulos en los ejes (vertical ni horizontal) ni unidades. Pónselos, por favor.
+[ITEM] 1\. Se hace necesario rehacer el primer párrafo que explica esta sección, ya que ahora hay más cosas. Puede quedar algo así:
+[ITEM] 2\. En "Validation Context", al final pondría una nueva frase de este tipo que nos puede ahorrar problemas:
+[ITEM] 3\. Ya en la subsección "Analysis of Dominant Frequency Distribution", en el párrafo "The results, shown in Figure 7 and Table 4 ..." intenta dar más detalles, no te limites a decir que la figura y la tabla muestran buenos resultados, sino que analiza un poco porqué y, sobre todo, indica qué partes o datos de la figura y la tabla sostienen esa afirmación.
+[ITEM] 4\. La frase final de ese párrafo "This behavior reflects ... controlled variability" debería terminar con una referencia bibliográfica que sustente la frase, quedando así: "This behavior reflects ... controlled variability \<NUEVA REFERENCIA BIBLIOGRÁFICA QUE SUSTENTE ESA CONCLUSIÓN\>."
+[ITEM] 5\. Asegúrate de forzar en Latex que la figura 8 aparezca antes que la 9, y no al contrario como ocurre ahora mismo.
+[ITEM] 6\. Amplía el párrafo "Figure 8 represents examples ..." explicando un poco más esa figura, no en el caption de la misma, sino en el texto de dicho párrafo. Explica en qué partes de la figura se aprecia realmente que las fluctuaciones de amplitud oscurecen progresivamente la estructura temporal.
+[ITEM] 7\. Ya dentro de la subsección "Spectral Stability Across Sampling Resolutions", me gustaría que al final de la subsección, añadas un párrafo, aunque sea corto, donde se resuman las conclusiones que tu extraes de este análisis realizado, porque comentas las gráficas pero falta una conclusión. MUY IMPORTANTE, utiliza una referencia bibliográfica que sustente lo que concluyas.
+[ITEM] 8\. Ya en la subsección "Impact of noise on frequency characteristics", pon "Figure 10 illustrates ..." justo a continuación de "... low- and high-frequency regions.". Es decir, no pongas ahí un salto de línea, sino un punto y seguido.
+[ITEM] 9\. En ese mismo párrafo creo que hay un error, porque en el texto pones "0.2 (red curve)" pero no veo ninguna curva roja. Yo creo que debes poner "0.2 (green curve)".
+[ITEM] 10\. De nuevo, me gustaría que al final de la subsección "Impact of noise on frequency characteristics", añadas un párrafo, aunque sea corto, *o bien completes un poco el último párrafo*, donde se resuman las conclusiones que tu extraes de este análisis realizado, porque se queda como a medias. MUY IMPORTANTE, utiliza una referencia bibliográfica que sustente lo que concluyas.
+[ITEM] 11\. Ya dentro de la subsección "Multi-Scale Super-Resolution Benchmark", en el primer párrafo debes aclarar que son los "scaling factors" que usas (5x,10x, ...). Yo realmente no entiendo qué son.
+[ITEM] 12\. En el primer párrafo, deberías poner una referencia bibliográfica de la arquitectura que usas (TimeSeriesSRNet).
+[ITEM] 13\. Justifica porqué usas esa arquitectura.
+[ITEM] 14\. También hay que justificar mínimamente porqué configuras el entrenamiento del modo que lo haces: MSE, Adam, batch 16, ... ¿Por qué esa configuración? Pon alguna referencia bibliográfica o explicación convicente.
+[ITEM] 15\. Hay que comentar más la tabla 5, haciendo referencia explícita a los resultados obtenidos. La explicación que hay es muy genérica.
+[ITEM] 16\. El párrafo "Figure 11 illustrates ..." debería ir mucho antes, justo en un punto y seguido después de "... from severly undersampled inputs (Table 5, Figure 11)".
+[ITEM] 17\. Por cierto, la explicación que das en "Figure 11 illustrates" es muy corta, hay que explicar mejor la figura 11 ampliando esa información.
+[ITEM] 18\. Igualmente, en ese mismo párrafo debes explicar mucho mejor la figura 12. Para mi gusto, tienes muchas subfiguras. Yo pondría alguna menos y las explicaría mejor. Ahora mismo hay demasiadas y muy poco texto explicativo. Debes dejar menos, explicarlas mejor haciendo referencia explícita a cada subfigura, al menos a unas cuantas, no dejarlo todo tan genérico y poco explicado. Por ejemplo, explica cómo es la reconstrucción para cada tipo de señal (con más variaciones en amplitud, con las que varían en frecuencia, con las que son más estables, \...)
+[ITEM] 19\. Debes reorganizar el párrafo "To complement amplitude-based validation". Sugiero que fuerces a que LATEX haga que la figura 14 pase a ser la figura 13 y la figura 13 pase a ser la 14. Es decir, que primero aparezca la figura de las métricas de calidad espectral y luego aparezca el espectrograma. Así el discurso va a ser más sencillo. Te pongo un esquema de cómo quedaría bien:
+[ITEM] 19\. bis: Como aclaración a la parte final del párrafo tratado en el comentario anterior, deberías explicar mejor el espectrograma, particularmente cómo se ven los artifacts en la parte derecha de la figura. ¿Son esas barras verticales en rojo? Explícalo bien para el lector.
+[ITEM] 20\. En ese mismo párrafo indicas que el LSD toma un cierto rango de valores y que el SCORR permanece consistentemente alto. ¿Qué implica eso? ¿Es bueno o malo? Explícalo y pon una o varias referencias bibliográficas que lo sustenten.
+[ITEM] 21\. Al último párrafo le daría una vuelta:
+[ITEM] 22\. Ya en la sección "Illustrative Transfer Experiments" quita "(optional)" del título.
+[ITEM] 23\. Rehacemos un poco el primer párrafo de esa subsección:
+[ITEM] 24\. Rehacemos un poquito el siguiente párrafo:
+[ITEM] 25\. Algunos cambios en el siguiente párrafo:
+[ITEM] 26\. Después del párrafo anterior, debes añadir un párrafo nuevo que explique bien la figura 15, explicando bien como esa figura muestra de forma visual lo que ya nos había dicho la tabla 6.
+[ITEM] 27\. La figura 15 le faltan etiquetas en los ejes y unidades.
+[ITEM] 28\. Yo reharía un poco el último párrafo:
+[ITEM] 1\. El párrafo inicial de "Reading the Data", lo reharía así:
+[ITEM] 2\. El párrafo inicial de "Visualizing Signal Pairs", lo reharía así:
+[ITEM] 3\. Hay que completar el código de ejemplo de "Training a baseline model (syntehic-only)" añadiendo más comentarios dentro del código que expliquen bien los pasos que se van dando. La parte inicial hasta "Train/val split" está bien comentada, pero a partir de ahí no hay ningún comentario. Hay que añadir comentarios en la definición del tensor, los cargadores de val y train, el TinySRNet, modelos, epocas, calculo de pérdidas, muestra de resultados, etc.
+[ITEM] 1\. Quisiera pedirte modificar solo la frase de mi contribución particular y poner algo así:

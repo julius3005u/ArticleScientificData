@@ -1,0 +1,142 @@
+V14 heading index (from main_english_v14_final.tex)
+
+01. \section*{Background \& Summary}
+\label{sec:background-summary}
+
+The analysis and simulation of temporal signals are fundamental across science and engineering. These techniques provide critical insights into dynamic processes in multiple domains. For instance, In biomedical research \cite{Karacan2024}, electroencephalography (EEG) analyses reveal heart function \cite{Nayak2023,shaffer2017}. Another example is telecommunications, which rely on signal processing to ensure data f
+
+02. \subsection*{Related synthetic time-series resources}
+Publicly available synthetic resources for temporal signals exist, but they are typically designed for tasks other than time-series SR, or they target a specific domain. In wireless communications, the RadioML family provides large collections of synthetic complex I/Q sequences with varying SNR (Signal-to-noise ratio) and channel impairments, mainly to benchmark automatic modulation classification rather than paired SR reconstruction \cite{oshe
+
+03. \section*{Methods}
+\label{sec:methods}
+
+The methodology used to generate the synthetic temporal signals that constitute the CoSiBD dataset is illustrated in Figure~\ref{fig:generation_process}. The signal generation process is designed to produce time series exhibiting structural properties commonly observed in real-world temporal data, including variable frequency content, smooth transitions, and intermittent high-frequency activity. A key aspect of the procedure
+
+04. \section*{Data Records}
+\label{sec:data-records}
+
+The Complex Signal Benchmark Dataset (CoSiBD) is publicly available on Zenodo\cite{cosibd_zenodo_2025} and consists of synthetic temporal signals, mainly created to support the development and evaluation of temporal super-resolution (SR) algorithms, and also to train deep learning models that can be used for SR in real-world signals. This section provides an overview of the dataset structure, content, and storage format
+
+05. \subsection*{Metadata schema and example}
+\noindent
+CoSiBD provides per-signal metadata to support (i) deterministic regeneration, (ii) principled partitioning (e.g., by noise type/level or segment labels), and (iii) analysis of the piecewise structure induced by change-points. Table~\ref{tab:metadata_schema} summarizes representative fields contained in \texttt{signals\_metadata.json}. A minimal example entry is shown below (one signal; values truncated for brevity).
+
+\begin{table}[H]
+
+06. \subsection*{Parameters for signal generation}
+\noindent As we anticipated before, our dataset is generated based on some parameters, that are outlined in Table~\ref{tab:Parameter}. Each high-resolution signal was generated with a unique seed (10,000--12,499) and sampled parameter values within the defined ranges, supporting diversity while maintaining reproducibility.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|l|l|l|p{4cm}|}
+\hline
+\textbf{Parameter} & \textbf{Range / Options} &
+
+07. \subsection*{Custom Dataset Generation}
+In addition to the pre-generated dataset, the CoSiBD package includes a command-line interface (CLI) that allows users to generate custom datasets with their own parameter distributions. Figure~\ref{fig:cli_tool} demonstrates the usage of this tool, showing the command syntax for specifying signal length, number of samples, and noise probability, along with the resulting output logs confirming generation.
+
+\begin{figure}[H]
+    \centering
+    \
+
+08. \section*{Technical Validation}
+\label{sec:technical-validation}
+
+This section evaluates the signal generation procedure by analyzing spectral properties under different conditions, including the distribution of dominant frequencies, spectral stability across sampling rates, and the effect of noise. Additionally, we provide a multi-scale super-resolution benchmark to demonstrate the dataset's utility in training deep learning models, and illustrative transfer learning experime
+
+09. \subsection*{Validation Context}
+Experimental parameters were selected to support reproducibility and to illustrate representative behaviors of the generator under the reported settings. The number of signals ($n=50$ for spectral analysis, $n=2500$ for benchmarks) provides a compact but informative sample to summarize variability. Sampling resolutions (ranging from 150 to 5000 samples) reflect scenarios requiring different levels of detail, aligning with typical signal processi
+
+10. \subsection*{Analysis of Dominant Frequency Distribution}
+To assess the stability and variability of the primary spectral components, we analyzed the distribution of dominant frequencies across multiple generated signals. A total of fifty independent signals were synthesized using identical input parameters. To examine their spectral characteristics, we computed the power spectral density (PSD) of each signal, which quantifies how signal power is distributed across different frequencies.
+\\ \\
+The PSD
+
+11. \subsection*{Spectral Stability Across Sampling Resolutions}
+This analysis aims to investigate the influence of sampling resolution (number of samples) on the robustness of spectral estimates under varying frequency content. When frequency axes are reported in Hz, they follow the illustrative convention $T=4\pi$\,s; for other choices of $T$, the Hz axis rescales by $4\pi/T$. At lower resolutions, reduced sampling density and coarser frequency grids can obscure or merge spectral peaks, compromising the ab
+
+12. \subsection*{Impact of Noise on Frequency Characteristics}
+We analyze how varying the noise amplitude affects the power spectral density (PSD), with particular attention to differences between low- and high-frequency regions.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphs/noise.png}
+    \caption{Power spectral density (PSD) of signals generated with different noise amplitudes (Hz axis under the illustrative convention $T=4\pi$\,s).}
+    \label{fig:noise_psd}
+\end{fig
+
+13. \subsection*{Multi-Scale Super-Resolution Benchmark}
+\label{sec:multiscale-super-resolution-benchmark}
+
+To illustrate a baseline use case of CoSiBD, we trained a series of convolutional neural network (CNN) models for time series super-resolution at four different scaling factors: 5$\times$ (1000$\to$5000), 10$\times$ (500$\to$5000), 20$\times$ (250$\to$5000), and 33$\times$ (150$\to$5000). All models employed the TimeSeriesSRNet architecture—a five-layer encoder-decoder network with 1D convolutio
+
+14. \subsection*{Illustrative Transfer Learning Experiments}
+\label{sec:preliminary-application-results}
+
+To demonstrate the practical utility of CoSiBD for training deep learning models, we conducted transfer learning experiments using convolutional neural networks (CNNs) for time-series super-resolution~\cite{Kuleshov2017,Kaniraja2024}. A TimeSeriesSRNet model (encoder-decoder architecture with 1D convolutions: 1$\to$64$\to$128$\to$256, bilinear upsampling, decoder 256$\to$128$\to$64$\to$1) was evaluate
+
+15. \section*{Usage Notes}
+\label{sec:usage-notes}
+
+The CoSiBD dataset contains high-resolution signals and corresponding subsampled versions at multiple resolutions. Signals are provided in consolidated \texttt{.txt}, \texttt{.npz}, and \texttt{.json} formats. Pairing between low- and high-resolution versions is performed by row index: row $i$ in a subsampled file corresponds to row $i$ in the high-resolution file, with per-signal parameters available in \texttt{signals\
+
+16. \subsection*{Reading the Data}
+The signals are stored as consolidated plain text (\texttt{.txt}) files, with one signal per row (samples separated by whitespace). Each file contains multiple time series stacked vertically, where each row corresponds to a single signal. The dataset can be accessed using standard Python tools:
+
+\begin{verbatim}
+import numpy as np
+
+# Load subsampled (simple decimation) and high-resolution signals
+# Each .txt file is consolidated: one signal per
+
+17. \subsection*{Visualizing Signal Pairs}
+To inspect the alignment between low- and high-resolution versions, users can visualize paired signals indexed by the same row:
+
+\begin{verbatim}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load subsampled (simple decimation) and high-resolution signals
+# Each .txt file is consolidated: one signal per row
+x_lr = np.loadtxt('SignalBuilderC/data/signals_subsampled_simple_250.txt')
+x_hr = np.loadtxt('SignalBuilderC/data/signals_high_reso
+
+18. \subsection*{Training a baseline model (synthetic-only)}
+\noindent
+The following example illustrates a minimal synthetic-only training loop for time-series super-resolution using CoSiBD pairs (LR input from simple uniform decimation, HR target). The intent is to provide a compact, reproducible starting point; full training scripts and additional configurations are available in the accompanying repository.
+
+\begin{verbatim}
+import numpy as np
+import torch
+import torch.nn as nn
+from torch.utils.data im
+
+19. \section*{Code availability}
+\label{sec:code-availability}
+
+\noindent
+
+The complete signal generation pipeline, including modules for frequency profile generation, amplitude envelope construction, spline interpolation, noise application, and data export in multiple formats, is available at:  
+\href{https://github.com/DhamarAM/SignalBuilder/tree/main}{CoSiBD scripts on GitHub}.  
+The repository includes SignalBuilderC, a modular Python package with documented functions for:
+
+20. \section*{Acknowledgments}
+This research was supported by Dean's Office of the Polytechnic College of the San Francisco de Quito University  and partially by ProyExcel-0069 project of the Andalusian University, Research and Innovation Department.
+
+\section*{Author Contributions}
+J. I. F. handled the methodological design for artificial data creation, probabilistic analysis, spline-based variations, noise distributions, and node selection. J. A. L. was responsible for the
+
+21. \section*{Author Contributions}
+J. I. F. handled the methodological design for artificial data creation, probabilistic analysis, spline-based variations, noise distributions, and node selection. J. A. L. was responsible for the time series methodological design. D. A. M. performed data processing and validation analysis. All of the authors have contributed to writing the manuscript.
+
+\section*{Competing Interests}
+The authors declare no competing interests
+
+\end{document}
+
+22. \section*{Competing Interests}
+The authors declare no competing interests
+
+\end{document}

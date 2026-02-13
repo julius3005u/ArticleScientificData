@@ -1,0 +1,305 @@
+Indicaciones para corregir:
+
+GENERAL
+
+1\. En el paper se habla en varios sitios de "random seed" cuando en realidad la semilla ya no es aleatoria, sino un parámetro que establece el usuario o, en su caso, toma un valor fijo por defecto, ¿No es así? Quita "random" de todos sitios cuando se refiere a "seed" y deja solo "seed". De hecho, yo quitaría "random" de todos sitios donde se use en este sentido, porque ya no hay nada "random", ya todo son parámetros que tienen un cierto valor por defecto y que el usuario, si lo desea, puede modificarlos.
+
+2\. Elimina del listado de referencias bibliográficas (referencias.bib) aquellas que, tras estos cambios, ya no se usen.
+
+3\. Creo que siguen faltando unidades en los ejes de las figuras 2 (superior izquierda), 5 (no se muestra ni titulo de ejes ni unidades de medida), 6 (no se muestra ni titulo de ejes ni unidades de medida), y 15 (no se muestra ni titulo de ejes ni unidades de medida). Arregla eso porque, si no, nos van a volver a criticar.
+
+4\. Al final de todo, hay que realizar una revisión global del ***inglés***. A ver cómo podemos hacerlo y quién lo hace, lo suyo sería usar algún servicio profesional o persona nativa.
+
+**ABSTRACT**
+
+1\. En la primera frase del abstract, eliminaría la referencia a "industrial monitoring" porque luego en el paper no aparece nada relativo a ello. Podría quedar algo así:
+
+"The increasing application of time-series analysis in fields like biomedical engineering or telecommunications emphasizes the need for high-quality data to train and evaluate advanced machine learning models."
+
+2\. Más adelante en el abstract, ya que el dataset está pensado para super-resolution, quitaría la referencia genérica a "signal processing", quedando algo así:
+
+"particularly deep learning systems, in tasks like temporal super-resolution"
+
+3\. La frase en la que indicas los metadatos la reharía tal que así:
+
+"with comprehensive metadata describing the signals' segments and documenting all generation parameters"
+
+4\. Donde pone "including random seeds" yo quitaría "random" ya que, si yo no he entendido mal, ahora mismo la semilla ya no es aleatoria sino que realmente es un parámetro al que el usuario puede dar valor o, en su caso, toma un valor por defecto que es siempre el mismo, no aleatorio. Si estoy equivocado, infórmame y vemos como lo dejamos, pero lo de "random" precisamente va en contra de la reproducibilidad. Por tanto, yo lo dejaría como:
+
+"including seeds for full reproducibility."
+
+5\. La última frase del abstract estaba bien para la versión anterior, pero ahora mismo hay en la validación técnica otros apartados que son mucho más importantes, el de la experimentación con datos reales y la transferencia. Yo la reharía y pondría algo como esto:
+
+"We report a technical validation that includes, among others, a whole study of the application of the proposed dataset for time-series resolution in real-world scenarios."
+
+6\. Revisa que el abstract, si es posible, no supere las 170 palabras que es la recomendación de la revista.
+
+BACKGROUND AND SUMMARY
+
+1\. El primer párrafo hace referencia a múltiples dominios y aplicaciones. Yo dejaría solo las que están relacionadas con los estudios que luego vas a mostrar en el artículo. Asegúrate de eliminar las referencias bibliográficas tachadas del listado final. Lo dejaría algo como esto:
+
+"The analysis and simulation of temporal signals are fundamental across science and engineering. These techniques provide critical insights into dynamic processes in multiple domains. For instance, In biomedical research \\cite{Karacan2024}, electroencephalography (EEG) analyses reveal heart function \\cite{Nayak2023,shaffer2017}. Another example is telecommunications, which rely on signal processing to ensure data fidelity across noisy media \\cite{Chen2022}. Developing robust tools for interpreting time-varying data continues to support both scientific discovery and practical applications."
+
+2\. El segundo párrafo habla de demasiados tipos de técnicas de deep learning cuando, realmente, luego el paper solo muestra un ejemplo de CNN. Yo pondría solo CNNs y quizá GANs para no tener que quitar la referencia 9. Quitaría también la referencia explícita a "forecasting" porque nosotros no hacemos nada de eso. Quedaría algo así:
+
+"Recent advances in deep learning have contributed significantly to this field by enabling automatic extraction of complex features from raw signals. Deep learning approaches, such as Convolutional Neural Networks (CNNs) or Generative Adversarial Networks (GANs) have demonstrated improved performance over traditional techniques in image, speech, and time-series processing tasks \\cite{Lecun2015,Goodfellow2014}. These models support fine-grained signal reconstruction, allowing researchers to explore temporal dynamics in new ways."
+
+3\. Reharía el comienzo tercer párrafo un poquito:
+
+"Despite this progress, deep learning methods for temporal signal processing often require large quantities of labeled, high-quality data. Access to such data is frequently constrained. For instance, in medicine there is a limitation by medical privacy regulations such as the General Data Protection Regulation (GDPR) and the Health Insurance Portability and Accountability Act (HIPAA) \\cite{Isasa2024}."
+
+4\. En ese tercer párrafo hay un ejemplo de limitación causada en el área de "environmental monitoring", que tampoco es algo que nosotros trabajemos por ningún lado en el artículo. Vamos a quitar ese ejemplo y su referencia bibliográfica asociada. En su lugar, te voy a pedir que quites ese ejemplo y pongas otra limitación relacionada con los datos de Telecomunicaciones o de audio o similar. Quedaría algo así:
+
+"In other domains, including telecommunications, data availability is limited by \<PON AQUÍ ALGUNA LIMITACIÓN Y SU REFERENCIA BIBLIOGRÁFICA NUEVA\>. These limitations are particularly relevant in super-resolution (SR) tasks, where models require paired low- and high-resolution signals for effective training."
+
+5\. Le metemos algunos cambios al cuarto párrafo y habría que meter una referencia nueva que hable del potencial de la SR en temas de audio o telecomunicaciones:
+
+"Temporal SR, which enhances resolution over time, has broad potential. In biomedical monitoring and sensing, for instance, SR can help reconstruct higher-resolution physiological time series (e.g., EEG), potentially improving the analysis of subtle physiological irregularities \\cite{shaffer2017}. SR also applies to audio/speech enhancement and telecommunications, where higher temporal resolution can increase sensitivity to rapid changes and improve signal quality \<REFERENCIA BIBLIOGRÁFICA NUEVA AQUÍ SOBRE EL POTENCIAL DE SR EN AUDIO O TELECOMUNICACIONES EN GENERAL\>."
+
+6\. Cambiamos también un poco el sexto párrafo:
+
+"Deep learning offers adaptive alternatives to these traditional methods. For instance, CNNs are capable of modeling spatio-temporal structure, that are present in real datasets of the above mentioned domains . Preliminary work on synthetic time-series generation indicates potential for SR \\cite{Brophy2023,IbarraFiallo2024}, but the lack of accessible, high-quality paired datasets remains a significant barrier to progress."
+
+7\. En el séptimo párrafo propongo varios cambios. En particular, quitar los ejemplos que pones relacionados con áreas no estudiadas en el paper. Por favor, pon otros ejemplos relacionados con biomedicina, telecomunicaciones o áreas similares más afines a los datos reales con los que luego vamos a trabajar:
+
+"Synthetic datasets offer one solution to this problem, allowing researchers to design reproducible training environments that reflect the characteristics of real-world signals. Prior studies have used synthetic data in domains such as \<PON OTROS EJEMPLOS MÁS RELACIONADOS CON BIOMEDICINA, TELECOMUNCIACIONES O SIMILAR, JUNTO CON SUS REFERENCIAS BIBLIOGRÁFICAS\>, demonstrating that synthetic approaches can help simulate complexity while avoiding legal and practical restrictions associated with real-world data."
+
+8\. Le damos una vuelta al octavo párrafo, sobre todo para incluir la doble aportación del dataset y su relevancia para el uso combinado con datos del mundo real:
+
+"To support research in super-resolution for time-series data, we present the Complex Signal Benchmark Dataset (CoSiBD). CoSiBD is a synthetic dataset composed of time-series signals with variable resolution, frequency characteristics, and noise levels. As it is designed to resemble real-world signals, our dataset is intended with a double purpose: a) to provide a resource for training and evaluating deep learning SR models under controlled, reproducible conditions, which can constitute a sort of benchmark for this problem; and b) a resource for training deep learning models to be used for SR of real-world signals (either directly or finetuning them with the real data), particularly in scenarios where real signals are scarce and not enough for a complete training of those models. It includes non-stationary, piecewise-structured signals (via non-uniform interval partitioning with change-points), multiple levels of resolution and noise, a technical validation suite, and publicly available Python code to facilitate use. CoSiBD has been previously used in research presented at the International Conference on Signal Processing and Machine Learning\~\\cite{IbarraFiallo2024}, with good prelimary results for signal reconstruction using deep learning. CoSiBD is made available to support further development in deep learning approaches for temporal super-resolution."
+
+9\. Mete un salto de página entre el párrafo "To support research in super-resolution ..." y el párrafo "To further position CoSiBD".
+
+10\. Le damos una vuelta al párrafo que empieza por "To further position";
+
+"To further position CoSiBD with respect to existing public synthetic time-series resources, we summarize in the next subsection representative datasets and simulators and highlight the practical gap addressed by our approach."
+
+11\. Algunas sugerencias para el primer párrafo de la subsección "Related synthetic ...":
+
+"Publicly available synthetic resources for temporal signals exist, but they are typically designed for tasks other than time-series SR, or they target a specific domain. In wireless communications, the RadioML family provides large collections of synthetic complex I/Q sequences with varying SNR (Signal-to-noise ratio) and channel impairments, mainly to benchmark automatic modulation classification rather than paired SR reconstruction \\cite{oshea2016grcon,deepsig_datasets,deepsig_radioml2018}. In biomedical signal processing, physiological simulators such as ECGSYN (electrocardiography) and SEREEGA (EEG) enable controlled generation with tunable morphology, sampling settings, and noise, supporting method development when real data access is constrained \\cite{mcsharry2003ecg,ecgsyn_physionet,krol2018sereega}. In power systems, LoadGAN provides multi-resolution generation of load time series across sampling rates and time horizons (from sub-second to long-term scales), but it is not distributed as a standardized paired SR benchmark \\cite{pinceti2021loadgan}. Domain-specific paired low-/high-resolution training data can also be produced via physical forward modeling, e.g., low- and high-resolution 1D seismic traces for learning-based resolution enhancement \\cite{yuan2024seismic}."
+
+12\. Al último párrafo ("Table 1 summarizes ...") le veo varios problemas que te pido abordar:
+
+12.1) Falta una explicación más profunda de todas y cada una de las columnas de la tabla y un comentario al contenido de la misma, aunque sea breve.
+
+12.2) Al final del párrafo, cuando dices "... across multiple dificulty levels", no queda claro a que se refiere "dificulty". Hay que explicarlo mejor. Entiendo que te refieres a que hay diferentes niveles de degradación en las señales y cada vez eso hace que la reconstrucción sea más compleja. Hay que explicarlo porque no se entiende bien.
+
+12.3) Hay una nota al pie para explicar qué significa "Configurable". Quita esa nota al pie porque se confunde con las referencias y explica eso en el cuerpo principal del paper.
+
+12.4) Hay dos acrónimos LR y HR que no está definidos. Pon algo así:
+
+"... (i) multi-factor paired LR-HR(Low Resolution -- High Resolution) signals \..."
+
+METHODS
+
+1\. Vamos a rehacer la primera oración:
+
+"... that constitute the CoSiBD dataset is illustrated in Figure 1, and will be explained later."
+
+2\. Deja un salto de línea entre el primer párrafo ("The methodoloy used to ...") y el siguiente subapartado ("Design rationale inspired by real signals")
+
+3\. La primera oración de la subsección "Design rationale inspired by real signals" no me gusta nada. Vamos a rehacerla:
+
+"It is important to note that one of the main applications of the proposed dataset will be the training of deep learning models to be used for SR purposes in other real-world datasets, like, for instance, physiological or speech signals. Therefore, there is a need for our dataset to resemble real-world data. In particular, real signals exhibit (i) non-stationary regime changes, (ii) coexisting low- and high-frequency components with intermittent transients, (iii) smooth amplitude-envelope evolution, and (iv) slow baseline drift and measurement noise. CoSiBD instantiates these properties via non-uniform interval partitioning with change-points, separate low/high-frequency bands, spline-based envelopes and frequency profiles, and explicit offset/noise terms. Figure\~\\ref{fig:design_rationale_motivations} provides qualitative examples of these motivating properties found in real-world time series; the main goal of our dataset is to be able to capture challenging structure for SR benchmarking rather than match a specific domain distribution."
+
+4\. Tras el párrafo anterior, tienes que añadir un párrafo amplio para explicar mejor la figura 2. Hay que mejorarla así:
+
+4.1) Cada una de las cuatro figuras de la figura 2 debe ir etiquetada con A), B), C) y D) para poder referirte bien en el texto a cada una de esas subfiguras.
+
+4.2) Tienes que explicar en el texto de donde has sacado cada subfigura, de donde viene esa serie temporal y poner una referencia al artículo o dataset de donde has sacado es información
+
+4.3) Tienes que explicar cada una de esas 4 subfiguras, indicando lo que quieres ejemplificar en cada una de ellas, qué aspecto concreto se muestra en cada figura que luego tú has usado para diseñar tu dataset
+
+4.4) No pongas la explicación a la figura en el "caption" de la figura. Pon la explicación de la figura en el cuerpo principal del artículo.
+
+4.5) La figura superior izquierda no tiene unidades en el eje horizontal
+
+5\. El punto 7 de la metodología (Noise injection) es muy importante. Los revisores han incidido mucho en él y han pedido documentar bien el tema del ruido. Apenas hay 3 líneas. Creo que hay que explicarlo más a fondo el tema del ruido.
+
+6\. Hay un momento donde te refieres a la figura 3 y dices "Figure 3 illustrates ...". Ahí debes explicar mucho mejor la figura 3, del siguiente modo:
+
+6.1) Cada una de las cuatro figuras de la figura 3 debe ir etiquetada con A), B), C) y D) para poder referirte bien en el texto a cada una de esas subfiguras.
+
+6.2) Tienes que explicar en el texto de donde has sacado cada subfigura y poner una referencia al artículo o dataset de donde has sacado es información
+
+6.3) Tienes que explicar cada una de esas 4 subfiguras, indicando lo que quieres ejemplificar en cada una de ellas, qué aspecto concreto quieres ilustrar de cada una de ellas que motiva tus decisiones adoptadas.
+
+6.4) No pongas la explicación a la figura en el "caption" de la figura. Pon la explicación de la figura en el cuerpo principal del artículo.
+
+7\. Deja una línea en blanco de separación entre las subsecciones "Rationale for structured ..." y "Sampling units ..."
+
+8\. Al final del primer párrafo de la subseccion "Sampling units ..." propongo el siguiente cambio:
+
+"\... Consequently, any band-specific interpretation in Hz (e.g., \`\`low/high\'\' frequency ranges) should be understood under the chosen \$T\$; changing \$T\$ rescales all reported Hz values while preserving the underlying discrete sequences, which is a key feature of CoSiBD\'s design."
+
+9\. Hay que mejorar la Figura 4 del siguiente modo:
+
+9.1) Cada una de las seis figuras de la figura 4 debe ir etiquetada con A), B), C) \... para poder referirte bien en el texto a cada una de esas subfiguras.
+
+9.2) Tienes que aclarar en el texto de donde has sacado cada subfigura (entiendo que son propias de nuestro dataset, pero no queda claro)
+
+9.3) Tienes que explicar cada una de esas 6 subfiguras, indicando lo que quieres ejemplificar en cada una de ellas, qué aspecto concreto quieres ilustrar de cada una de ellas según la idea que quieres transmitir.
+
+9.4) No pongas la explicación a la figura en el "caption" de la figura. Pon la explicación de la figura en el cuerpo principal del artículo.
+
+10\. Directamente quita el último párrafo, el que empieza por "The parameters that govern each step ...". En ese párrafo se habla de parámetros y del SignalBuilderC. Ambas cosas se explican más adelante con más detalle, así que veo repetitivo hablar de esto aquí. Por favor, elimina ese párrafo.
+
+DATA RECORDS
+
+1\. Vamos a darle una vuelta al primer párrafo:
+
+"The Complex Signal Benchmark Dataset (CoSiBD) is publicly available on Zenodo\\cite{cosibd_zenodo_2025} and consists of synthetic temporal signals, mainly created to support the development and evaluation of temporal super-resolution (SR) algorithms, and also to train deep learning models that can be used for SR in real-world signals. This section provides an overview of the dataset structure, content, and storage format, as well as the parameters that rule the generation of data and the metadata that enrich our dataset."
+
+2\. Cuando explicas las los dos tipos de señales, le vamos a dar una vuelta:
+
+"\\begin{itemize}
+
+\\item \\textbf{**High-resolution signals**}: 2,500 signals with 5,000 samples each, spanning the domain T = \[0, 4\$\\pi\$\] (s), which, under the illustrative convention used, corresponds to \$f_s = 5000/(4\\pi) \\approx 398\$\\,Hz. Each signal is stored in three formats: NumPy compressed format (.npz), plain text (.txt), and JSON (.json). Per-signal metadata (frequency profiles with explicit change-points (\\texttt{base\\\_points} and \\texttt{high\\\_freq\\\_points}) and segment labels (\\texttt{variation\\\_type}), amplitude envelopes, spline parameters, vertical offsets, noise configurations, and random seeds) is provided in a consolidated JSON file (\\texttt{signals\\\_metadata.json}) with one entry per signal, enabling exact regeneration.
+
+\\item \\textbf{**Simple subsampled signals**}: Uniform decimation (uniform subsampling) of each signal to four target resolutions: 150 (illustrative \$f_s \\approx 11.9\$\\,Hz for \$T=4\\pi\$\\,s), 250 (illustrative \$f_s \\approx 19.9\$\\,Hz for \$T=4\\pi\$\\,s), 500 (illustrative \$f_s \\approx 39.8\$\\,Hz for \$T=4\\pi\$\\,s), and 1,000 samples (illustrative \$f_s \\approx 79.6\$\\,Hz for \$T=4\\pi\$\\,s). These low-resolution versions serve as inputs for SR benchmarking against the original 5,000-sample target. Stored in .npz, .txt, and .json formats.
+
+\\end{itemize}
+
+"
+
+3\. Rehacemos el siguiente párrafo:
+
+"Reproducibility is ensured through documented seeds: each high-resolution signal is generated using a unique seed (ranging from 10,000 to 12,499), enabling exact regeneration of individual signals or the entire dataset. All generation parameters (described later in detail) are stored in metadata JSON files, including: (1) frequency profile parameters\-\--tau\\\_frequency values from uniform distribution \[1, 2\] with 0.05 step; (2) amplitude envelope parameters\-\--tau\\\_amplitude from \\{1, 3, 5, 8, 10, 12, 15, 20\\} for tension splines, or zero-order step functions (70\\% probability); (3) vertical offsets\-\--normally distributed (mean=0, SD=3.0); and (4) noise configurations\-\--50\\% probability of Gaussian or structured noise."
+
+4\. Retocamos un poco el siguiente párrafo:
+
+"The dataset is provided as consolidated files under \\texttt{SignalBuilderC/data/}. High-resolution signals are stored as \\texttt{signals\\\_\\allowbreak high\\\_\\allowbreak resolution\\\_\\allowbreak 5000.\[npz\|txt\|json\]}. Simple subsampled (decimated) signals are stored as \\texttt{signals\\\_\\allowbreak subsampled\\\_\\allowbreak simple\\\_\\allowbreak \\{150,250,500,1000\\}.\[npz\|txt\|json\]}. Dataset-level metadata (described later in detail) and configuration are stored in \\texttt{signals\\\_\\allowbreak metadata.json} (per-signal metadata, one entry per signal), \\texttt{signals\\\_\\allowbreak metadata\\\_\\allowbreak consolidated\\\_\\allowbreak 2500.json}, and \\texttt{dataset\\\_\\allowbreak summary.json}."
+
+5\. El último párrafo, el que comienza por "Each signal is stored in three formats ..." lo veo repetitivo con cosas que se han dicho ya y debes quitarlo.
+
+6\. A lo sumo, propongo tomar esas ideas y ponerlas en un nuevo párrafo justo antes del párrafo de "Reproducibility is ensured through ...". Ese nuevo párrafo podría ser algo así:
+
+"Regarding the three formats used for both high-resolution and subsampled signals, we provide here some additional information for each format: (1) NumPy compressed format (.npz) containing the signal array, time array, and (for high-resolution only) clean signal without noise; (2) consolidated plain text format (.txt) with one signal per row (samples separated by whitespace) for maximum portability; and (3) JSON format (.json) with both time and signal arrays for web-based applications and interoperability."
+
+7\. En la subsección "Metadata schema and example", propongo varias mejoras:
+
+7.1) En la tabla 2, hay que poner una columna para el tipo y otra diferente para el ejemplo.
+
+7.2) Hay alguna fila en la que el texto de la primera columna se mete en la segunda columna.
+
+7.3) Intenta añadir un nuevo párrafo explicando un poco la tabla, sus columnas, ... (al menos las más importantes). **LO MÁS IMPORTANTE, DEBES EXPLICAR LOS TIPOS DE ETIQUETAS QUE PONES EN CADA SEGMENTO PARA DESCRIBIR LA TIPOLOGÍA COMPLETA DE SEGMENTOS HAY. Esto es FUNDAMENTAL.**
+
+7.4) Importantísimo, hay que explicar el ejemplo de metadatos que presentas. Tienes que poner un párrafo explicando ese ejemplo, los diferentes metadatos que hay, sus valores, qué tipo de segmento estás representando, etc.
+
+7.5) También muy importante, intenta dibujar una serie temporal donde se vea un segmento que se corresponda con ese ejemplo de metadatos que has puesto.
+
+8\. Con lo que hemos cambiado anteriormente, puedes eliminar ya todo lo que va desde "The following resolutions levels are ..." hasta "- 150 samples (illustrative ... 4 pi s)".
+
+9\. Antes del párrafo "Table 3 outlines the main parameters used in ..." mete un título de subsección llamado "Parameters for signal generation".
+
+10\. Le damos una vuelta a ese primer párrafo de esa nueva subsección:
+
+"\\noindent As we anticipated before, our dataset is generated based on some parameters, that are outlined in Table\~\\ref{tab:Parameter}. Each high-resolution signal was generated with a unique seed (10,000\--12,499) and sampled parameter values within the defined ranges, supporting diversity while maintaining reproducibility."
+
+11\. Vamos a cambiar un poco toda la parte final de la explicación de los parámetros:
+
+"To explicitly characterize dataset diversity and complexity, CoSiBD spans multiple controlled axes of variation (Table\~\\ref{tab:Parameter}), including the number and location of change points, categorical transition types, low/high frequency bands, and amplitude-envelope configurations. The resulting variability is visible in representative realizations (Figures\~\\ref{fig:amplitud} and\~\\ref{fig:simples}). While the dataset is synthetic and not fitted to match a single domain-specific distribution, these controlled variations provide reproducible coverage of common real-world time-series phenomena such as non-stationarity, transient high-frequency events, and additive noise. Figure\~\\ref{fig:amplitud} shows a representative signal from the dataset sampled at different resolution levels, as well as a version with added noise. This illustrates the variety of sampling and noise conditions included in CoSiBD. Figure\~\\ref{fig:simples} displays four additional synthetic signals generated using different configuration parameters. These examples demonstrate the variability in temporal structure across instances in the dataset."
+
+12\. Justo después del párrafo anterior, debes meter un párrafo donde expliques que hay una funcionalidad con la que el usuario puede generarse su propio dataset con los valores de parámetros que el usuario desee ofrecer. Explica cómo funciona ese comando y pon una figura nueva (captura de pantalla) donde haya un ejemplo de esa línea de comandos con el comando para crearlos y algunos parámetros de ejemplo. En el texto del artículo explica bien esa figura nueva.
+
+13\. Quita el pequeño párrafo del final "The full dataset is hosted in Zenodo ... structured folders". Ya has puesto al principio de la sección la referencia, que es la forma correcta de hacerlo. Este párrafito aquí ya queda repetitivo.
+
+14\. Antes de todo eso, creo que deberías explicar un poco más la tabla 3, explicando un poco cada uno de los parámetros. Debes indicar que los valores por defecto mostrados en la tabla son los que se han usado para generar el dataset que hay depositado en Zenodo.
+
+15\. Por cierto, al hilo del comentario anterior, debes indicar en la tabla 3 una nueva columna para el valor por defecto de cada parámetro.
+
+16\. Las figuras 5 y 6 no tienen títulos en los ejes (vertical ni horizontal) ni unidades. Pónselos, por favor.
+
+TECHNICAL VALIDATION
+
+1\. Se hace necesario rehacer el primer párrafo que explica esta sección, ya que ahora hay más cosas. Puede quedar algo así:
+
+"This section first evaluates the dataset proposed by analyzing spectral properties under different conditions, including the distribution of dominant frequencies, spectral stability across sampling rates, and the effect of noise. These analyses aim to assess variability and stability under the reported settings, and to document the dataset\'s behavior for reproducible use. Second, we present the results of an study of the application of CNN for SR purpose using our dataset, and also the results of a series of experiment where CNNs are trained with our synthetic data and validated for reconstructing real-world signals of two different domains."
+
+2\. En "Validation Context", al final pondría una nueva frase de este tipo que nos puede ahorrar problemas:
+
+"Experimental parameters were selected to support reproducibility and to illustrate representative behaviors of the generator under the reported settings. The number of signals (n=50) provides a compact but informative sample to summarize variability in spectral characteristics. Sampling resolutions (150, 250, 500, and 1000 samples) reflect scenarios requiring different levels of detail, aligning with typical signal processing use cases. Noise amplitudes and other parameter ranges were motivated by common acquisition artifacts and exploratory checks, with the goal of providing a controllable benchmark rather than an exhaustive model of any specific measurement pipeline. When not explictely indicated a value for a certain parameter, it means that the default value has been used according to Table\~\\ref{tab:Parameter}."
+
+3\. Ya en la subsección "Analysis of Dominant Frequency Distribution", en el párrafo "The results, shown in Figure 7 and Table 4 ..." intenta dar más detalles, no te limites a decir que la figura y la tabla muestran buenos resultados, sino que analiza un poco porqué y, sobre todo, indica qué partes o datos de la figura y la tabla sostienen esa afirmación.
+
+4\. La frase final de ese párrafo "This behavior reflects ... controlled variability" debería terminar con una referencia bibliográfica que sustente la frase, quedando así: "This behavior reflects ... controlled variability \<NUEVA REFERENCIA BIBLIOGRÁFICA QUE SUSTENTE ESA CONCLUSIÓN\>."
+
+5\. Asegúrate de forzar en Latex que la figura 8 aparezca antes que la 9, y no al contrario como ocurre ahora mismo.
+
+6\. Amplía el párrafo "Figure 8 represents examples ..." explicando un poco más esa figura, no en el caption de la misma, sino en el texto de dicho párrafo. Explica en qué partes de la figura se aprecia realmente que las fluctuaciones de amplitud oscurecen progresivamente la estructura temporal.
+
+7\. Ya dentro de la subsección "Spectral Stability Across Sampling Resolutions", me gustaría que al final de la subsección, añadas un párrafo, aunque sea corto, donde se resuman las conclusiones que tu extraes de este análisis realizado, porque comentas las gráficas pero falta una conclusión. MUY IMPORTANTE, utiliza una referencia bibliográfica que sustente lo que concluyas.
+
+8\. Ya en la subsección "Impact of noise on frequency characteristics", pon "Figure 10 illustrates ..." justo a continuación de "... low- and high-frequency regions.". Es decir, no pongas ahí un salto de línea, sino un punto y seguido.
+
+9\. En ese mismo párrafo creo que hay un error, porque en el texto pones "0.2 (red curve)" pero no veo ninguna curva roja. Yo creo que debes poner "0.2 (green curve)".
+
+10\. De nuevo, me gustaría que al final de la subsección "Impact of noise on frequency characteristics", añadas un párrafo, aunque sea corto, *o bien completes un poco el último párrafo*, donde se resuman las conclusiones que tu extraes de este análisis realizado, porque se queda como a medias. MUY IMPORTANTE, utiliza una referencia bibliográfica que sustente lo que concluyas.
+
+11\. Ya dentro de la subsección "Multi-Scale Super-Resolution Benchmark", en el primer párrafo debes aclarar que son los "scaling factors" que usas (5x,10x, ...). Yo realmente no entiendo qué son.
+
+12\. En el primer párrafo, deberías poner una referencia bibliográfica de la arquitectura que usas (TimeSeriesSRNet).
+
+13\. Justifica porqué usas esa arquitectura.
+
+14\. También hay que justificar mínimamente porqué configuras el entrenamiento del modo que lo haces: MSE, Adam, batch 16, ... ¿Por qué esa configuración? Pon alguna referencia bibliográfica o explicación convicente.
+
+15\. Hay que comentar más la tabla 5, haciendo referencia explícita a los resultados obtenidos. La explicación que hay es muy genérica.
+
+16\. El párrafo "Figure 11 illustrates ..." debería ir mucho antes, justo en un punto y seguido después de "... from severly undersampled inputs (Table 5, Figure 11)".
+
+17\. Por cierto, la explicación que das en "Figure 11 illustrates" es muy corta, hay que explicar mejor la figura 11 ampliando esa información.
+
+18\. Igualmente, en ese mismo párrafo debes explicar mucho mejor la figura 12. Para mi gusto, tienes muchas subfiguras. Yo pondría alguna menos y las explicaría mejor. Ahora mismo hay demasiadas y muy poco texto explicativo. Debes dejar menos, explicarlas mejor haciendo referencia explícita a cada subfigura, al menos a unas cuantas, no dejarlo todo tan genérico y poco explicado. Por ejemplo, explica cómo es la reconstrucción para cada tipo de señal (con más variaciones en amplitud, con las que varían en frecuencia, con las que son más estables, \...)
+
+19\. Debes reorganizar el párrafo "To complement amplitude-based validation". Sugiero que fuerces a que LATEX haga que la figura 14 pase a ser la figura 13 y la figura 13 pase a ser la 14. Es decir, que primero aparezca la figura de las métricas de calidad espectral y luego aparezca el espectrograma. Así el discurso va a ser más sencillo. Te pongo un esquema de cómo quedaría bien:
+
+"To complement amplitude-based validation with frequency-domain assessment, we computed spectral fidelity metrics for all reconstructed signals. Log Spectral Distance (LSD) increased from 0.51 (5\$\\times\$) to 1.21 (33\$\\times\$), while Spectral Correlation (SCORR) remained consistently high (Table\~\\ref{tab:multiscale_benchmark}, Figure\~\\ref{fig:spectral_metrics} \<TE SUGIERO QUE LA FIGURA 14 LA PONGAS COMO FIGURA 13, PORQUE SE MENCIONA ANTES EN EL TEXTO\>). \<AQUÍ EN PRIMER LUGAR DEBERÍAS EXPLICAR EN DETALLE LA FIGURA DE SPECTRAL QUALITY METRICS VS UPSAMPLING FACTORS, QUE ERA LA 14 Y VA A PASAR A SER LA 13, Y QUE NO ESTÁ EXPLICADA NI COMENTADA EN NINGÚN SITIO\>. Figure\~\\ref{fig:spectral_analysis} presents representative spectrogram comparisons across all upsampling factors, illustrating how reconstruction artifacts become more visible at higher upsampling factors \<EXPLICA AQUÍ EL ESPECTROGRAMA, EN PARTICULAR DÓNDE SE VEN LOS ARTIFACTS, PARA QUE EL LECTOR LO VEA TAMBIEŃ\>."
+
+19\. bis: Como aclaración a la parte final del párrafo tratado en el comentario anterior, deberías explicar mejor el espectrograma, particularmente cómo se ven los artifacts en la parte derecha de la figura. ¿Son esas barras verticales en rojo? Explícalo bien para el lector.
+
+20\. En ese mismo párrafo indicas que el LSD toma un cierto rango de valores y que el SCORR permanece consistentemente alto. ¿Qué implica eso? ¿Es bueno o malo? Explícalo y pon una o varias referencias bibliográficas que lo sustenten.
+
+21\. Al último párrafo le daría una vuelta:
+
+"As conclusion to this experiment, note that CoSiBD can be used for SR purposes in a satisfactory way, in our case with a CNN that obtained good performance indicators. We can also conclude that these multi-scale experiments provide quantitative baseline results for future benchmarking studies, or at least the dataset can be used by researches who isolatedly need to evaluate and compare the performance of different SR techniques over the same dataset in a reproducible way, which is one of the main contributions of this dataset. The systematic increase in task difficulty---from moderate 5\$\\times\$ upsampling to extreme 33\$\\times\$ reconstruction---may also provide a reference guide for comparing architectures, loss functions, and training strategies in the time series super-resolution domain, that could be formalized, as a future work, into a protocol to be used by the community."
+
+22\. Ya en la sección "Illustrative Transfer Experiments" quita "(optional)" del título.
+
+23\. Rehacemos un poco el primer párrafo de esa subsección:
+
+"To provide initial evidence of the dataset\'s utility for training deep learning models and its contribution for SR of real-world signals, we conducted preliminary experiments using convolutional neural networks (CNNs) for time-series super-resolution\~\\cite{Kuleshov2017,Kaniraja2024}. A TimeSeriesSRNet model with encoder-decoder architecture (Conv1d layers: 1→64→128→256 followed by upsampling and decoder layers 256→128→64→1) was trained using the CoSiBD dataset (denoted source) and validated on real-world data from two distinct domains (denoted target): EEG clinical signals\~\\cite{Luciw2014} (500 training, 690 validation samples) and VCTK speech recordings\~\\cite{Yamagishi2019} (44 hours from 109 speakers)."
+
+24\. Rehacemos un poquito el siguiente párrafo:
+
+"Four training strategies were considered in our experiments: (1) Real-only: trained exclusively on domain-specific real data; (2) Synth-only: trained exclusively on CoSiBD synthetic signals; (3) Mixed: trained on combined synthetic and real data (all data together); (4) Tuned: pre-trained on synthetic data, then fine-tuned on real data. Performance was measured using Mean Absolute Error (MAE) between predicted and ground-truth high-resolution signals."
+
+25\. Algunos cambios en el siguiente párrafo:
+
+"In these illustrative experiments and under the reported protocol, we report MAE values on both evaluated target domains (quantitatively in Table\~\\ref{tab:cnn_results}, visually in Figure\~\\ref{fig:model_comparisons})\~\\cite{Forestier2017}. Looking at Table\~\\ref{tab:cnn_results}, we can see that the best performance in EEG data is obtained with Mixed strategy (9.73) while VCTK best results are obtained with Tuned strategy (4.41). In the different runs, models trained exclusively on synthetic data (Synth-only) exhibited higher errors than Real-only, while the Mixed and Tuned strategies achieved lower MAE values under the same protocol. All those findings suggests that synthetic signals can complement domain-specific real data. These results are provided as an example of how CoSiBD can be used and depend on the chosen datasets, splits, and training details; they should not be interpreted as definitive claims about general performance but at least in two use cases they prove that our dataset contributes to obtain better results than those obtained using only the real data. This constitutes one of the main contributions of our dataset, although experiments on additional domains are suggested as future research. Detailed experimental methodology and additional comparisons are available in the accompanying repository (see Section of Code availability a the end of the manuscript)."
+
+26\. Después del párrafo anterior, debes añadir un párrafo nuevo que explique bien la figura 15, explicando bien como esa figura muestra de forma visual lo que ya nos había dicho la tabla 6.
+
+27\. La figura 15 le faltan etiquetas en los ejes y unidades.
+
+28\. Yo reharía un poco el último párrafo:
+
+"As an additional validation experiment, with the purpose that the reader can interact with real reconstructed signals, we evaluated the generalization capability of a CNN model trained exclusively on CoSiBD synthetic data by reconstructing complete 2-second audio segments from the VCTK corpus\~\\cite{Yamagishi2019}. The TimeSeriesSRNet model, trained with 5\$\\times\$ upsampling factor on synthetic signals, was applied to speech recordings (48 kHz, 96,000 samples) without any domain-specific fine-tuning. The reconstruction pipeline processed audio in overlapping chunks of 5,000 samples using Overlap-Add synthesis. In a representative example, the Pearson correlation coefficient between reconstructed and original signals was 0.928, suggesting that temporal structure can be retained despite the domain mismatch. Reconstructed audio examples and the full reconstruction pipeline are available in the accompanying repository (\<JULIO, POR AQUÍ EN QUÉ PARTE EXACTA DEL REPOSITORIO SE ENCUENTRAN LOS EJEMPLOS\>). Note that the audible quality of the reconstructed signals using the four different strategies is aligned with the performance displayed in Table\~\\ref{tab:cnn_results}, obtaining better quality reconstructed signals when our synthetic dataset is involved in the training process."
+
+USAGE NOTES
+
+1\. El párrafo inicial de "Reading the Data", lo reharía así:
+
+"In this subsection we show how to read signals stored as consolidated plain text (\\texttt{.txt}) files, with one signal per row (samples separated by whitespace). Each file contains multiple time series stacked vertically, where each row corresponds to a single signal. The dataset can be accessed using standard Python tools:"
+
+2\. El párrafo inicial de "Visualizing Signal Pairs", lo reharía así:
+
+"To explore the resolution differences, users can visualize aligned pairs of signals, as indicated in the following example, where well-known functions provided in the Python matplotlib.pyplot interface have been used for that purpose:"
+
+3\. Hay que completar el código de ejemplo de "Training a baseline model (syntehic-only)" añadiendo más comentarios dentro del código que expliquen bien los pasos que se van dando. La parte inicial hasta "Train/val split" está bien comentada, pero a partir de ahí no hay ningún comentario. Hay que añadir comentarios en la definición del tensor, los cargadores de val y train, el TinySRNet, modelos, epocas, calculo de pérdidas, muestra de resultados, etc.
+
+Author Contributions
+
+1\. Quisiera pedirte modificar solo la frase de mi contribución particular y poner algo así:
+
+"J. A. L. was responsible for methodology (time series design) and supervision"
